@@ -1,27 +1,32 @@
 <?php
 
-function getMyHitpoints($mysqli, $myid) {
-  if($mysqli->connect_error) {
-    die("$mysqli->connect_errno: $mysqli->connect_error");
+function getCharacter($mysqli, $myid) {
+
+  if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
   }
 
-  $query = mysqli_real_escape_string($mysqli, "SELECT username FROM users WHERE id=1");
+  $stmt = $mysqli->prepare("SELECT s.name, s.level, s.class, s.max_hitpoints, s.damage_taken FROM sheets as s, users as u WHERE s.owner=u.id AND u.id=$myid");
+  $stmt->bind_param('i', $myid);
 
-  $stmt = $mysqli->stmt_init();
-  if(!$stmt->prepare($query)) {
-    print("Failed statement");
-  } else {
-    $stmt->execute();
-    $stmt->bind_param('i', $myid);
-    $stmt->bind_result($hp);
-    while($stmt->fetch()) {
-      echo $hp;
-    }
-
+  $stmt->execute();
+  $stmt->bind_result($name, $level, $class, $max_hp, $dmg_taken);
+  $character = array();
+  while($stmt->fetch()) {
+    $character = array(
+      'name' => $name,
+      'level' => $level,
+      'class' => $class,
+      'max_hitpoints' => $max_hp,
+      'damage_taken' => $dmg_taken
+    );
+    
+    return $character;
   }
 
-  mysqli_stmt_close($stmt);
-  mysqli_close($mysqli);
+  $stmt->close();
+  $mysqli->close();
 }
 
 ?>
