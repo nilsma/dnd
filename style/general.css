@@ -1,0 +1,18 @@
+div.personalia {
+    background-color: pink;
+    }
+
+div.char_attributes  {
+    background-color: lightblue;
+    width: 10em;
+    }
+
+table tr td {
+    border: 1px solid silver;
+    float: left;
+    width: 6em;
+    }
+
+table tr td.value {
+    width: 2em;
+    }
