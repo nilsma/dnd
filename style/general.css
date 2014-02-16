@@ -6,32 +6,62 @@ nav button {
     margin: 1em 0 0 1em;
     }
 
-div.party_member {
-    background-color: pink;
+h2,
+p.hitpoints,
+p.initiative {
+    margin: 0.5em 0 0 0.5em;
+    padding: 0.5em 1em 0.5em 1em;
+    }
+
+div.campaign_member {
+    background-color: gray;
     border: 1px solid silver;
     float: left;
     font-family: sans-serif;
-    margin: 0 1em 1em 0;
     padding: 1em;
     width: 12em;
     }
 
-div.party_member:hover {
+div.personalia {
+    background-color: lightblue;
+    margin: 0 1em 2em 0;
+    }
+
+div.personalia h2 {
+    background-color: silver;
+    display: block;
+    float: left;
+    font-weight: normal;
+    margin-bottom: 1em;
+    width: 4.3em;
+    }
+
+div.personalia h2:hover,
+div.char_attributes h3:hover,
+div.char_purse h3:hover {
+    background-color: white;
     cursor: pointer;
     }
 
-div.personalia {
-    background-color: pink;
-    }
-
-div.char_attributes  {
+div.char_attributes {
     background-color: lightblue;
-    border: 1px solid red;
+    float: left;
     margin: 0 0 1em 0;
     width: 11em;
     }
 
+div.char_attributes h3,
+div.char_purse h3 {
+    background-color: silver;
+    float: left;
+    font-weight: normal;
+    margin: 0.5em 0 0.5em 1em;
+    padding: 0.5em 1em 0.5em 1em;
+    }
+
 div.char_attributes table {
+    display: block;
+    float: left;
     font-family: sans-serif;
     }
 
@@ -47,12 +77,13 @@ div.char_attributes table td {
 
 div.char_purse {
     background-color: lightblue;
-    border: 1px solid red;
+    float: left;
     width: 11em;
     }
 
 div.char_purse table {
-
+    display: block;
+    float: left;
     }
 
 div.char_purse table td {

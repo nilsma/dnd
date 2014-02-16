@@ -9,25 +9,28 @@ function buildCharacter($char) {
   $html = '';
 
   $name = '		<h2 class="char_name">' . $char['name'] . '</h2>' . "\n";
-  $hitpoints = '	    <p class="hitpoints">HP: ' . $char['damage_taken'] . ' / ' . $char['max_hitpoints'] . '</p>' . "\n";
-  $attributes = buildAttributes($char['attributes']);
+  $hp = '	    <p class="hitpoints">HP: ' . $char['dmg'] . ' / ' . $char['hp'] . '</p>' . "\n";
+  $attrs = buildAttributes($char['attrs']);
   $purse = buildPurse($char['purse']);
 
-  $html = $html . '<div class="party_member">' . "\n";
+  $html = $html . '<div class="campaign_member">' . "\n";
   $html = $html . '	  <div class="personalia">' . "\n";
   $html = $html . $name;
-  $html = $html . $hitpoints;
-  $html = $html . '        <p>Initiative: ' . $char['initiative_roll'] . '</p>' . "\n";
+  $html = $html . $hp;
+  $html = $html . '        <p class="initiative">Initiative: <span class="init_roll">' . $char['init_roll'] . '</span></p>' . "\n";
   $html = $html . '	  </div>' . "\n";
   $html = $html . '       <div class="char_attributes">' . "\n";
-  $html = $html . $attributes;
+  $html = $html . '         <h3 class="attr_heading">Attributes</h3>' . "\n";
+  $html = $html . $attrs;
   $html = $html . '       </div>' . "\n";
   $html = $html . '       <div class="char_purse">' . "\n";
+  $html = $html . '         <h3 class="purse_heading">Purse</h3>' . "\n";
   $html = $html . $purse;
   $html = $html . '       </div>' . "\n";
   $html = $html . '  </div>' . "\n";
   
-  return $html;
+  echo $html;
+//  return $html;
   
 }
 
@@ -102,7 +105,7 @@ function buildAttributes($array) {
 }
 
 /**
- * A function to display all the member characters of a party on the 
+ * A function to display all the member characters of a campaign on the 
  * gamemaster screen
  * @param $mysqli mysqli - the database connection object
  * @param $ids array  - an array of int holding the members sheets.id
@@ -112,28 +115,28 @@ function buildGMScreen($mysqli, $ids) {
   foreach($ids as $id) {
     $char_array = getCharacter($mysqli, $id);
     $character = buildCharacter($char_array);
-    $result = $result . $character;
+//    $result = $result . $character;
   }
 
-  return $result;
+//  return $result;
 
 }
 
 /**
- * A function to get the sheets.id value of all members of the given party
+ * A function to get the sheets.id value of all members of the given campaign
  * @param $mysqli mysqli - the database connection object
- * @param $partyid int - the id of the party of which to the member ids
- * @return $ids array - an array holding the ids of the party's members
+ * @param $campaign_id int - the id of the campaign of which to the member ids
+ * @return $ids array - an array holding the ids of the campaign's members
  */
-function getPartyMembersId($mysqli, $party_id) {
+function getCampaignMembersIds($mysqli, $campaign_id) {
   if (mysqli_connect_errno()) {
   printf("Connect failed: %s\n", mysqli_connect_error());
   exit();
   }
 
-  $stmt = $mysqli->prepare("SELECT s.id FROM sheets as s, members as m, parties as p, gamemasters as g WHERE s.id=m.sheet AND m.party=p.id AND p.id=?");
+  $stmt = $mysqli->prepare("SELECT s.id FROM sheets as s, members as m, campaigns as c, gamemasters as g WHERE s.id=m.sheet AND m.campaign=c.id AND c.id=?");
 
-  $stmt->bind_param('i', $party_id);
+  $stmt->bind_param('i', $campaign_id);
 
   $stmt->execute();
   $stmt->bind_result($id);
@@ -162,14 +165,14 @@ function getCharacter($mysqli, $char_id) {
     exit();
   }
 
-  $stmt = $mysqli->prepare("SELECT s.name, s.level, s.class, s.max_hitpoints, s.damage_taken, s.initiative_mod, s.initiative_roll, p.gold, p.silver, p.copper, a.str, a.str_mod, a.con, a.con_mod, a.dex, a.dex_mod, a.intel, a.intel_mod, a.wis, a.wis_mod, a.cha, a.cha_mod FROM sheets as s, purse as p, attributes as a, users as u WHERE a.id=s.attributes AND p.id=s.purse AND s.owner=u.id AND u.id=?");
+  $stmt = $mysqli->prepare("SELECT s.name, s.level, s.class, s.init_mod, s.init_roll, s.hp, s.dmg, a.str, a.str_mod, a.con, a.con_mod, a.dex, a.dex_mod, a.intel, a.intel_mod, a.wis, a.wis_mod, a.cha, a.cha_mod, p.gold, p.silver, p.copper FROM sheets as s, purse as p, attrs as a, users as u WHERE a.id=s.attr AND p.id=s.purse AND s.owner=u.id AND u.id=?");
   $stmt->bind_param('i', $char_id);
 
   $stmt->execute();
-  $stmt->bind_result($name, $level, $cls, $max_hp, $dmg_taken, $initiative_mod, $initiative_roll, $gold, $silver, $copper, $str, $str_mod, $con, $con_mod, $dex, $dex_mod, $intel, $intel_mod, $wis, $wis_mod, $cha, $cha_mod);
+  $stmt->bind_result($name, $level, $cls, $init_mod, $init_roll, $hp, $dmg, $str, $str_mod, $con, $con_mod, $dex, $dex_mod, $intel, $intel_mod, $wis, $wis_mod, $cha, $cha_mod, $gold, $silver, $copper);
   $character = array();
   while($stmt->fetch()) {
-    $attributes = array(
+    $attrs = array(
       'str' => $str,
       'str_mod' => $str_mod,
       'con' => $con,
@@ -192,11 +195,11 @@ function getCharacter($mysqli, $char_id) {
       'name' => $name,
       'level' => $level,
       'cls' => $cls,
-      'max_hitpoints' => $max_hp,
-      'damage_taken' => $dmg_taken,
-      'initiative_mod' => $initiative_mod,
-      'initiative_roll' => $initiative_roll,
-      'attributes' => $attributes,
+      'init_mod' => $init_mod,
+      'init_roll' => $init_roll,
+      'hp' => $hp,
+      'dmg' => $dmg,
+      'attrs' => $attrs,
       'purse' => $purse
     );
     

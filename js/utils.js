@@ -103,6 +103,8 @@ function updateCharSQL(form) {
     var level = form.level.value;
     var cls = form.cls.value;
     var injury = form.injury.value;
+    var hp = form.hp.value;
+    var init_roll = form.init_roll.value;
     var result = null;
     var xmlhttp = null;
 
@@ -123,7 +125,9 @@ function updateCharSQL(form) {
     var param2 = "&level=".concat(level);
     var param3 = "&cls=".concat(cls);
     var param4 = "&injury=".concat(injury);
-    var params = param1.concat(param2).concat(param3).concat(param4);
+    var param5 = "&hp=".concat(hp);
+    var param6 = "&init_roll=".concat(init_roll);
+    var params = param1.concat(param2).concat(param3).concat(param4).concat(param5).concat(param6);
     xmlhttp.open("POST", "update-character.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);

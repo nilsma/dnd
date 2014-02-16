@@ -12,18 +12,20 @@ $intel = $_POST['intel'];
 $wis = $_POST['wis'];
 $cha = $_POST['cha'];
 
+var_dump($con);
+
 $myid = 3;
 
   if($mysqli->connect_error) {
     die("$mysqli->connect_errno: $mysqli->connect_error");
   }
 
-  $query = "UPDATE attributes SET str=?, con=?, dex=?, intel=?, wis=?, cha=? WHERE id=?";
+  $query = "UPDATE attrs a, sheets s SET a.str=?, a.con=?, a.dex=?, a.intel=?, a.wis=?, a.cha=? WHERE s.id=? AND s.attr=a.id";
 
   $stmt = $mysqli->stmt_init();
 
   if(!$stmt->prepare($query)) {
-    print("Failed to prepare statement! (update-character)");
+    print("Failed to prepare statement! (update-attributes)");
   } else {
 
   $stmt->bind_param('iiiiiii', $str, $con, $dex, $intel, $wis, $cha, $myid);

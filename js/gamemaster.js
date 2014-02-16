@@ -3,7 +3,7 @@
  * an async call to reset-initiative.php
  * @param party_id int - the int of the party where the characters are member
  */
-function resetInitiative(party_id) {
+function resetInitiative(campaign_id) {
     var result = null;
     var xmlhttp = null;
 
@@ -16,21 +16,32 @@ function resetInitiative(party_id) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    updateGMScreen();
+	    if(result) {
+		updateInitiativeHTML();
+	    } else {
+		alert('Something went wrong while updating initiative ...');
+	    }
         }
     }
 
-    var params = "party_id=".concat(party_id);
+    var params = "campaign_id=".concat(campaign_id);
     xmlhttp.open("POST", "reset-initiative.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
+}
+
+function updateInitiativeHTML() {
+    var elements = document.getElementsByClassName('init_roll');
+    for(var i = 0; i < elements.length; i++) {
+	elements[i].innerHTML=1;
+    }
 }
 
 /**
  * A function to update the HTML of the gamemaster GM screen through
  * an async call to update-gm-screen.php
  */
-function updateGMScreen() {
+function updateCampaignMembersInfo() {
     var result = null;
     var xmlhttp = null;
 
@@ -43,30 +54,28 @@ function updateGMScreen() {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    updateGMScreenHTML(result);
+	    updateCampaignMembersHTML(result);
         }
     }
 
-    var params = "";
-    xmlhttp.open("POST", "update-gm-screen.php", true);
+//    var params = "campaign_id=".concat(campaign_id);
+    xmlhttp.open("POST", "update-campaign-members-info.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.setRequestHeader("charset", "ISO8859-1");
-    xmlhttp.send(params);
+    xmlhttp.send();
+//    xmlhttp.send(params);
 }
 
-function updateGMScreenHTML(html) {
-    var element = document.getElementById('party_members');
+function updateCampaignMembersHTML(html) {
+    var element = document.getElementById('campaign_members');
     element.innerHTML=html;
 }
 
 /**
 * A function to run the updateTable() function periodically (every 10 seconds)
 */
-/*
 setInterval(
     function runGMUpdates() {
-	updateGMScreen();
-    }, 10000
+	updateCampaignMembersInfo();
+    }, 5000
 );
-*/
 

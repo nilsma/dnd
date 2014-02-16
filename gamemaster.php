@@ -4,12 +4,12 @@
    include 'tools.php';
 
    $gm_id = 1;
-   $party_id = 1;
+   $campaign_id = 1;
 ?>
 
 <html>
   <head>
-    <meta charset="ISO8859-1">
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/general.css">
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/functionality.js"></script>
@@ -17,16 +17,18 @@
   </head>
   <body>
     <nav>
-      <button onclick="javascript:resetInitiative('<?php echo $party_id ?>')">Clear Initiative</button>
+      <button onclick="javascript:resetInitiative('<?php echo $campaign_id ?>')">Clear Initiative</button>
     </nav>
-    <div id="party_members">
+    <div id="campaign_members">
     <?php
 
-       $ids = getPartyMembersId($mysqli, $party_id);
+       $ids = getCampaignMembersIds($mysqli, $campaign_id);
 
-       $members = buildGMScreen($mysqli, $ids);
+       buildGMScreen($mysqli, $ids);
 
-       echo $members;
+//       $members = buildGMScreen($mysqli, $ids);
+
+//       echo $members;
 
        ?>
     </div>
