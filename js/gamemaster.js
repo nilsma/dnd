@@ -76,6 +76,6 @@ function updateCampaignMembersHTML(html) {
 setInterval(
     function runGMUpdates() {
 	updateCampaignMembersInfo();
-    }, 5000
+    }, 2000
 );
 
