@@ -1,6 +1,6 @@
 <?php
 
-   include 'db_connect.php';
+   include 'lib/db_connect.php';
    include 'tools.php';
 
    $gm_id = 1;

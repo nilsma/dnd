@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-include 'db_connect.php';
+include 'lib/db_connect.php';
 
 $campaign_id = $_POST['campaign_id'];
 

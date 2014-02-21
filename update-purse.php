@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-include 'db_connect.php';
+include 'lib/db_connect.php';
 
 $gold = $_POST['gold'];
 $silver = $_POST['silver'];
