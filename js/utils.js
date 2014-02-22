@@ -1,4 +1,44 @@
 /**
+ * A function to update the HTML of the character,
+ * specifically the value of the input field holding the characters
+ * init_roll value in this case
+ * @param data int - the new value of the input field
+ */
+function updateCharacterScreenHTML(data) {
+    var element = document.getElementById('init_roll');
+    element.value=data;
+}
+
+/**
+ * A function to get the characters data from the database
+ * @param char_id int - the int of the character to get the data for
+ */
+function updateCharacterScreen() {
+    var result = null;
+    var xmlhttp = null;
+
+    if (window.XMLHttpRequest) {
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            result = xmlhttp.responseText;
+	    if(result) {
+		result = xmlhttp.responseText;
+		updateCharacterScreenHTML(result);
+	    }
+        }
+    }
+
+    xmlhttp.open("POST", "get-character-data.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+}
+
+/**
  * A function to update the character sheets character section details
  * @param form HTMLElement - the character form that holds the new information
  */
@@ -45,7 +85,6 @@ function updateAttributesSQL(form) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    updateCharHTML(form);
         }
     }
 
@@ -81,7 +120,6 @@ function updatePurseSQL(form) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    updateCharHTML(form);
         }
     }
 
@@ -117,7 +155,6 @@ function updateCharSQL(form) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    updateCharHTML(form);
         }
     }
 
@@ -132,3 +169,12 @@ function updateCharSQL(form) {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
+
+/**
+ * A function to run the updateCharacterScreen() function periodically (every 10 seconds)
+ */
+setInterval(
+    function runCharacterScreenUpdates() {
+	updateCharacterScreen();
+    }, 3000
+);

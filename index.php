@@ -27,7 +27,7 @@ $purse = $character['purse'];
       Level: <input type="text" name="level" size="1" maxlength="2" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['level']?>">
       Class: <input type="text" name="cls" size="5" maxlength="5" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['cls']?>"><br/>
       Hitpoints: <input type="text" name="injury" size="1" maxlength="4" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['dmg']?>"> / <input type="text" name="hp" size="1" maxlength="4" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['hp'] ?>"</input><br/><br/>
-      Initiative: <input type="text" name="init_roll" size="1" maxlength="2" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['init_roll']?>"><br/><br/>
+      Initiative: <input id="init_roll" type="text" name="init_roll" size="1" maxlength="2" onblur="javascript:updateCharacter(forms.character)" value="<?php echo $character['init_roll']?>"><br/><br/>
     </form>
 
 <h1>Attributes</h1>

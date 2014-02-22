@@ -17,7 +17,7 @@ function resetInitiative(campaign_id) {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
 	    if(result) {
-		updateInitiativeHTML();
+		updateGMInitiativeHTML();
 	    } else {
 		alert('Something went wrong while updating initiative ...');
 	    }
@@ -30,7 +30,7 @@ function resetInitiative(campaign_id) {
     xmlhttp.send(params);
 }
 
-function updateInitiativeHTML() {
+function updateGMInitiativeHTML() {
     var elements = document.getElementsByClassName('init_roll');
     for(var i = 0; i < elements.length; i++) {
 	elements[i].innerHTML=1;
@@ -71,11 +71,11 @@ function updateCampaignMembersHTML(html) {
 }
 
 /**
-* A function to run the updateTable() function periodically (every 10 seconds)
+* A function to run the updateCampaignMembersInfo() function periodically (every 10 seconds)
 */
 setInterval(
     function runGMUpdates() {
 	updateCampaignMembersInfo();
-    }, 100000
+    }, 3000
 );
 
