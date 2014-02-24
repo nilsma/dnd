@@ -1,6 +1,6 @@
 <?php
 
-include 'lib/db_connect.php';
+include '../lib/db_connect.php';
 
 $char_id = $_POST['char_id'];
 $myid = 3;
