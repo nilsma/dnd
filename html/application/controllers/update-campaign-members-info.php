@@ -3,18 +3,17 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-include '../lib/db_connect.php';
-include 'tools.php';
+include '../libs/db_connect.php';
+include '../libs/tools.php';
 
 $return_data = array();
 
-$party_id = 1; //SESSION variable
+$campaign_id = 1; //SESSION VARIABLE
 
-$ids = getPartyMembersId($mysqli, $party_id);
+$ids = getCampaignMembersIds($mysqli, $campaign_id);
 
-$html = buildGMScreen($mysqli, $ids);
 
-echo $html;
+buildGMScreen($mysqli, $ids);
 
 //$return_data['result'] = $html;
 

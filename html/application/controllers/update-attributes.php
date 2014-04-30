@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-include '../lib/db_connect.php';
+include '../libs/db_connect.php';
 
 $str = $_POST['str'];
 $con = $_POST['con'];

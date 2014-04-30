@@ -33,7 +33,7 @@ function updateCharacterScreen() {
         }
     }
 
-    xmlhttp.open("POST", "get-character-data.php", true);
+    xmlhttp.open("POST", "../../application/controllers/get-character-data.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
 }
@@ -95,7 +95,7 @@ function updateAttributesSQL(form) {
     var param5 = "&wis=".concat(wis);
     var param6 = "&cha=".concat(cha);
     var params = param1.concat(param2).concat(param3).concat(param4).concat(param5).concat(param6);
-    xmlhttp.open("POST", "update-attributes.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-attributes.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -127,7 +127,7 @@ function updatePurseSQL(form) {
     var param2 = "&silver=".concat(silver);
     var param3 = "&copper=".concat(copper);
     var params = param1.concat(param2).concat(param3);
-    xmlhttp.open("POST", "update-purse.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-purse.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -165,7 +165,7 @@ function updateCharSQL(form) {
     var param5 = "&hp=".concat(hp);
     var param6 = "&init_roll=".concat(init_roll);
     var params = param1.concat(param2).concat(param3).concat(param4).concat(param5).concat(param6);
-    xmlhttp.open("POST", "update-character.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-character.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }

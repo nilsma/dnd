@@ -25,7 +25,7 @@ function resetInitiative(campaign_id) {
     }
 
     var params = "campaign_id=".concat(campaign_id);
-    xmlhttp.open("POST", "reset-initiative.php", true);
+    xmlhttp.open("POST", "../../application/controllers/reset-initiative.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -58,11 +58,9 @@ function updateCampaignMembersInfo() {
         }
     }
 
-//    var params = "campaign_id=".concat(campaign_id);
-    xmlhttp.open("POST", "update-campaign-members-info.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-campaign-members-info.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
-//    xmlhttp.send(params);
 }
 
 function updateCampaignMembersHTML(html) {

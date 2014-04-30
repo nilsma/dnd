@@ -1,8 +1,7 @@
 <?php
 
-include '../lib/db_connect.php';
+include '../libs/db_connect.php';
 
-$char_id = $_POST['char_id'];
 $myid = 3;
 
 $return_data = array();
