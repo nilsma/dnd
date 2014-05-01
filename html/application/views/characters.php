@@ -16,7 +16,7 @@ $characters = $db->getCharacters($_SESSION['user_id']);
     <h1>Characters view</h1>
     <section id="characters">
 <?php
-if(count($chars) > 0) {
+if(count($characters) > 0) {
    foreach($characters as $key => $val) {
      echo $val[0] . ' ' . $val[2] . ' ' . $val[1] . '<br/>';
    }
