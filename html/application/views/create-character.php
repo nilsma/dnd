@@ -1,21 +1,22 @@
 <?php
-   session_start();
+session_start();
 
-   require_once $_SESSION['config'];
-
-   ?>
+require_once $_SESSION['config'];
+?>
 <!DOCTYPE html>
 <html>
   <head>
   </head>
   <body>
     <h1>Create New Character View</h1>
-    <form name="personalia" action="insert-character.php" method="POST">
+    <form name="personalia" action="<?php echo BASE . CONTROLLERS . 'insert-character.php'; ?>" method="POST">
       <fieldset>
 	<legend>Character Personalia</legend>
 	<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" required>
-	<label for="level">Level:</label><input name="level" id="level" type="number" maxlength="3" required>
+	<label for="level">Level:</label><input name="level" id="level" type="number" required>
 	<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" required>
+	<label for="hitpoints">HP:</label><input name="hp" id="hitpoints" type="number" value="1" required>
+	<label for="initiativeModifier">Initiative Modifier:</label><input name="init_mod" id="initiativeModifier" type="number" value="0" required>
       </fieldset>
       <fieldset>
 	<legend>Attributes</legend>
@@ -38,6 +39,7 @@
 	<label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="0">
 	<label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="0">
       </fieldset>
+      <input type="submit" value="Create Character">
     </form>
   </body>
 </html>

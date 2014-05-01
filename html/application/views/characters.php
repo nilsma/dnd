@@ -2,10 +2,10 @@
 session_start();
 
 require_once $_SESSION['config'];
-require_once ROOT . BASE . MODELS . 'charsql.class.php';
+require_once ROOT . BASE . MODELS . 'membersql.class.php';
 
-$db = new Charsql();
-$chars = $db->getCharacters($_SESSION['user_id']);
+$db = new Membersql();
+$characters = $db->getCharacters($_SESSION['user_id']);
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $chars = $db->getCharacters($_SESSION['user_id']);
     <section id="characters">
 <?php
 if(count($chars) > 0) {
-   foreach($chars as $key => $val) {
+   foreach($characters as $key => $val) {
      echo $val[0] . ' ' . $val[2] . ' ' . $val[1] . '<br/>';
    }
 } else {
