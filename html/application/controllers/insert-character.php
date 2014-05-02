@@ -35,9 +35,11 @@ $sheet['dmg'] = 0;
 $sheet['init_mod'] = $_POST['init_mod'];
 $sheet['init_roll'] = 0;
 
-$csql->insertSheet($sheet, $attrs, $purse);
+$sheet_id = $csql->insertSheet($sheet, $attrs, $purse);
 
-header('Location: ' . BASE . VIEWS . 'new-character.php');
+$_SESSION['sheet_id'] = $sheet_id;
+
+header('Location: ' . BASE . VIEWS . 'character.php');
 
 
 ?>

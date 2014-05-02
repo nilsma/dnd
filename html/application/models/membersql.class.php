@@ -16,8 +16,8 @@ if(!class_exists('Mysql')) {
     public function getCharacters($id) {
       $mysqli = $this->connect();
       
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
+      if($mysqli->connect_errno) {
+	printf("Connect failed: %s\n", $mysqli->connect_error());
 	exit();
       }
 
