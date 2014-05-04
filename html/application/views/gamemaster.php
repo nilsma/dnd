@@ -1,39 +1,25 @@
 <?php
+session_start();
+require_once $_SESSION['config'];
+require_once ROOT . BASE . MODELS . 'gmsql.class.php';
 
-   include '../libs/db_connect.php';
-   include '../libs/tools.php';
+$gm_id = $_SESSION['gm_id'];
 
-   $gm_id = 1;
-   $campaign_id = 1;
+$gmsql = new Gmsql();
+$gm = $gmsql->getGamemaster($gm_id);
+$_SESSION['gm'] = $gm;
+
+$gamemasterHTML = $gmsql->buildGamemasterHTML($gm);
+
 ?>
-
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../style/general.css">
-    <script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../../js/functionality.js"></script>
-    <script type="text/javascript" src="../../js/gamemaster.js"></script>
-  </head>
   <body>
-    <header>
-      <h1>Gamemaster view</h1>
-    </header>
-    <nav>
-      <button onclick="javascript:resetInitiative('<?php echo $campaign_id ?>')">Clear Initiative</button>
-    </nav>
-    <div id="campaign_members">
-    <?php
-
-       $ids = getCampaignMembersIds($mysqli, $campaign_id);
-
-       buildGMScreen($mysqli, $ids);
-
-//       $members = buildGMScreen($mysqli, $ids);
-
-//       echo $members;
-
-       ?>
-    </div>
+    <h1>Gamemaster View</h1>
+    <?php echo $gamemasterHTML; ?>
+    <p><a href="<?php echo BASE . VIEWS . 'invitations.php'; ?>">Manage Invitations</a></p>
+    <p><a href="<?php echo BASE . VIEWS . 'gamemasters.php'; ?>">Back to Gamemasters View</a></p>
+    <p><a href="<?php echo BASE . CONTROLLERS . 'delete-gamemaster.php'; ?>">Delete Gamemaster</a></p>
+    <p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
   </body>
 </html>

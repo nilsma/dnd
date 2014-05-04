@@ -2,18 +2,158 @@
 
 require_once 'database.class.php';
 
-if(!class_exists('Mysql')) {
+if(!class_exists('Charsql')) {
 
   class Charsql extends Database {
     
     public function __construct() { }
 
     /**
+     * A function to get the sheet id of a given character based on the character name
+     * @param $char_name string - the name of the character to get the sheet id for
+     * @param $user_id int - the id of the user fetching the character
+     * @return $sheet_id int - the sheet id of the character
+     */
+    public function getSheetId($char_name, $user_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "SELECT id FROM sheets WHERE name=? AND owner=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('si', $char_name, $user_id);
+	$stmt->execute();
+	$stmt->bind_result($id);
+	$stmt->fetch();
+
+	$stmt->close();
+	
+	return $id;
+      }
+      
+      $mysqli->close();
+    }
+
+    /**
+     * A function to build the form for character selection
+     * @param $characters array - an array holding the characters to list in the form
+     */
+    public function buildCharacterSelect($characters) {
+      $html = '';
+
+      $html = $html . '<fieldset>' . "\n";
+      $html = $html . '<legend>Select Character</legend>' . "\n";
+      $html = $html . '<form name="char-select" action="' . BASE . CONTROLLERS . 'load-character.php" method="POST">' . "\n";
+      $html = $html . '<select name="character">' . "\n";
+      foreach($characters as $key => $val) {
+	$html = $html . '<option value="' . $val[0] . '">' . ucfirst($val[0]) . ', level ' . $val[2] . ' ' . ucfirst($val[1]) . '</option>' . "\n";
+      }
+      $html = $html . '</select>' . "\n";
+      $html = $html . '<input type="submit" value="Play">' . "\n";
+      $html = $html . '</form>' . "\n";
+      $html = $html . '</fieldset>' . "\n";
+
+      return $html;
+
+    }
+
+    /**
+     * A function to delete the given character sheet, and the
+     * related attribute and purse tables, from the database
+     * @param $sheet_id int - the sheet id to delete
+     */
+    public function deleteCharacter($sheet_id) {
+
+      $sheet = array();
+      $sheet = $this->getCharacter($sheet_id);
+      $purse_id = $sheet['purse'];
+      $attrs_id = $sheet['attrs'];
+
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      try {
+	$mysqli->autocommit(FALSE);
+
+	$query = 'DELETE FROM  purse WHERE id=?';
+       	$query = $mysqli->real_escape_string($query);
+
+	if(!$stmt = $mysqli->prepare($query)) {
+	  throw new Exception($mysqli->error);
+	}
+
+	$stmt->bind_param('i', $purse_id);
+	$stmt->execute();
+	$stmt->close();
+
+	//begin attrs
+	$query = 'DELETE FROM attrs WHERE id=?';
+	$query = $mysqli->real_escape_string($query);
+	if(!$stmt = $mysqli->prepare($query)) {
+	  throw new Exception($mysqli->error);
+	}
+	$stmt->bind_param('i', $attrs_id);
+	$stmt->execute();
+	$attrs_id = $mysqli->insert_id;
+	$stmt->close();
+
+	//begin invitations
+	$query = 'DELETE FROM members WHERE sheet=?';
+	$query = $mysqli->real_escape_string($query);
+	if(!$stmt = $mysqli->prepare($query)) {
+	  throw new Exception($mysqli->error);
+	}
+	$stmt->bind_param('i', $sheet_id);
+	$stmt->execute();
+	$stmt->close();
+
+	//begin invitations
+	$query = 'DELETE FROM invitations WHERE sheet=?';
+	$query = $mysqli->real_escape_string($query);
+	if(!$stmt = $mysqli->prepare($query)) {
+	  throw new Exception($mysqli->error);
+	}
+	$stmt->bind_param('i', $sheet_id);
+	$stmt->execute();
+	$stmt->close();
+
+	//begin sheet
+	$query = 'DELETE FROM sheets WHERE id=?';
+	$query = $mysqli->real_escape_string($query);
+	if(!$stmt = $mysqli->prepare($query)) {
+	  throw new Exception($mysqli->error);
+	}
+	$stmt->bind_param('i', $sheet_id);
+	$stmt->execute();
+	$stmt->close();
+
+	$mysqli->commit();
+	
+      }   
+
+      catch(Exception $e) {
+	$mysqli->rollback();
+	$mysqli->autocommit(TRUE);
+	echo 'Caught exception: ' . $e->getMessage();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
      * A function to build a HTML representation of the given character's data
      * @param $characterData array - a multidimensional assoc array holding the character's data
      * @return $characterHTML string - a string representation of the character's data as HTML
      */
-    public function buildCharacter($characterData) {
+    public function buildCharacterHTML($characterData) {
       $sheet = $characterData['sheet'];
       $attrs = $characterData['attrs'];
       $purse = $characterData['purse'];
@@ -40,9 +180,10 @@ if(!class_exists('Mysql')) {
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Personalia</legend>' . "\n";
       $html = $html . '<form name="character" action="" method="POST">' . "\n";
-      $html = $html . '<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . $sheet['name'] . '" required>' . "\n";
+      $html = $html . '<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucfirst($sheet['name']) . '" required>' . "\n";
       $html = $html . '<label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required>' . "\n";
-      $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . $sheet['class'] . '" required>' . "\n";
+      $html = $html . '<label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required>' . "\n";
+      $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required>' . "\n";
       $html = $html . '<label for="hitpoints">HP:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required>' . "\n";
       $html = $html . '<label for="initiativeRoll">Initiative Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required>' . "\n";
       $html = $html . '<label for="modifier">Modifier:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required>' . "\n";
@@ -139,7 +280,7 @@ if(!class_exists('Mysql')) {
 	printf("Connection failed: %s\n", $mysqli->connect_error);
       }
 
-      $query = "SELECT s.owner, s.name, s.level, s.class, s. attr, s.purse, s.hp, s.dmg, s.init_mod, s.init_roll FROM sheets as s WHERE s.id=?";
+      $query = "SELECT s.owner, s.name, s.level, s.xp, s.class, s. attr, s.purse, s.hp, s.dmg, s.init_mod, s.init_roll FROM sheets as s WHERE s.id=?";
 
       //      $result = array();
 
@@ -148,7 +289,7 @@ if(!class_exists('Mysql')) {
       if($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('i', $sheet_id);
 	$stmt->execute();
-	$stmt->bind_result($owner, $name, $level, $class, $attr, $purse, $hp, $dmg, $init_mod, $init_roll);
+	$stmt->bind_result($owner, $name, $level, $xp, $class, $attr, $purse, $hp, $dmg, $init_mod, $init_roll);
 	$stmt->fetch();
 
 	$stmt->close();
@@ -157,6 +298,7 @@ if(!class_exists('Mysql')) {
 			'owner' => $owner,
 			'name' => $name,
 			'level' => $level,
+			'xp' => $xp,
 			'class' => $class,
 			'attr' => $attr,
 			'purse' => $purse,
@@ -280,9 +422,9 @@ if(!class_exists('Mysql')) {
 	$mysqli->autocommit(FALSE);
 
 	//begin purse
-	$gold = $purse['gold'];
-	$silver = $purse['silver'];
-	$copper = $purse['copper'];
+	$gold = Utils::html(trim($purse['gold']));
+	$silver = Utils::html(trim($purse['silver']));
+	$copper = Utils::html(trim($purse['copper']));
 	$query = 'INSERT INTO purse VALUES(null,?,?,?)';
        	$query = $mysqli->real_escape_string($query);
 	if(!$stmt = $mysqli->prepare($query)) {
@@ -294,18 +436,18 @@ if(!class_exists('Mysql')) {
 	$stmt->close();
 
 	//begin attrs
-	$str = $attrs['str'];
-	$strMod = $attrs['strMod'];
-	$con = $attrs['con'];
-	$conMod = $attrs['conMod'];
-	$dex = $attrs['dex'];
-	$dexMod = $attrs['dexMod'];
-	$intel = $attrs['intel'];
-	$intelMod = $attrs['intelMod'];
-	$wis = $attrs['wis'];
-	$wisMod = $attrs['wisMod'];
-	$cha = $attrs['cha'];
-	$chaMod = $attrs['chaMod'];
+	$str = Utils::html(trim($attrs['str']));
+	$strMod = Utils::html(trim($attrs['strMod']));
+	$con = Utils::html(trim($attrs['con']));
+	$conMod = Utils::html(trim($attrs['conMod']));
+	$dex = Utils::html(trim($attrs['dex']));
+	$dexMod = Utils::html(trim($attrs['dexMod']));
+	$intel = Utils::html(trim($attrs['intel']));
+	$intelMod = Utils::html(trim($attrs['intelMod']));
+	$wis = Utils::html(trim($attrs['wis']));
+	$wisMod = Utils::html(trim($attrs['wisMod']));
+	$cha = Utils::html(trim($attrs['cha']));
+	$chaMod = Utils::html(trim($attrs['chaMod']));
 	$query = 'INSERT INTO attrs VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?)';
 	$query = $mysqli->real_escape_string($query);
 	if(!$stmt = $mysqli->prepare($query)) {
@@ -318,19 +460,20 @@ if(!class_exists('Mysql')) {
 
 	//begin sheet
 	$owner = $_SESSION['user_id'];
-	$name = $sheet['name'];
-	$level = $sheet['level'];
-	$class = $sheet['class'];
-	$hp = $sheet['hp'];
-	$dmg = $sheet['dmg'];
-	$init_mod = $sheet['init_mod'];
-	$init_roll = $sheet['init_roll'];
-	$query = 'INSERT INTO sheets VALUES(null,?,?,?,?,?,?,?,?,?,?)';
+	$name = Utils::html(trim($sheet['name']));
+	$level = Utils::html(trim($sheet['level']));
+	$xp = Utils::html(trim($sheet['xp']));
+	$class = Utils::html(trim($sheet['class']));
+	$hp = Utils::html(trim($sheet['hp']));
+	$dmg = Utils::html(trim($sheet['dmg']));
+	$init_mod = Utils::html(trim($sheet['init_mod']));
+	$init_roll = Utils::html(trim($sheet['init_roll']));
+	$query = 'INSERT INTO sheets VALUES(null,?,?,?,?,?,?,?,?,?,?,?)';
 	$query = $mysqli->real_escape_string($query);
 	if(!$stmt = $mysqli->prepare($query)) {
 	  throw new Exception($mysqli->error);
 	}
-	$stmt->bind_param('isisiiiiii', $owner, $name, $level, $class, $attrs_id, $purse_id, $hp, $dmg, $init_mod, $init_roll);
+	$stmt->bind_param('isiisiiiiii', $owner, $name, $level, $xp, $class, $attrs_id, $purse_id, $hp, $dmg, $init_mod, $init_roll);
 	$stmt->execute();
 	$sheet_id = $mysqli->insert_id;
 	$stmt->close();

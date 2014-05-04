@@ -27,17 +27,21 @@ $purse['silver'] = $_POST['silver'];
 $purse['copper'] = $_POST['copper'];
 
 $sheet = array();
-$sheet['name'] = $_POST['name'];
+$sheet['name'] = strtolower($_POST['name']);
 $sheet['level'] = $_POST['level'];
-$sheet['class'] = $_POST['class'];
+$sheet['xp'] = $_POST['xp'];
+$sheet['class'] = strtolower($_POST['class']);
 $sheet['hp'] = $_POST['hp'];
 $sheet['dmg'] = 0;
 $sheet['init_mod'] = $_POST['init_mod'];
 $sheet['init_roll'] = 0;
 
 $sheet_id = $csql->insertSheet($sheet, $attrs, $purse);
+var_dump($sheet);
 
 $_SESSION['sheet_id'] = $sheet_id;
+
+echo '<br/><br/>' . $_SESSION['sheet_id'];
 
 header('Location: ' . BASE . VIEWS . 'character.php');
 

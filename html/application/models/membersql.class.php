@@ -9,11 +9,44 @@ if(!class_exists('Mysql')) {
     public function __construct() { }
 
     /**
-     * A function to get the details of a given user based on the user id
-     * @param $id int - the id of the user
-     * @return $results array - an array holding the users id, username and email
+     * A function to get the details of a given users gamemasters based on the user id
+     * @param $user_id int - the id of the user
+     * @return $results array - an array holding the users gamemaster id and alias
      */
-    public function getCharacters($id) {
+    public function getGamemasters($user_id) {
+      $mysqli = $this->connect();
+      
+      if($mysqli->connect_errno) {
+	printf("Connect failed: %s\n", $mysqli->connect_error());
+	exit();
+      }
+
+      $query = "SELECT id, alias FROM gamemasters WHERE owner=?";
+      $query = $mysqli->real_escape_string($query);
+      $results = array();
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($id, $alias);
+
+	while($stmt->fetch()) {
+	  $results[$id] = $alias;
+	}
+
+	return $results;
+
+	$stmt->close();
+      }
+      $mysqli->close();
+    }
+
+    /**
+     * A function to get the details of a given users characters based on the user id
+     * @param $user_id int - the id of the user
+     * @return $results array - an array holding the users characters id, name, class and level
+     */
+    public function getCharacters($user_id) {
       $mysqli = $this->connect();
       
       if($mysqli->connect_errno) {
@@ -22,10 +55,11 @@ if(!class_exists('Mysql')) {
       }
 
       $query = "SELECT id, name, class, level FROM sheets WHERE owner=?";
+      $query = $mysqli->real_escape_string($query);
       $results = array();
 
       if($stmt = $mysqli->prepare($query)) {
-	$stmt->bind_param('i', $id);
+	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
 	$stmt->bind_result($id, $name, $class, $level);
 

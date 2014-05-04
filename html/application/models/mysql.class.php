@@ -175,6 +175,35 @@ if(!class_exists('Mysql')) {
     }
 
     /**
+     * A function to get the given users username based on the users id
+     * @param $user_id int - the user id to get the username for
+     * @return $username string - the username for the given user_id
+     */
+    public function getUsername($user_id) {
+      $mysqli = $this->connect();
+      
+      if (mysqli_connect_errno()) {
+	printf("Connect failed: %s\n", mysqli_connect_error());
+	exit();
+      }
+
+      $query = "SELECT username FROM users WHERE id=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($username);
+	$stmt->fetch();
+	
+	return $username;
+      }
+
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
      * A function to get the given users user id based on the username
      * @param $username string - the username to get the password for
      * @return int id - the id for the given username

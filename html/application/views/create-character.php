@@ -15,6 +15,7 @@
 	  <legend>Character Personalia</legend>
 	  <label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" required>
 	  <label for="level">Level:</label><input name="level" id="level" type="number" value="1" required>
+	  <label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="1" required>
 	  <label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" required>
 	  <label for="hitpoints">HP:</label><input name="hp" id="hitpoints" type="number" value="1" required>
 	  <label for="initiativeModifier">Initiative Modifier:</label><input name="init_mod" id="initiativeModifier" type="number" value="0" required>
@@ -22,17 +23,17 @@
 	<fieldset>
 	  <legend>Attributes</legend>
 	  <label for="strength">STR:</label><input name="str" id="strength" type="number" value="1" required>
-	  <label for="strengthModifier">MOD:</label><input name="strMod" id="strenghtModifier" type="number" value="0" required><br/>
+	  <label for="strengthModifier">MOD:</label><input name="strMod" id="strenght_modifier" type="number" value="0" required><br/>
 	  <label for="constitution">CON:</label><input name="con" id="constitution" type="number" value="1" required>
-	  <label for="constitutionModifier">MOD:</label><input name="conMod" id="constitutionModifier" type="number" value="0" required><br/>
+	  <label for="constitutionModifier">MOD:</label><input name="conMod" id="constitution_modifier" type="number" value="0" required><br/>
 	  <label for="dexterity">DEX:</label><input name="dex" id="dexterity" type="number" value="1" required>
-	  <label for="dexterityModifier">MOD:</label><input name="dexMod" id="dexterityModifier" type="number" value="0" required><br/>
+	  <label for="dexterityModifier">MOD:</label><input name="dexMod" id="dexterity_modifier" type="number" value="0" required><br/>
 	  <label for="intelligence">INT:</label><input name="intel" id="intelligence" type="number" value="1" required>
-	  <label for="intelligenceModifier">MOD:</label><input name="intelMod" id="intelligenceModifier" type="number" value="0" required><br/>
+	  <label for="intelligenceModifier">MOD:</label><input name="intelMod" id="intelligence_modifier" type="number" value="0" required><br/>
 	  <label for="wisdom">WIS:</label><input name="wis" id="wisdom" type="number" value="1" required>
-	  <label for="wisdomModifier">MOD:</label><input name="wisMod" id="wisdomModifier" type="number" value="0" required><br/>
+	  <label for="wisdomModifier">MOD:</label><input name="wisMod" id="wisdom_modifier" type="number" value="0" required><br/>
 	  <label for="charisma">CHA:</label><input name="cha" id="charisma" type="number" value="1" required>
-	  <label for="charismaModifier">MOD:</label><input name="chaMod" id="charismaModifier" type="number" value="0" required><br/>
+	  <label for="charismaModifier">MOD:</label><input name="chaMod" id="charisma_modifier" type="number" value="0" required><br/>
 	</fieldset>
 	<fieldset>
 	  <legend>Purse</legend>
