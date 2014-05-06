@@ -1,8 +1,12 @@
 <?php
-   session_start();
+session_start();
 
-   require_once $_SESSION['config'];
-   ?>
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+}
+
+require_once $_SESSION['config'];
+?>
 <!DOCTYPE html>
 <html>
   <head>

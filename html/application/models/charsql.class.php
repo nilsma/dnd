@@ -376,8 +376,6 @@ if(!class_exists('Charsql')) {
 
       $query = "SELECT gold, silver, copper FROM purse WHERE id=?";
 
-      //      $result = array();
-
       $query = $mysqli->real_escape_string($query);
 
       if($stmt = $mysqli->prepare($query)) {

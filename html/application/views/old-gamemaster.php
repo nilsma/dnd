@@ -1,10 +1,15 @@
 <?php
+session_start();
 
-   include '../libs/db_connect.php';
-   include '../libs/tools.php';
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+}
 
-   $gm_id = 1;
-   $campaign_id = 1;
+include '../libs/db_connect.php';
+include '../libs/tools.php';
+
+$gm_id = 1;
+$campaign_id = 1;
 ?>
 
 <html>

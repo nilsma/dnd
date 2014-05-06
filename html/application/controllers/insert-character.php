@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: http://127.0.1.1/dnd/html');
+}
+
 require_once $_SESSION['config'];
 require_once ROOT . BASE . MODELS . 'utils.class.php';
 require_once ROOT . BASE . MODELS . 'charsql.class.php';

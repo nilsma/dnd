@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+}
+
 require_once $_SESSION['config'];
 
 echo 'sheet id: ' . $_SESSION['sheet_id'];
