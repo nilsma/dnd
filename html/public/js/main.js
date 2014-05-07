@@ -6,7 +6,7 @@ function toggleTable() {
     for(var i = 0; i < nodes.length; i++) {
 	if(nodes[i].className === 'char-table') {
 	    if(window.getComputedStyle(nodes[i], null).getPropertyValue('display') === 'none') {
-		nodes[i].style.display='block';
+		nodes[i].style.display='flex';
 	    } else {
 		nodes[i].style.display='none';
 	    }
@@ -100,5 +100,5 @@ function init() {
  * Load init functions on window load
  */
 window.onload = function() {
-//    init();
+    init();
 }

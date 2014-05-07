@@ -175,7 +175,6 @@ section.member h4:active {
 section.member table th {
     font-weight: normal;
     letter-spacing: 1px;
-    text-decoration: underline;
     }
 
 section.member table caption {
@@ -184,14 +183,20 @@ section.member table caption {
 
 section.member table {
     border: 1px solid black;
-    display: block;
+    display: flex;
+    justify-content: center;
     margin: 0 auto 1em;
     padding: 0.5em 0;
     width: 90%;
     }
 
+section.member th, td {
+    padding: 2px 4px;
+    }
+
 section.member table, th, td {
     border: 1px solid black;
+    border-collapse: collapse;
     }
 
 section.member section.personalia p {
