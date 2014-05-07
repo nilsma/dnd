@@ -8,12 +8,11 @@ $js_path = BASE . JS;
 $ctrls_path = BASE . CONTROLLERS;
 $libs_path = BASE . LIBS;
 $views_path = BASE . VIEWS;
+
+require_once ROOT . BASE . VIEWS . 'head.php';
+
 ?>
-<html>
-  <head>
-    <!-- some code here -->
-  </head>
-  <body>
+  <body id="register">
     <h1>Register view</h1>
 
 <?php 
@@ -28,13 +27,26 @@ if(isset($_SESSION['reg_failed'])) {
 }
 
 ?>
-
-    <form name="register" action="<?php echo $ctrls_path . 'proc-registration.php' ?>" method="POST">
-      <p id="username">Username: <label for="username"><input name="username" type="text" maxlength="30" required></label></p>
-      <p id="email">Email: <label for="email"><input name="email" type="email" maxlength="40" required></label></p>
-      <p id="password1">Password: <label for="password1"><input name="password1" type="password" maxlength="16" required></label></p>
-      <p id="password2">Password: <label for="password2"><input name="password2" type="password" maxlength="16" required></label></p>
-      <input type="submit" value="Register">
-    </form>
+    <div id="main-container">
+      <div class="form-entry">
+	<fieldset>
+	  <legend>Register</legend>
+	  <form name="register" action="<?php echo $ctrls_path . 'proc-registration.php' ?>" method="POST">
+	    <label for="username">Username:</label><br/>
+	    <input name="username" type="text" maxlength="30" required><br/>
+	    <label for="email">Email:</label><br/>
+	    <input name="email" type="email" maxlength="40" required><br/>
+	    <label for="password1">Password:</label><br/>
+	    <input name="password1" type="password" maxlength="16" required><br/>
+	    <label for="password2">Password:</label><br/>
+	    <input name="password2" type="password" maxlength="16" required><br/>
+	    <input type="submit" value="Register">
+	  </form>
+	</fieldset>
+      </div> <!-- end .form-entry -->
+      <section class="sec-nav-container">
+	<p class="nav-paragraph">Or <a href="index.php">Go Back To The Home Page</a></p>
+      </section>
+    </div> <!-- end #main-container -->
   </body>
 </html>

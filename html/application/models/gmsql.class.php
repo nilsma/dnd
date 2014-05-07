@@ -65,14 +65,15 @@ if(!class_exists('Gmsql')) {
 
       $html = '';
       
-      $html = $html . '<h1>' . $det['alias'] . ' - ' . $cmp['title'] . '</h1>' . "\n";
-      $html = $html . '<h2>(There ' . $noun . ' ' . $cnt . ' ' . $sbj . ')</h2>' . "\n";
+      $html = $html . '<section id="gm-details">' . "\n";
+      $html = $html . '<h2>' . ucfirst($det['alias']) . ' - ' . ucfirst($cmp['title']) . '</h2>' . "\n";
+      //      $html = $html . '<h3>(There ' . $noun . ' ' . $cnt . ' ' . $sbj . ')</h3>' . "\n";
+      $html = $html . '</section> <!-- end #gm-details -->' . "\n";
       $html = $html . '<section id="members">' . "\n";
-      $html = $html . '<h2>Members:</h2>' . "\n";
+      $html = $html . '<h3>Members:</h3>' . "\n";
       
       foreach($mbs as $m) {
 	$mb = $csql->getCharacter($m);
-	//	$mb_html = $csql->buildCharacterHTML($mb);
 	$mb_html = $this->buildCharacterHTML($mb);
 	$html = $html . $mb_html;
       }
@@ -95,7 +96,7 @@ if(!class_exists('Gmsql')) {
       $attrsHTML = $this->buildAttrsHTML($attrs);
       $sheetHTML = $this->buildSheetHTML($sheet, $attrsHTML);
       $purseHTML = $this->buildPurseHTML($purse);
-
+      
       $html = '';
       $html = $html . '<section class="member">' . "\n";
       $html = $html . $sheetHTML . "\n";
@@ -115,11 +116,12 @@ if(!class_exists('Gmsql')) {
      */
     public function buildSheetHTML($sheet) {
       $sheetHTML = '';
-      $sheetHTML = $sheetHTML . '<h3>' . ucfirst($sheet['name']) . ' <span class="initative">Initiative: ' . $sheet['init_roll'] . '</span></h3>' . "\n";
-      $sheetHTML = $sheetHTML . '<p>Level: ' . $sheet['level'] . ' ' . ucfirst($sheet['class']) . ' <span class="xp">(xp: ' . $sheet['xp'] . ')</span></p>' . "\n";
-      $sheetHTML = $sheetHTML . '<p>Dmg/HP: ' . $sheet['dmg'] . ' / ' . $sheet['hp'] . '</p>';
+      $sheetHTML = $sheetHTML . '<p>Initiative: ' . $sheet['init_roll'] . '</p>' . "\n";
+      $sheetHTML = $sheetHTML . '<p>Dmg/HP: ' . $sheet['dmg'] . ' / ' . $sheet['hp'] . '</p>' . "\n";
+      $sheetHTML = $sheetHTML . '<p>Level: ' . $sheet['level'] . ' ' . ucfirst($sheet['class']) . ' <span class="xp">(XP: ' . $sheet['xp'] . ')</span></p>' . "\n";
 
       $html = '';
+      $html = $html . '<h4 class="trigger">' . ucwords($sheet['name']) . '</h4>' . "\n";
       $html = $html . '<section class="personalia">' . "\n";
       $html = $html . $sheetHTML . "\n";
       $html = $html . '</section> <!-- end .personlia -->';
@@ -134,7 +136,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildAttrsHTML($attrs) {
       $table = '';
-      $table = $table . '<table>' . "\n";
+      $table = $table . '<table class="char-table">' . "\n";
       $table = $table . '<caption>Attributes</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
       $table = $table . '<tr>' . "\n";
@@ -167,6 +169,7 @@ if(!class_exists('Gmsql')) {
 
       $html = '';
       $html = $html . '<section class="attributes">' . "\n";
+      $html = $html . '<h5>Attributes</h5>' . "\n";
       $html = $html . $table . "\n";
       $html = $html . '</section> <!-- end .attributes -->';
 
@@ -180,7 +183,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildPurseHTML($purse) {
       $table = '';
-      $table = $table . '<table>' . "\n";
+      $table = $table . '<table class="char-table">' . "\n";
       $table = $table . '<caption>Purse</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
       $table = $table . '<tr>' . "\n";
@@ -204,6 +207,7 @@ if(!class_exists('Gmsql')) {
 
       $html = '';
       $html = $html . '<section class="purse">' . "\n";
+      $html = $html . '<h5>Purse</h5>' . "\n";
       $html = $html . $table . "\n";
       $html = $html . '</section> <!-- end .purse -->';
 

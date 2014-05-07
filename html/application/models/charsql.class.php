@@ -162,9 +162,22 @@ if(!class_exists('Charsql')) {
       $attrsHTML = $this->buildAttrs($attrs);
       $purseHTML = $this->buildPurse($purse);
 
-      $characterHTML = $sheetHTML . $attrsHTML . $purseHTML;
+      $html = '';
+      $html = $html . '<div id="top-entries">' . "\n";
+      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . $sheetHTML . "\n";
+      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
+      $html = $html . '</div> <!-- end #top-entries -->' . "\n";
+      $html = $html . '<div id="bottom-entries">' . "\n";
+      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . $attrsHTML . "\n";
+      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
+      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . $purseHTML . "\n";
+      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
+      $html = $html . '</div> <!-- end #bottom-entries -->' . "\n";
       
-      return $characterHTML;
+      return $html;
 
     }
 
@@ -180,13 +193,13 @@ if(!class_exists('Charsql')) {
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Personalia</legend>' . "\n";
       $html = $html . '<form name="character" action="" method="POST">' . "\n";
-      $html = $html . '<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucfirst($sheet['name']) . '" required>' . "\n";
+      $html = $html . '<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucfirst($sheet['name']) . '" required><br/>' . "\n";
+      $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required><br/>' . "\n";
       $html = $html . '<label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required>' . "\n";
-      $html = $html . '<label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required>' . "\n";
-      $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required>' . "\n";
-      $html = $html . '<label for="hitpoints">HP:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required>' . "\n";
-      $html = $html . '<label for="initiativeRoll">Initiative Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required>' . "\n";
-      $html = $html . '<label for="modifier">Modifier:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required>' . "\n";
+      $html = $html . '<label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="initiativeRoll">Initiative Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="modifier">Initiative Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required>' . "\n";
       $html = $html . '</form>' . "\n";
       $html = $html . '</fieldset>' . "\n";
 
@@ -234,9 +247,9 @@ if(!class_exists('Charsql')) {
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Purse</legend>' . "\n";
       $html = $html . '<form name="purse" action="" method="POST">' . "\n";
-      $html = $html . '<label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required>' . "\n";
-      $html = $html . '<label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required>' . "\n";
-      $html = $html . '<label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required>' . "\n";
+      $html = $html . '<label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required><br/>' . "\n";
       $html = $html . '</form>' . "\n";
       $html = $html . '</fieldset>' . "\n";
 

@@ -14,16 +14,20 @@ $csql = new Charsql();
 $char = $csql->getCharacter($sheet_id);
 $characterHTML = $csql->buildCharacterHTML($char);
 
-var_dump($_SESSION);
+require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Character View</h1>
-    <?php echo $characterHTML; ?>
-      <p><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Back to Characters View</a></p>
-      <p><a href="<?php echo BASE . CONTROLLERS . 'delete-character.php'; ?>">Delete Character</a></p>
-      <p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+  <body id="character">
+    <div id="main-container">
+      <h1>Character View</h1>
+      <div id="outer-form-container">
+	<?php echo $characterHTML; ?>
+      </div> <!-- end #outer-form-container -->
+      <section class="sec-nav-container">
+	<p><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Back to Characters View</a></p>
+	<p><a href="<?php echo BASE . CONTROLLERS . 'delete-character.php'; ?>">Delete Character</a></p>
+	<p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+      </section> <!-- end .sec-nav-container -->
+    </div> <!-- end #main-container -->
   </body>
 </html>

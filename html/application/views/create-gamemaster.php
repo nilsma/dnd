@@ -12,22 +12,27 @@ if(isset($_SESSION['gm_id'])) {
   unset($_SESSION['gm_id']);
 }
 
-var_dump($_SESSION);
+require_once ROOT . BASE . VIEWS . 'head.php';
+
 ?>
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
   <body>
-    <h1>Create New Gamemaster View</h1>
-    <section id="gm-create">
-      <fieldset>
-	<form name="gamemaster" action="<?php echo BASE . CONTROLLERS . 'insert-gamemaster.php'; ?>" method="POST">
-	  <label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" required>
-	  <label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlenght="30" required>
-	  <input type="submit" value="Create Gamemaster">
-	</form>
-      </fieldset>
-    </section>
+    <h1>Create Gamemaster View</h1>
+    <div id="main-container">
+      <div id="outer-form-container">
+	<div class="form-entry">
+	  <fieldset>
+	    <form name="gamemaster" action="<?php echo BASE . CONTROLLERS . 'insert-gamemaster.php'; ?>" method="POST">
+	      <label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" required><br/>
+	      <label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlenght="30" required><br/>
+	      <input type="submit" value="Create Gamemaster">
+	    </form>
+	  </fieldset>
+	</div> <!-- end .form-entry -->
+      </div> <!-- end #outer-form-container -->
+        <section class="sec-nav-container">
+	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'gamemasters.php'; ?>">Back to Member View</a></p>
+	<p class="nav-paragraph">or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+      </section> <!-- end .sec-nav-container -->
+    </div> <!-- end #main-container -->
   </body>
 </html>

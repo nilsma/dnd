@@ -22,7 +22,7 @@ if(isset($_SESSION['sheet_id'])) {
   unset($_SESSION['sheet_id']);
 }
 
-var_dump($_SESSION);
+require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
 
@@ -31,10 +31,13 @@ var_dump($_SESSION);
   <head>
   </head>
   <body>
-    <h1>Member view</h1>
-    <h2>Choose a role:</h2>
-    <p><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Player Characters</a></p>
-    <p><a href="<?php echo BASE . VIEWS . 'gamemasters.php'; ?>">Gamemasters</a></p>
-    <p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+    <div id="main-container">
+      <h1>Member view</h1>
+      <section class="sec-nav-container">
+	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Slay Some Dwagons!</a></p>
+	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'gamemasters.php'; ?>">Rule Ze World!</a></p>
+	<p class="nav-paragraph">or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+      </section> <!-- end .sec-nav-container -->
+    </div> <!-- end #main-container -->
   </body>
 </html>

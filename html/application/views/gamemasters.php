@@ -27,16 +27,14 @@ if(isset($_SESSION['gm'])) {
   unset($_SESSION['gm']);
 }
 
-var_dump($_SESSION);
+require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
   <body>
     <h1>Gamemasters view</h1>
-    <section id="gamemasters">
+    <div id="main-container">
+      <div id="outer-form-container">
+	<div class="form-entry">
 <?php
 if(count($gamemasters) > 0) {
   $gmsql = new Gmsql();
@@ -46,9 +44,13 @@ if(count($gamemasters) > 0) {
   echo '<p>You have not created any gamemasters yet!</p>';
 }
 ?>
-      <p><a href="<?php echo BASE . VIEWS . 'member.php'; ?>">Back to Member View</a></p>
-      <p><a href="<?php echo BASE . VIEWS . 'create-gamemaster.php';?>">Create Gamemaster</a></p>
+	</div> <!-- end .form-entry -->
+      </div> <!-- end #outer-form-container -->
+    <section class="sec-nav-container">
+      <p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'member.php'; ?>">Back to Member View</a></p>
+      <p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'create-gamemaster.php';?>">Create Gamemaster</a></p>
       <p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
-    </section> <!-- end #characters -->
+    </section> <!-- end .sec-nav-container -->
+    </div> <!-- end #main-container -->
   </body>
 </html>
