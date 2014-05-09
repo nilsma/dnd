@@ -128,7 +128,7 @@ div#inner-container {
 
 section#gm-details {
     border: 1px dashed black;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     }
 
 section#gm-details h2 {
@@ -143,6 +143,15 @@ section#gm-details h3 {
     font-weight: normal;
     }
 
+section#tools {
+    margin-bottom: 1em;
+    text-align: right;
+    }
+
+section#tools button {
+    margin-left: 0.75em;
+    }
+
 section#members h3 {
     display: none;
     }
@@ -155,21 +164,61 @@ section.member {
     margin-bottom: 1em;
     }
 
-section.member h4 {
+section.member div.trigger {
     background-color: rgba(255, 255, 255, 0.3);
-    font-size: 1.5em;
-    font-weight: normal;
-    padding: 0.25em 0 0.25em 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
     }
 
-section.member h4:hover {
+section.member div.trigger:hover {
     background-color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     }
 
-section.member h4:active {
+section.member div.trigger:active {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
+    }
+
+div.name {
+    align-items: center;
+    border-right: 1px solid black;
+    display: flex;
+    width: 50%;
+    }
+
+div.name h4 {
+    font-size: 1.5em;
+    font-weight: normal;
+//    padding: 0.25em 0 0.25em 0;
+    text-align: center;
+    width: 100%;
+    }
+
+div.inner-head-wrapper {
+    padding: 0.25em 0.5em;
+    }
+
+div.inner-head-wrapper h4 {
+    font-size: 1.3em;
+    font-weight: normal;
+    }
+
+div.inner-head-wrapper span.label {
+    font-size: 0.6em;
+    font-weight: normal;
+    }
+
+div.inner-head-wrapper div.initiative {
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5em;
+    padding: 0.25em;
+    }
+
+div.inner-head-wrapper div.health h4 {
+    font-size: 1.2em;
     }
 
 section.member table th {

@@ -10,6 +10,31 @@ if(!class_exists('Gmsql')) {
     public function __construct() { }
 
     /**
+     * A function to set the inititives to 1 for all members of a given campaign
+     * @param $cmp_id int - the campaign id
+     */
+    public function resetInitiatives($cmp_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "UPDATE sheets s, members m, campaigns c SET s.init_roll=1 WHERE s.id=m.sheet AND m.campaign=c.id AND c.id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $cmp_id);
+	$stmt->execute();
+	
+	$stmt->close();
+      }
+
+      $mysqli->close();
+      
+    }
+
+    /**
      * A function to build a HTML representation of the given campaigns invitations
      * @param $inv array - an array holding the sheet ids invited to the campaign
      * @param $html string - the HTML representation of the invitations
@@ -49,7 +74,7 @@ if(!class_exists('Gmsql')) {
       $det = $gm['details'];
       $cmp = $gm['campaign'];
       $inv = $gm['invitations'];
-      $mbs = $gm['members'];
+      $members = $gm['members'];
 
       $cnt = count($gm['invitations']);
       $noun = null;
@@ -69,10 +94,14 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<h2>' . ucfirst($det['alias']) . ' - ' . ucfirst($cmp['title']) . '</h2>' . "\n";
       //      $html = $html . '<h3>(There ' . $noun . ' ' . $cnt . ' ' . $sbj . ')</h3>' . "\n";
       $html = $html . '</section> <!-- end #gm-details -->' . "\n";
+      $html = $html . '<section id="tools">' . "\n";
+      $html = $html . '<button id="reset-init">Reset Initiatives</button>' . "\n";
+      $html = $html . '<button id="close-all">Close All</button>' . "\n";
+      $html = $html . '</section>' . "\n";
       $html = $html . '<section id="members">' . "\n";
       $html = $html . '<h3>Members:</h3>' . "\n";
       
-      foreach($mbs as $m) {
+      foreach($members as $m) {
 	$mb = $csql->getCharacter($m);
 	$mb_html = $this->buildCharacterHTML($mb);
 	$html = $html . $mb_html;
@@ -116,12 +145,22 @@ if(!class_exists('Gmsql')) {
      */
     public function buildSheetHTML($sheet) {
       $sheetHTML = '';
-      $sheetHTML = $sheetHTML . '<p>Initiative: ' . $sheet['init_roll'] . '</p>' . "\n";
-      $sheetHTML = $sheetHTML . '<p>Dmg/HP: ' . $sheet['dmg'] . ' / ' . $sheet['hp'] . '</p>' . "\n";
-      $sheetHTML = $sheetHTML . '<p>Level: ' . $sheet['level'] . ' ' . ucfirst($sheet['class']) . ' <span class="xp">(XP: ' . $sheet['xp'] . ')</span></p>' . "\n";
+      $sheetHTML = $sheetHTML . '<p>Level: <span class="level">' . $sheet['level'] . '</span> <span class="class">' . ucwords($sheet['class']) . '</span> (XP: <span class="xp">' . $sheet['xp'] . '</span>)</p>' . "\n";
 
       $html = '';
-      $html = $html . '<h4 class="trigger">' . ucwords($sheet['name']) . '</h4>' . "\n";
+      $html = $html . '<div class="trigger">' . "\n";
+      $html = $html . '<div class="name">' . "\n";
+      $html = $html . '<h4 class="char_name">' . ucwords($sheet['name']) . '</h4>' . "\n";
+      $html = $html . '</div> <!-- end .name -->' . "\n";
+      $html = $html . '<div class="inner-head-wrapper">' . "\n";
+      $html = $html . '<div class="initiative">' . "\n";
+      $html = $html . '<h4><span class="label">Initiative: </span><span class="init_roll">' . $sheet['init_roll'] . '</span></h4>' . "\n";
+      $html = $html . '</div> <!-- end .initiative -->' . "\n";
+      $html = $html . '<div class="health">' . "\n";
+      $html = $html . '<h4><span class="label">HP:</span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
+      $html = $html . '</div> <!-- end .health -->' . "\n";
+      $html = $html . '</div> <!-- end .inner-head-wrap -->' . "\n";
+      $html = $html . '</div> <!-- end .trigger -->' . "\n";
       $html = $html . '<section class="personalia">' . "\n";
       $html = $html . $sheetHTML . "\n";
       $html = $html . '</section> <!-- end .personlia -->';
@@ -147,22 +186,22 @@ if(!class_exists('Gmsql')) {
       $table = $table . '</thead>' . "\n";
       $table = $table . '<tbody>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>STR</td><td>' . $attrs['str'] . '</td><td>' . $attrs['strMod'] . '</td>' . "\n";
+      $table = $table . '<td>STR</td><td class="str">' . $attrs['str'] . '</td><td class="str_mod">' . $attrs['strMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>CON</td><td>' . $attrs['str'] . '</td><td>' . $attrs['strMod'] . '</td>' . "\n";
+      $table = $table . '<td>CON</td><td class="con">' . $attrs['con'] . '</td><td class="con_mod">' . $attrs['conMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>DEX</td><td>' . $attrs['dex'] . '</td><td>' . $attrs['dexMod'] . '</td>' . "\n";
+      $table = $table . '<td>DEX</td><td class="dex">' . $attrs['dex'] . '</td><td class="dex_mod">' . $attrs['dexMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>INT</td><td>' . $attrs['intel'] . '</td><td>' . $attrs['intelMod'] . '</td>' . "\n";
+      $table = $table . '<td>INT</td><td class="intel">' . $attrs['intel'] . '</td><td class="intel_mod">' . $attrs['intelMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>WIS</td><td>' . $attrs['wis'] . '</td><td>' . $attrs['wis'] . '</td>' . "\n";
+      $table = $table . '<td>WIS</td><td class="wis">' . $attrs['wis'] . '</td><td class="wis_mod">' . $attrs['wisMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>CHA</td><td>' . $attrs['cha'] . '</td><td>' . $attrs['chaMod'] . '</td>' . "\n";
+      $table = $table . '<td>CHA</td><td class="cha">' . $attrs['cha'] . '</td><td class="cha_mod">' . $attrs['chaMod'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '</tbody>' . "\n";
       $table = $table . '</table>';
@@ -193,13 +232,13 @@ if(!class_exists('Gmsql')) {
       $table = $table . '</thead>' . "\n";
       $table = $table . '<tbody>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>Gold:</td><td>' . $purse['gold'] . '</td>' . "\n";
+      $table = $table . '<td>Gold:</td><td class="gold">' . $purse['gold'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>Silver:</td><td>' . $purse['silver'] . '</td>' . "\n";
+      $table = $table . '<td>Silver:</td><td class="silver">' . $purse['silver'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '<tr>' . "\n";
-      $table = $table . '<td>Copper:</td><td>' . $purse['copper'] . '</td>' . "\n";
+      $table = $table . '<td>Copper:</td><td class="copper">' . $purse['copper'] . '</td>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '</tbody>' . "\n";
       $table = $table . '</table>';
@@ -212,6 +251,80 @@ if(!class_exists('Gmsql')) {
       $html = $html . '</section> <!-- end .purse -->';
 
       return $html;
+    }
+
+    /**
+     * A function to get a character's stats
+     * @param $char_id int - the character's id
+     * @return $character array - a multidimensional array holding the character's stats
+     */
+    public function getCharacterStats($char_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $sheet_data = array();
+      $attrs_data = array();
+      $purse_data = array();
+      $return_data = array();
+
+      $query = "SELECT s.name, s.level, s.xp, s.class, s.init_mod, s.init_roll, s.hp, s.dmg, a.str, a.str_mod, a.con, a.con_mod, a.dex, a.dex_mod, a.intel, a.intel_mod, a.wis, a.wis_mod, a.cha, a.cha_mod, p.gold, p.silver, p.copper FROM sheets as s, attrs as a, purse as p WHERE s.id=? AND s.purse=p.id AND s.attr=a.id";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $char_id);
+	$stmt->execute();
+	$stmt->bind_result($name, $level, $xp, $class, $init_mod, $init_roll, $hp, $dmg, $str, $str_mod, $con, $con_mod, $dex, $dex_mod, $intel, $intel_mod, $wis, $wis_mod, $cha, $cha_mod, $gold, $silver, $copper);
+
+	while($stmt->fetch()) {
+	  $sheet_data = array(
+			      'name' => ucwords($name),
+			      'level' => $level,
+			      'xp' => $xp,
+			      'class' => ucfirst($class),
+			      'init_mod' => $init_mod,
+			      'init_roll' => $init_roll,
+			      'hp' => $hp,
+			      'dmg' => $dmg
+			      );
+
+	  $attrs_data = array(
+			      'str' => $str,
+			      'str_mod' => $str_mod,
+			      'con' => $con,
+			      'con_mod' => $con_mod,
+			      'dex' => $dex,
+			      'dex_mod' => $dex_mod,
+			      'intel' => $intel,
+			      'intel_mod' => $intel_mod,
+			      'wis' => $wis,
+			      'wis_mod' => $wis_mod,
+			      'cha' => $cha,
+			      'cha_mod' => $cha_mod
+			      );
+
+	  $purse_data = array(
+			      'gold' => $gold,
+			      'silver' => $silver,
+			      'copper' => $copper
+			      );
+
+	  $return_data = array(
+			       'sheet' => $sheet_data,
+			       'attrs' => $attrs_data,
+			       'purse' => $purse_data
+			       );
+
+	}
+	
+	$stmt->close();
+      }
+
+      $mysqli->close();
+      return $return_data;
+
     }
 
     /**

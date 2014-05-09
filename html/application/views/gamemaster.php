@@ -16,9 +16,18 @@ $_SESSION['gm'] = $gm;
 
 $gamemasterHTML = $gmsql->buildGamemasterHTML($gm);
 
-require_once ROOT . BASE . VIEWS . 'head.php';
+//require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/dnd/html/public/css/main.css"/>
+    <script type="text/javascript" src="/dnd/html/public/js/main.js"></script>
+    <script type="text/javascript" src="/dnd/html/public/js/gm.js"></script>
+    <title>DND Helper</title>
+  </head>
   <body>
     <div id="main-container">
       <div id="inner-container">

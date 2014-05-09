@@ -14,9 +14,16 @@ $csql = new Charsql();
 $char = $csql->getCharacter($sheet_id);
 $characterHTML = $csql->buildCharacterHTML($char);
 
-require_once ROOT . BASE . VIEWS . 'head.php';
+//require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/dnd/html/public/css/main.css"/>
+    <script type="text/javascript" src="/dnd/html/public/js/char.js"></script>
+    <title>DND Helper</title>
+  </head>
   <body id="character">
     <div id="main-container">
       <h1>Character View</h1>
