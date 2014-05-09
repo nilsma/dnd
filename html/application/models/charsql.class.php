@@ -9,6 +9,106 @@ if(!class_exists('Charsql')) {
     public function __construct() { }
 
     /**
+     * A function to get the given character sheets initiative roll
+     */
+    public function getInitiative($sheet_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "SELECT init_roll FROM sheets WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $sheet_id);
+	$stmt->execute();
+	$stmt->bind_result($initiative);
+	$stmt->fetch();	
+	
+	return $initiative;
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
+     * A function to update the given characters sheets purse
+     */
+    public function updatePurse($sheet_id, $params) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "UPDATE purse as p, sheets as s SET p.gold=?, p.silver=?, p.copper=? WHERE s.id=? AND s.purse=p.id";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('iiii', $params['gold'], $params['silver'],$params['copper'], $sheet_id);
+	$stmt->execute();
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
+     * A function to update the given characters sheets attributes
+     */
+    public function updateAttrs($sheet_id, $params) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "UPDATE attrs as a, sheets as s SET a.str=?, a.str_mod=?, a.con=?, a.con_mod=?, a.dex=?, a.dex_mod=?, a.intel=?, a.intel_mod=?, a.wis=?, a.wis_mod=?, a.cha=?, a.cha_mod=? WHERE s.id=? AND s.attr=a.id";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('iiiiiiiiiiiii', $params['str'], $params['str_mod'],$params['con'], $params['con_mod'],$params['dex'], $params['dex_mod'],$params['intel'], $params['intel_mod'],$params['wis'], $params['wis_mod'],$params['cha'], $params['cha_mod'], $sheet_id);
+	$stmt->execute();
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
+     * A function to update the given characters sheets personalia
+     */
+    public function updatePersonalia($sheet_id, $params) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "UPDATE sheets set name=?, class=?, level=?, xp=?, dmg=?, hp=?, init_roll=?, init_mod=? WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('ssiiiiiii', $params['name'], $params['class'], $params['level'], $params['xp'], $params['dmg'], $params['hp'], $params['init_roll'], $params['init_mod'], $sheet_id);
+	$stmt->execute();
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
      * A function to get the sheet id of a given character based on the character name
      * @param $char_name string - the name of the character to get the sheet id for
      * @param $user_id int - the id of the user fetching the character
@@ -197,6 +297,7 @@ if(!class_exists('Charsql')) {
       $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required><br/>' . "\n";
       $html = $html . '<label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required>' . "\n";
       $html = $html . '<label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required><br/>' . "\n";
+      $html = $html . '<label for="damage">Dmg:</label><input name="dmg" id="damage" type="number" value="' . $sheet['dmg'] . '" required><br/>' . "\n";
       $html = $html . '<label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required><br/>' . "\n";
       $html = $html . '<label for="initiativeRoll">Initiative Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required><br/>' . "\n";
       $html = $html . '<label for="modifier">Initiative Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required>' . "\n";

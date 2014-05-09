@@ -6,14 +6,10 @@ require_once ROOT . BASE . MODELS . 'charsql.class.php';
 
 $sheet_id = $_SESSION['sheet_id'];
 
-$params = array( 
-		'gold' => $_POST['gold'],
-		'silver' => $_POST['silver'],
-		'copper' => $_POST['copper'],
-		 );
-
 $csql = new Charsql();
-$csql->updatePurse($sheet_id, $params);
+$initiative = $csql->getInitiative($sheet_id);
 
+header('Content-type: application/json');
+echo json_encode($initiative, JSON_FORCE_OBJECT);
 
 ?>
