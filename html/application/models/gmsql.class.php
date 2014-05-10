@@ -10,6 +10,33 @@ if(!class_exists('Gmsql')) {
     public function __construct() { }
 
     /**
+     * A function to add an entry to the invitations table of the database
+     * @param $gm_id int - the gamemaster id of the owner of the campaign
+     * @param $sheet_id int - the sheet id of the character to invite
+     * @param $cmp_id int - the id of the campaign to invite to
+     */
+    public function createInvite($gm_id, $sheet_id, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "INSERT INTO invitations (gamemaster, sheet, campaign) VALUES(?, ?, ?)";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('iii', $gm_id, $sheet_id, $cmp_id);
+	$stmt->execute();
+	
+	$stmt->close();
+      }
+
+      $mysqli->close();
+      
+    }
+
+    /**
      * A function to remove a member participation in a campaign from the database members table
      * @param name string - the name of the character to remove from invitations
      * @param $cmp_id int - the campaign id
@@ -124,6 +151,9 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<input type="submit" value="submit">' . "\n";
+      if(isset($_SESSION['invite_failed']) && $_SESSION['invite_failed'] = true) {
+        $html = $html . '<p class="invite-error">User or character does not exist!</p>' . "\n";
+      }
       $html = $html . '</form>' . "\n";
       $html = $html . '</fieldset>' . "\n";
       $html = $html . '</div>' . "\n";
