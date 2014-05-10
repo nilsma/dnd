@@ -147,7 +147,7 @@ if(!class_exists('Charsql')) {
 
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Select Character</legend>' . "\n";
-      $html = $html . '<form name="char-select" action="' . BASE . CONTROLLERS . 'load-character.php" method="POST">' . "\n";
+      $html = $html . '<form name="char-select" action="../controllers/load-character.php" method="POST">' . "\n";
       $html = $html . '<select name="character">' . "\n";
       foreach($characters as $key => $val) {
 	$html = $html . '<option value="' . $val[0] . '">' . ucfirst($val[0]) . ', level ' . $val[2] . ' ' . ucfirst($val[1]) . '</option>' . "\n";
@@ -359,6 +359,37 @@ if(!class_exists('Charsql')) {
     }
 
     /**
+     * A function to get the name of a given character
+     * @param $sheet_id int - the id of the character's sheet
+     * @return $name string - the characters name
+     */
+    public function getCharacterName($sheet_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "SELECT name FROM sheets WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+      
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $sheet_id);
+	$stmt->execute();
+	$stmt->bind_result($name);
+	$stmt->fetch();
+
+	$stmt->close();
+
+	return $name;
+
+      }
+      
+      $mysqli->close();
+
+    }
+
+    /**
      * A function to get a given characters sheet, attributes, and purse
      * from the given sheet id
      * @param $sheet_id int - the sheet id for the given character
@@ -421,11 +452,13 @@ if(!class_exists('Charsql')) {
 			'init_mod' => $init_mod,
 			'init_roll' => $init_roll
 			);
+			
+          return $result;
 
+          $stmt->close();
       }
       
       $mysqli->close();
-      return $result;
     }
 
     /**

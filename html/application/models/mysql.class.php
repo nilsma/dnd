@@ -106,7 +106,7 @@ if(!class_exists('Mysql')) {
 
     /**
      * A function to check whether a given username already exists in the database
-     * @param $email string - the email address to check for
+     * @param $username string - the email address to check for
      * @return boolean - returns true if it exists, false otherwise
      */
     public function usernameExistence($username) {
@@ -118,6 +118,7 @@ if(!class_exists('Mysql')) {
       }
 
       $query = "SELECT id FROM users WHERE username=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
 
       $stmt = $mysqli->stmt_init();
 

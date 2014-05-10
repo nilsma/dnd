@@ -10,6 +10,59 @@ if(!class_exists('Gmsql')) {
     public function __construct() { }
 
     /**
+     * A function to remove a member participation in a campaign from the database members table
+     * @param name string - the name of the character to remove from invitations
+     * @param $cmp_id int - the campaign id
+     */
+    public function removeMember($name, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "DELETE FROM members USING members, sheets WHERE members.sheet=sheets.id AND sheets.name=? AND members.campaign=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('si', $name, $cmp_id);
+	$stmt->execute();
+	
+	$stmt->close();
+      }
+
+      $mysqli->close();
+      
+    }
+
+    /**
+     * A function to remove an invitation from the database
+     * @param name string - the name of the character to remove from invitations
+     * @param gm_id int - the id of the gamemaster who owns the given campaign id
+     * @param $cmp_id int - the campaign id
+     */
+    public function removeInvitation($name, $gm_id, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "DELETE FROM invitations USING invitations, sheets WHERE sheets.id=invitations.sheet AND invitations.gamemaster=? AND invitations.campaign=? AND sheets.name=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('iis', $gm_id, $cmp_id, $name);
+	$stmt->execute();
+	
+	$stmt->close();
+      }
+
+      $mysqli->close();
+      
+    }
+
+    /**
      * A function to set the inititives to 1 for all members of a given campaign
      * @param $cmp_id int - the campaign id
      */
@@ -35,30 +88,120 @@ if(!class_exists('Gmsql')) {
     }
 
     /**
+     *	A function to build a HTML representation of the invtations
+     * and a members overview for the invitations page
+     * @param $inv array - an array holding the id's of the sheets that are invited
+     * @return $html string - the HTML representation of the invitations
+     */
+    public function buildInvHTML($inv, $members) {
+      $invite = $this->buildInvite(); 
+      $invitations = $this->buildInvitations($inv);
+      $members = $this->buildMembers($members);
+
+      $html = '';
+      $html = $html . $invite;
+      $html = $html . $invitations;
+      $html = $html . $members;
+      
+      return $html;
+      
+    }
+
+    /**
+    * A function to build an HTML representation of the create invite form for the gamemaster
+    * @return $html string - the HTML representation of the form
+    */
+    public function buildInvite() {
+      $html = '';
+      $html = $html . '<section id="invite">' . "\n";
+      $html = $html . '<div>' . "\n";
+      $html = $html . '<h2>Create Invitation</h2>' . "\n";
+      $html = $html . '</div>' . "\n";
+      $html = $html . '<div>' . "\n";
+      $html = $html . '<fieldset>' . "\n";
+      $html = $html . '<legend>Create Invitation</legend>' . "\n";
+      $html = $html . '<form name="create-invite" action="../controllers/invite-character.php" method="POST">' . "\n";
+      $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
+      $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
+      $html = $html . '<input type="submit" value="submit">' . "\n";
+      $html = $html . '</form>' . "\n";
+      $html = $html . '</fieldset>' . "\n";
+      $html = $html . '</div>' . "\n";
+      $html = $html . '</section> <!-- end #invite -->' . "\n";
+
+      return $html;
+    }
+
+     /**
      * A function to build a HTML representation of the given campaigns invitations
      * @param $inv array - an array holding the sheet ids invited to the campaign
      * @param $html string - the HTML representation of the invitations
      */
-    public function buildInvHTML($inv) {
+     public function buildMembers($members) {
+       $csql = new Charsql();
+
+       $html = '';
+       $html = $html . '<section id="current-members">' . "\n";
+       $html = $html . '<div>' . "\n";
+       $html = $html . '<h2>Current Members</h2>' . "\n";
+       $html = $html . '</div>' . "\n";
+
+      if(count($members) > 0) {
+       foreach($members as $member) {
+         $name = $csql->getCharacterName($member);
+	 
+	 $html = $html . '<section class="current-member">' . "\n";
+	 $html = $html . '<p><span class="char-name">' . ucwords($name) . '</span></p><button class="remove-member">Remove Member</button>' . "\n";
+	 $html = $html . '</section> <!-- end .current-member -->' . "\n";
+	 
+       }
+
+      } else {
+        $html = $html . '<section class="current-member">' . "\n";
+	$html = $html . '<p>There are no members yet.</p>' . "\n";
+	$html = $html . '</section> <!-- end .member -->' . "\n";
+
+      }
+
+       $html = $html . '</section> <!-- end #current-members -->' . "\n";
+
+       return $html;
+     }
+
+
+    /**
+     * A function to build a HTML representation of the given campaigns invitations
+     * @param $inv array - an array holding the sheet ids invited to the campaign
+     * @param $html string - the HTML representation of the invitations
+     */
+    public function buildInvitations($inv) {
       $csql = new Charsql();
       $mysql = new Mysql();
 
       $html = '';
       $html = $html . '<section id="invitations">' . "\n";
+      $html = $html . '<div>' . "\n";
+      $html = $html . '<h2>Pending Invitations</h2>' . "\n";
+      $html = $html . '</div>' . "\n";
       
       if(count($inv) > 0) {
 	foreach($inv as $i) {
 	  $invited = $csql->getCharacter($i);
 	  $char_name = $invited['sheet']['name'];
 	  $username = $mysql->getUsername($invited['sheet']['owner']);
-
-	  $html = $html . '<p>' . ucfirst($username) . 's character ' . $char_name . ' has been invited.</p>' . "\n";
+	  
+	  $html = $html . '<section class="invitation">' . "\n";
+	  $html = $html . '<p><span class="user-name">' . ucfirst($username) . 's</span> character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
+	  $html = $html . '<button class="remove-inv">Remove Invitation</button>' . "\n";
+	  $html = $html . '</section> <!-- end .invitation -->' . "\n";
 	}
       } else {
+        $html = $html . '<section class="invitation">' . "\n";
 	$html = $html . '<p>There are no invitations yet.</p>' . "\n";
+	$html = $html . '</section> <!-- end .invitation -->' . "\n";
       }
 
-      $html = $html . '</section>' . "\n";
+      $html = $html . '</section> <!-- end invitations -->' . "\n";
 
       return $html;
     }
@@ -529,7 +672,7 @@ if(!class_exists('Gmsql')) {
 
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Select Gamemaster</legend>' . "\n";
-      $html = $html . '<form name="gm-select" action="' . BASE . CONTROLLERS . 'load-gamemaster.php" method="POST">' . "\n";
+      $html = $html . '<form name="gm-select" action="../controllers/load-gamemaster.php" method="POST">' . "\n";
       $html = $html . '<select name="gamemaster">' . "\n";
       foreach($gms as $gm) {
         $html = $html . '<option value="' . $gm . '">' . ucfirst($gm) . '</option>' . "\n";

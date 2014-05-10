@@ -10,13 +10,15 @@ ini_set('display_errors', 1);
 /**
  * Application base URL
  */
-define('URL', 'http://127.0.1.1/login/html/');
+//define('URL', 'http://127.0.1.1/login/html/');
+define('URL', 'http://dnd.nima-design.net/');
 
 /**
  * Folder paths
  */
-define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('BASE', '/dnd/html/');
+//define('ROOT', $_SERVER['DOCUMENT_ROOT'] . '/');
+define('ROOT' , '/');
+define('BASE', 'var/www/dnd/html/');
 define('CONFIGS', 'application/configs/');
 define('CONTROLLERS', 'application/controllers/');
 define('LIBS', 'application/libs/');

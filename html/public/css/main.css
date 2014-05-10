@@ -5,7 +5,7 @@
 
 html {
     min-height: 100%;
-    overflow: hidden;
+//    overflow: hidden;
     }
 
 body {
@@ -126,12 +126,18 @@ div#inner-container {
     width: 80%;
     }
 
-section#gm-details {
+section#gm-details,
+section#invitations div:first-child,
+section#current-members div:first-child,
+section#invite div:first-child {
     border: 1px dashed black;
     margin-bottom: 1em;
     }
 
-section#gm-details h2 {
+section#gm-details h2,
+section#invitations h2,
+section#current-members h2,
+section#invite h2 {
     font-family: sans-serif;
     font-size: 1.7em;
     font-weight: normal;
@@ -157,7 +163,7 @@ section#members h3 {
     }
 
 section.member {
-    background-color: rgba(100, 100, 100, 0.2);
+    background-color: rgba(255, 255, 255, 0.3);
     border: 1px dashed black;
     box-shadow: 1px 2px 2px #333;
     font-family: sans-serif;
@@ -165,7 +171,6 @@ section.member {
     }
 
 section.member div.trigger {
-    background-color: rgba(255, 255, 255, 0.3);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -283,4 +288,26 @@ section.member section.attributes,
 section.member section.purse {
     display: block;
     margin-top: 0.5em;
+    }
+
+section.invitation,
+section.current-member,
+section#invite div:nth-child(2) {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed black;
+    box-shadow: 1px 2px 2px #333;
+    display: flex;
+    font-family: sans-serif;
+    justify-content: space-around;
+    margin-bottom: 1em;
+    padding: 1em;
+    }
+
+section.invitation p {
+    margin-right: 2em;
+    }
+
+section#current-members,
+section#invitations {
+    margin-top: 3em;
     }

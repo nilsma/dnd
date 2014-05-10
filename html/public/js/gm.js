@@ -1,3 +1,6 @@
+/**
+ * A function to reset the members' initiatives to 1
+ */
 function resetInitiatives() {
     runInitQuery(function() {
 	getMembers(function(result) {
@@ -9,6 +12,10 @@ function resetInitiatives() {
     });
 }
 
+/**
+ * A function that runs a query on the database through calling
+ * the reset-initiatives.php file in the controllers folder
+ */
 function runInitQuery(callback) {
     var result;
 
@@ -25,7 +32,7 @@ function runInitQuery(callback) {
         }
     }
 
-    xmlhttp.open("POST", "../../../html/application/controllers/reset-initiatives.php", true);
+    xmlhttp.open("POST", "../../application/controllers/reset-initiatives.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
 }
@@ -51,7 +58,7 @@ function getCharacters(callback) {
         }
     }
 
-    xmlhttp.open("POST", "../../../html/application/controllers/get-characters.php", true);
+    xmlhttp.open("POST", "../../application/controllers/get-characters.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
 }

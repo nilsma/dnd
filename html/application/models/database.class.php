@@ -5,8 +5,8 @@ if(!class_exists('Database')) {
   class Database {
 
     private $host = 'localhost';
-    private $username = 'root';
-    private $password = '8kMkyg()';
+    private $username = 'sec_user';
+    private $password = 'y3MgB7dAMhdwGQWc';
     private $database = 'dnd';
 
     public function __construct() { }

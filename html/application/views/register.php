@@ -1,16 +1,18 @@
 <?php
 session_start();
 
-require_once $_SESSION['config'];
+//require_once $_SESSION['config'];
+require_once '../configs/config.php';
 
-$css_path = BASE . CSS;
-$js_path = BASE . JS;
-$ctrls_path = BASE . CONTROLLERS;
-$libs_path = BASE . LIBS;
-$views_path = BASE . VIEWS;
+//$css_path = BASE . CSS;
+//$js_path = BASE . JS;
+//$ctrls_path = CONTROLLERS;
+//$libs_path = BASE . LIBS;
+//$views_path = BASE . VIEWS;
 
-require_once ROOT . BASE . VIEWS . 'head.php';
+//require_once ROOT . BASE . VIEWS . 'head.php';
 
+require_once 'head.php';
 ?>
   <body id="register">
     <h1>Register view</h1>
@@ -31,7 +33,8 @@ if(isset($_SESSION['reg_failed'])) {
       <div class="form-entry">
 	<fieldset>
 	  <legend>Register</legend>
-	  <form name="register" action="<?php echo $ctrls_path . 'proc-registration.php' ?>" method="POST">
+<!--	  <form name="register" action="<?php echo ROOT . CONTROLLERS . 'proc-registration.php' ?>" method="POST"> -->
+	  <form name="register" action="../controllers/proc-registration.php" method="POST">
 	    <label for="username">Username:</label><br/>
 	    <input name="username" type="text" maxlength="30" required><br/>
 	    <label for="email">Email:</label><br/>

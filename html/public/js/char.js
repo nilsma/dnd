@@ -62,7 +62,7 @@ function updateSheet() {
     var param7 = "&init_roll=".concat(init_roll);
     var param8 = "&init_mod=".concat(init_mod);
     var params = param1.concat(param2).concat(param3).concat(param4).concat(param5).concat(param6).concat(param7).concat(param8);
-    xmlhttp.open("POST", "../../../html/application/controllers/update-personalia.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-personalia.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -107,7 +107,7 @@ function updateAttrs() {
     var p11 = "&cha=".concat(cha);
     var p12 = "&cha_mod=".concat(cha_mod);
     var params = p1.concat(p2).concat(p3).concat(p4).concat(p5).concat(p6).concat(p7).concat(p8).concat(p9).concat(p10).concat(p11).concat(p12);
-    xmlhttp.open("POST", "../../../html/application/controllers/update-attrs.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-attrs.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -134,7 +134,7 @@ function updatePurse(x) {
     var p2 = "&silver=".concat(silver);
     var p3 = "&copper=".concat(copper);
     var params = p1.concat(p2).concat(p3);
-    xmlhttp.open("POST", "../../../html/application/controllers/update-purse.php", true);
+    xmlhttp.open("POST", "../../application/controllers/update-purse.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -158,7 +158,7 @@ function getInitiativeRoll(callback) {
         }
     }
 
-    xmlhttp.open("POST", "../../../html/application/controllers/get-initiative.php", true);
+    xmlhttp.open("POST", "../../application/controllers/get-initiative.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
 }

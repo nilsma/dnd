@@ -9,16 +9,15 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 //require_once $_SESSION['config'];
 //require_once ROOT . BASE . MODELS . 'charsql.class.php';
 require_once '../configs/config.php';
-require_once '../models/charsql.class.php';
+require_once '../models/gmsql.class.php';
 
-$csql = new Charsql();
+$gmsql = new Gmsql();
 
-$sheet_id = $_SESSION['sheet_id'];
+$name = $_POST['name'];
+$gm_id = $_SESSION['gm_id'];
+$cmp_id = $_SESSION['gm']['campaign']['id'];
 
-$csql->deleteCharacter($sheet_id);
-
-//header('Location: ' . BASE . VIEWS . 'characters.php');
-header('Location: ../views/characters.php');
+$gmsql->removeInvite($name, $gm_id, $cmp_id);
 
 
 ?>

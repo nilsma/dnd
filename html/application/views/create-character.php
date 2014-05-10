@@ -2,12 +2,15 @@
 session_start();
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-  header('Location: http://127.0.1.1/dnd/html/index.php');
+//  header('Location: http://127.0.1.1/dnd/html/index.php');
+  header('Location: http://dnd.nima-design.net');
 }
 
-require_once $_SESSION['config'];
+//require_once $_SESSION['config'];
+require_once '../configs/config.php';
 
-require_once ROOT . BASE . VIEWS . 'head.php';
+//require_once ROOT . BASE . VIEWS . 'head.php';
+require_once 'head.php';
 ?>
   <body id="create-character">
     <div id="main-container">
@@ -15,7 +18,8 @@ require_once ROOT . BASE . VIEWS . 'head.php';
       <div id="outer-form-container">
 	<div id="top-entries">
 	  <div class="form-entry">
-	    <form name="personalia" action="<?php echo BASE . CONTROLLERS . 'insert-character.php'; ?>" method="POST">
+<!--	    <form name="personalia" action="<?php echo BASE . CONTROLLERS . 'insert-character.php'; ?>" method="POST"> -->
+	    <form name="personalia" action="../controllers/insert-character.php" method="POST">
 	      <fieldset>
 		<legend>Personalia</legend>
 		<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" required><br/>
@@ -52,8 +56,10 @@ require_once ROOT . BASE . VIEWS . 'head.php';
 	</div> <!-- end #top-entries -->
       </div> <!-- end #outer-form-container -->
       <section class="sec-nav-container">
-	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Back to Member View</a></p>
-	<p class="nav-paragraph">or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p>
+<!--	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Back to Member View</a></p>
+	<p class="nav-paragraph">or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p> -->
+	<p class="nav-paragraph"><a href="characters.php">Back to Member View</a></p>
+	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
     </div> <!-- end #main-container -->
   </body>
