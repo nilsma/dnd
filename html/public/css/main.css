@@ -129,7 +129,8 @@ div#inner-container {
 section#gm-details,
 section#invitations div:first-child,
 section#current-members div:first-child,
-section#invite div:first-child {
+section#invite div:first-child,
+section#memberships div:first-child {
     border: 1px dashed black;
     margin-bottom: 1em;
     }
@@ -137,7 +138,8 @@ section#invite div:first-child {
 section#gm-details h2,
 section#invitations h2,
 section#current-members h2,
-section#invite h2 {
+section#invite h2,
+section#memberships h2 {
     font-family: sans-serif;
     font-size: 1.7em;
     font-weight: normal;
@@ -292,7 +294,8 @@ section.member section.purse {
 
 section.invitation,
 section.current-member,
-section#invite div:nth-child(2) {
+section#invite div:nth-child(2),
+section.membership {
     background-color: rgba(255, 255, 255, 0.3);
     border: 1px dashed black;
     box-shadow: 1px 2px 2px #333;
@@ -308,6 +311,7 @@ section.invitation p {
     }
 
 section#current-members,
-section#invitations {
+section#invitations,
+section#memberships {
     margin-top: 3em;
     }

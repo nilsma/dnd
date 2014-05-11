@@ -772,8 +772,37 @@ if(!class_exists('Gmsql')) {
       $mysqli->close();
       return $gm_id;
     }
-  }
 
+    /**
+     * A function to get the campaign id of a campaign from the database
+     * @param $alias string - the alias of the campaign's owning gm
+     * @param $title string - the title of the campaign
+     * @return $cmp_id int - the campaign id
+     */
+    public function getCampaignId($alias, $title) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "SELECT c.id FROM campaigns as c, gamemasters as g WHERE c.gamemaster=g.id AND g.alias=? AND c.title=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('ss', $alias, $title);
+	$stmt->execute();
+	$stmt->bind_result($id);
+	$stmt->fetch();
+
+	$stmt->close();
+	
+	return $id;
+      }
+      
+      $mysqli->close();
+    }
+}
 }
 
 

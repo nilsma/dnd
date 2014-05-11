@@ -1,12 +1,260 @@
 <?php
 
 require_once 'database.class.php';
+require_once 'gmsql.class.php';
 
 if(!class_exists('Charsql')) {
 
   class Charsql extends Database {
     
     public function __construct() { }
+
+    /**
+     * A function to accept an invite from the member's invitations view
+     * @param $alias string - the invitation's gamemaster alias
+     * @param $char_name string - the invitation's character name
+     * @param $title string - the invitation's campaign title
+     */
+     public function acceptInvitation($alias, $char_name, $user_id, $title) {
+      $sheet_id = $this->getSheetId($char_name, $user_id);
+
+      $gmsql = new Gmsql();
+      $cmp_id = $gmsql->getCampaignId($alias, $title);
+
+      $mysqli = $this->connect();
+      
+      if($mysqli->connect_errno) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      try {
+	$mysqli->autocommit(FALSE);
+
+	//begin remove invitation
+        $query = "DELETE FROM invitations USING invitations, gamemasters, sheets, users, campaigns WHERE invitations.gamemaster=gamemasters.id AND gamemasters.alias=? AND invitations.sheet=sheets.id AND sheets.name=? AND sheets.owner=users.id AND users.id=? AND invitations.campaign=campaigns.id AND campaigns.title=?";
+	$query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error . ' || ' . $mysqli->errno);
+        }
+	
+	$stmt->bind_param('ssis', $alias, $char_name, $user_id, $title);
+	$stmt->execute();
+	$stmt->close();
+
+	//begin insert membership
+	$query = "INSERT INTO members(sheet, campaign) VALUES(?, ?)";
+	$query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error);
+        }
+	
+	$stmt->bind_param('ii', $sheet_id, $cmp_id);
+	$stmt->execute();
+	$stmt->close();
+
+	$mysqli->commit();
+
+      } catch(Exception $e) {
+	$mysqli->rollback();
+	$mysqli->autocommit(TRUE);
+	echo 'Caught exception: ' . $e->getMessage();
+
+      }
+
+      $mysqli->close();
+    }
+
+    /**
+     * A function to remove an invite from the member's invitations view
+     * @param $alias string - the invitation's gamemaster alias
+     * @param $char_name string - the invitation's character name
+     * @param $title string - the invitation's campaign title
+     */
+     public function removeInvitation($alias, $char_name, $user_id, $title) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "DELETE FROM invitations USING invitations, gamemasters, sheets, users, campaigns WHERE invitations.gamemaster=gamemasters.id AND gamemasters.alias=? AND invitations.sheet=sheets.id AND sheets.name=? AND sheets.owner=users.id AND users.id=? AND invitations.campaign=campaigns.id AND campaigns.title=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('ssis', $alias, $char_name, $user_id, $title);
+	$stmt->execute();
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+     
+     }
+
+    /**
+     * A function to get the given user's characters memberships
+     * @param $user_id int - the given user
+     * @return $memberships array - and array holding the memberships' details
+     */
+    public function getMemberships($user_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $memberships = array();
+
+      $query = "SELECT s.name, g.alias, c.title FROM users as u, sheets as s, gamemasters as g, campaigns as c, members as m WHERE m.sheet=s.id AND s.owner=u.id AND u.id=? AND m.campaign=c.id AND c.gamemaster=g.id";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($name, $alias, $title);
+	while($stmt->fetch()) {
+	  $membership = array(
+				'name' => $name,
+				'alias' => $alias,
+				'title' => $title
+			     );
+
+          $memberships[] = $membership;
+	}
+	
+	return $memberships;
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
+     * A function to get the given user's characters invitations
+     * @param $user_id int - the given user
+     * @return $invitations array - and array holding the invitations' details
+     */
+    public function getInvitations($user_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $invitations = array();
+
+      $query = "SELECT g.alias, s.name, c.title FROM gamemasters as g, sheets as s, campaigns as c, invitations as i, users as u WHERE g.id=i.gamemaster AND i.sheet=s.id AND s.owner=u.id AND i.campaign=c.id AND u.id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('i', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($alias, $name, $title);
+	while($stmt->fetch()) {
+	  $invitation = array(
+				'alias' => $alias,
+				'name' => $name,
+				'title' => $title
+			     );
+
+          $invitations[] = $invitation;
+	}
+	
+	return $invitations;
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+
+    }
+    
+    /**
+     * A function to build an HTML representation of a given user's characters invitations and memberships
+     * @param $invitations array - an array holding the invitations to represent
+     * @param $memberships array - an array hoding the current user's characters memberships
+     * @return $html string - the HTML representation of the invitations and memberships
+     */
+     public function buildInvHTML($invitations, $memberships) {
+       $html = '';
+       $html = $html . $this->buildInvitations($invitations);
+       $html = $html . $this->buildMemberships($memberships);
+
+       return $html;
+
+     }
+
+     /**
+     * A function to build HTML representation of the active memberships for a given user's characters
+     * @param $memberships array - an array holding the memberships for the user
+     * @return $html string - a string representation of the HTML
+     */
+     public function buildMemberships($memberships) {
+       $html = '';
+
+       $html = $html . '<section id="memberships">' . "\n";
+       $html = $html . '<div>' . "\n";
+       $html = $html . '<h2>Memberships</h2>' . "\n";
+       $html = $html . '</div>' . "\n";
+       
+       if(count($memberships) > 0) {
+         foreach($memberships as $mbr) {
+	   $html = $html . '<section class="membership">' . "\n";
+	   $html = $html . '<p>Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
+	   $html = $html . '<div>' . "\n";
+	   $html = $html . '<button class="leave-group">Leave</button>' . "\n";
+	   $html = $html . '</div>' . "\n";
+	   $html = $html . '</section> <!-- end .membership -->' . "\n";
+	 }
+       } else {
+       
+         $html = $html . '<section class="membership">' . "\n";
+	 $html = $html . '<p>You are not member of any campaigns yet.</p>' . "\n";
+	 $html = $html . '</section> <!-- end .membership -->' . "\n";
+       }
+
+       $html = $html . '</section> <!-- end #memberships -->' . "\n";
+
+       return $html;
+     }
+
+     /**
+     * A function to build HTML representation of the active invitations for a given user's characters
+     * @param $invitations array - an array holding the invitations for the user
+     * @return $html string - a string representation of the HTML
+     */
+     public function buildInvitations($invitations) {
+       $html = '';
+
+       $html = $html . '<section id="invitations">' . "\n";
+       $html = $html . '<div>' . "\n";
+       $html = $html . '<h2>Invitations</h2>' . "\n";
+       $html = $html . '</div>' . "\n";
+       
+       if(count($invitations) > 0) {
+         foreach($invitations as $inv) {
+	   $html = $html . '<section class="invitation">' . "\n";
+	   $html = $html . '<p><span class="alias">' . ucwords($inv['alias']) . '</span> has invited your character <span class="char-name">' . ucwords($inv['name']) . '</span> to join his campaign: <span class="cmp-name">' . ucwords($inv['title']) . '</span></p><br/>' . "\n";
+	   $html = $html . '<div>' . "\n";
+	   $html = $html . '<button class="accept-inv">Accept</button><button class="remove-inv">Remove</button>' . "\n";
+	   $html = $html . '</div>' . "\n";
+	   $html = $html . '</section> <!-- end .invitation -->' . "\n";
+	 }
+       } else {
+       
+         $html = $html . '<section class="invitation">' . "\n";
+	 $html = $html . '<p>There are no invitations yet</p>' . "\n";
+	 $html = $html . '</section> <!-- end .invitation -->' . "\n";
+       }
+
+       $html = $html . '</section> <!-- end #invitations -->' . "\n";
+
+       return $html;
+     }
 
     /**
      * A function to get the given character sheets initiative roll

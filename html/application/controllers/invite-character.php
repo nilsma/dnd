@@ -31,5 +31,5 @@ if(!empty($user_id) && $user_id >= 1 && !empty($sheet_id) && $sheet_id >= 1) {
 
 }
 
-header('Location: ../views/invitations.php');
+header('Location: ../views/gamemaster-invitations.php');
 ?>
