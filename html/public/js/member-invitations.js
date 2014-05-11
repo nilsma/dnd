@@ -1,9 +1,45 @@
 /**
+ * A function to have a character leave a campaign
+ */
+function leaveCampaign() {
+    var el = this.parentNode.parentNode;
+    getParams(el, function(result) {
+	initLeaveCampaign(result);
+    });
+}
+
+function initLeaveCampaign(params) {
+    var result;
+    var char_name = params[1];
+    var title = params[2];
+
+    if (window.XMLHttpRequest) {
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            result = xmlhttp.responseText;
+	    location.reload();
+        }
+    }
+
+    var p1 = "char_name=".concat(char_name);
+    var p2 = "&title=".concat(title);
+    var params = p1.concat(p2);
+    xmlhttp.open("POST", "../../application/controllers/member-leave-campaign.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(params);
+}
+
+/**
  * A function to accept a given characters related invitation in the database
  */
 function acceptInvite() {
     var el = this.parentNode.parentNode;
-    getInvitationParams(el, function(result) {
+    getParams(el, function(result) {
 	initAcceptInv(result);
     });
 }
@@ -45,7 +81,7 @@ function initAcceptInv(params) {
  */
 function removeInvite() {
     var el = this.parentNode.parentNode;
-    getInvitationParams(el, function(result) {
+    getParams(el, function(result) {
 	initRemoveInv(result);
     });
 }
@@ -88,11 +124,11 @@ function initRemoveInv(params) {
  * @param callback - a callback function
  * @return callback array - sends the resulting array back to the calling function
  */
-function getInvitationParams(el, callback) {
+function getParams(el, callback) {
     var params = new Array();
     params.push(el.getElementsByClassName('alias')[0].innerHTML);
     params.push(el.getElementsByClassName('char-name')[0].innerHTML);
-    params.push(el.getElementsByClassName('cmp-name')[0].innerHTML);
+    params.push(el.getElementsByClassName('title')[0].innerHTML);
     callback(params);
 }
 
@@ -115,6 +151,10 @@ function init() {
     var els = new Array();
     var els = document.getElementsByClassName('remove-inv');
     addListeners(els, removeInvite);
+
+    var els = new Array();
+    var els = document.getElementsByClassName('leave-campaign');
+    addListeners(els, leaveCampaign);
 
     //add listeners to the accept invitation button
     var els = new Array();

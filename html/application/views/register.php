@@ -1,31 +1,40 @@
 <?php
 session_start();
 
-//require_once $_SESSION['config'];
 require_once '../configs/config.php';
-
-//$css_path = BASE . CSS;
-//$js_path = BASE . JS;
-//$ctrls_path = CONTROLLERS;
-//$libs_path = BASE . LIBS;
-//$views_path = BASE . VIEWS;
-
-//require_once ROOT . BASE . VIEWS . 'head.php';
 
 require_once 'head.php';
 ?>
   <body id="register">
     <h1>Register view</h1>
 
-<?php 
+<?php
 if(isset($_SESSION['reg_failed'])) {
-  echo 'Your registration did not pass.<br/>';
+  echo 'Something went wrong while registering, please try again.';
+  $_SESSION['reg_failed'] = false;
+  unset($SESSION['reg_failed']);
+}
+
+if(isset($_SESSION['fail_user_details_exists'])) {
+  echo 'Username or email already exists!';
+  $_SESSION['fail_user_details_exists'] = false;
+  unset($_SESSION['fail_user_details_exists']);
+}
+
+if(isset($_SESSION['fail_no_password_match'])) {
+  echo 'The password does not match!';
+  $_SESSION['fail_no_password_match'] = false;
+  unset($_SESSION['fail_no_password_match']);
+}
+
+if(isset($_SESSION['fail_password_format'])) {
+  echo 'Wrong format on your passwords!<br/>';
   echo 'Please make sure that your passwords match,<br/>';
   echo 'is at least 6 characters long,<br/>';
   echo 'is not longer that 16 characters,<br/>';
   echo 'has at least one letter, one number and one uppercase letter!';
-  $_SESSION['reg_failed'] = false;
-  unset($_SESSION['reg_failed']);
+  $_SESSION['fail_password_format'] = false;
+  unset($_SESSION['fail_password_format']);
 }
 
 ?>
@@ -33,7 +42,6 @@ if(isset($_SESSION['reg_failed'])) {
       <div class="form-entry">
 	<fieldset>
 	  <legend>Register</legend>
-<!--	  <form name="register" action="<?php echo ROOT . CONTROLLERS . 'proc-registration.php' ?>" method="POST"> -->
 	  <form name="register" action="../controllers/proc-registration.php" method="POST">
 	    <label for="username">Username:</label><br/>
 	    <input name="username" type="text" maxlength="30" required><br/>

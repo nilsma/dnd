@@ -10,6 +10,87 @@ if(!class_exists('Gmsql')) {
     public function __construct() { }
 
     /**
+     * A function to check if a given membership already exists
+     * @param $sheet_id int - the sheet id
+     * @param $cmp_id int - the campaign id
+     * @return boolean - returns true if the invitation exists, false otherwise
+     */
+     public function membershipExists($sheet_id, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if (mysqli_connect_errno()) {
+	printf("Connect failed: %s\n", mysqli_connect_error());
+	exit();
+      }
+      
+      $query = "SELECT * FROM members WHERE sheet=? AND campaign=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('ii', $sheet_id, $cmp_id);
+	$stmt->execute();
+	$stmt->store_result();
+	$stmt->fetch();
+	$num_rows = $stmt->num_rows;
+
+	if($num_rows >= 1) {
+	  return true;
+	} else {
+	  return false;
+	}
+
+	$stmt->close();
+	
+      }
+      $mysqli->close();
+     }
+
+    /**
+     * A function to check if a given invite already exists
+     * @param $gm_id int - the gamemaster id
+     * @param $sheet_id int - the sheet id
+     * @param $cmp_id int - the campaign id
+     * @return boolean - returns true if the invitation exists, false otherwise
+     */
+     public function invitationExists($gm_id, $sheet_id, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if (mysqli_connect_errno()) {
+	printf("Connect failed: %s\n", mysqli_connect_error());
+	exit();
+      }
+      
+      $query = "SELECT * FROM invitations WHERE gamemaster=? AND sheet=? AND campaign=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('iii', $gm_id, $sheet_id, $cmp_id);
+	$stmt->execute();
+	$stmt->store_result();
+	$stmt->fetch();
+	$num_rows = $stmt->num_rows;
+
+	if($num_rows >= 1) {
+	  return true;
+	} else {
+	  return false;
+	}
+
+	$stmt->close();
+	
+      }
+      $mysqli->close();
+     }
+
+    /**
      * A function to add an entry to the invitations table of the database
      * @param $gm_id int - the gamemaster id of the owner of the campaign
      * @param $sheet_id int - the sheet id of the character to invite
@@ -151,9 +232,19 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<input type="submit" value="submit">' . "\n";
-      if(isset($_SESSION['invite_failed']) && $_SESSION['invite_failed'] = true) {
+
+      if(isset($_SESSION['fail_invitation_existence']) && $_SESSION['fail_invitation_existence'] = true) {
+        $html = $html . '<p class="invite-error">Character already invited!</p>' . "\n";
+      }
+
+      if(isset($_SESSION['fail_user_existence']) && $_SESSION['fail_user_existence'] = true) {
         $html = $html . '<p class="invite-error">User or character does not exist!</p>' . "\n";
       }
+
+      if(isset($_SESSION['fail_membership_existence']) && $_SESSION['fail_membership_existence'] = true) {
+        $html = $html . '<p class="invite-error">Character is already a member of this campaign!</p>' . "\n";
+      }
+
       $html = $html . '</form>' . "\n";
       $html = $html . '</fieldset>' . "\n";
       $html = $html . '</div>' . "\n";

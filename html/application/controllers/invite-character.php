@@ -17,18 +17,28 @@ $sheet_id = $csql->getSheetId($chars_name, $user_id);
 $cmp_id = $_SESSION['gm']['campaign']['id'];
 $gm_id = $_SESSION['gm_id'];
 
-if(isset($_SESSION['invite_failed'])) {
-  $_SESSION['invite_failed'] = false;
-  unset($_SESSION['invite_failed']);
-}
+$gmsql = new Gmsql();
+
+var_dump($_POST);
+echo '<br/>';
+
+$membershipExists = $gmsql->membershipExists($sheet_id, $cmp_id);
+$invitationExists = $gmsql->invitationExists($gm_id, $sheet_id, $cmp_id);
 
 if(!empty($user_id) && $user_id >= 1 && !empty($sheet_id) && $sheet_id >= 1) {
-  $gmsql = new Gmsql();
-  $gmsql->createInvite($gm_id, $sheet_id, $cmp_id);
+  if(!$invitationExists && !$membershipExists) {
+    $gmsql->createInvite($gm_id, $sheet_id, $cmp_id);
+  } else {
+    if($invitationExists) {
+      $_SESSION['fail_invitation_existence'] = true;
+    }
 
+    if($membershipExists) {
+      $_SESSION['fail_membership_existence'] = true;
+    }
+  }
 } else {
-  $_SESSION['invite_failed'] = true;
-
+  $_SESSION['fail_user_existence'] = true;
 }
 
 header('Location: ../views/gamemaster-invitations.php');

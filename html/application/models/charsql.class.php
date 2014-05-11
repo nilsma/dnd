@@ -10,6 +10,33 @@ if(!class_exists('Charsql')) {
     public function __construct() { }
 
     /**
+     * A function to have a character leave a given campaign
+     * @param $char_name string - the invitation's character name
+     * @param $user_id int - the character's owning user id
+     * @param $title string - the campaign's title
+     */
+     public function leaveCampaign($char_name, $user_id, $title) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_error) {
+	printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      $query = "DELETE FROM members USING members, sheets, users, campaigns WHERE members.sheet=sheets.id AND sheets.name=? AND sheets.owner=users.id AND users.id=? AND members.campaign=campaigns.id AND campaigns.title=?";
+      $query = $mysqli->real_escape_string($query);
+
+      if($stmt = $mysqli->prepare($query)) {
+	$stmt->bind_param('sis', $char_name, $user_id, $title);
+	$stmt->execute();
+
+	$stmt->close();
+      }
+
+      $mysqli->close();
+     
+     }
+
+    /**
      * A function to accept an invite from the member's invitations view
      * @param $alias string - the invitation's gamemaster alias
      * @param $char_name string - the invitation's character name
@@ -206,7 +233,7 @@ if(!class_exists('Charsql')) {
 	   $html = $html . '<section class="membership">' . "\n";
 	   $html = $html . '<p>Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
 	   $html = $html . '<div>' . "\n";
-	   $html = $html . '<button class="leave-group">Leave</button>' . "\n";
+	   $html = $html . '<button class="leave-campaign">Leave</button>' . "\n";
 	   $html = $html . '</div>' . "\n";
 	   $html = $html . '</section> <!-- end .membership -->' . "\n";
 	 }
@@ -238,7 +265,7 @@ if(!class_exists('Charsql')) {
        if(count($invitations) > 0) {
          foreach($invitations as $inv) {
 	   $html = $html . '<section class="invitation">' . "\n";
-	   $html = $html . '<p><span class="alias">' . ucwords($inv['alias']) . '</span> has invited your character <span class="char-name">' . ucwords($inv['name']) . '</span> to join his campaign: <span class="cmp-name">' . ucwords($inv['title']) . '</span></p><br/>' . "\n";
+	   $html = $html . '<p><span class="alias">' . ucwords($inv['alias']) . '</span> has invited your character <span class="char-name">' . ucwords($inv['name']) . '</span> to join his campaign: <span class="title">' . ucwords($inv['title']) . '</span></p><br/>' . "\n";
 	   $html = $html . '<div>' . "\n";
 	   $html = $html . '<button class="accept-inv">Accept</button><button class="remove-inv">Remove</button>' . "\n";
 	   $html = $html . '</div>' . "\n";

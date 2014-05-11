@@ -15,6 +15,21 @@ $_SESSION['gm'] = $gm;
 
 $invHTML = $gmsql->buildInvHTML($gm['invitations'], $gm['members']);
 
+if(isset($_SESSION['fail_user_existence'])) {
+  $_SESSION['fail_user_existence'] = false;
+  unset($_SESSION['fail_user_existence']);
+}
+
+if(isset($_SESSION['fail_invitation_existence'])) {
+  $_SESSION['fail_invitation_existence'] = false;
+  unset($_SESSION['fail_invitation_existence']);
+}
+
+if(isset($_SESSION['fail_membership_existence'])) {
+  $_SESSION['fail_membership_existence'] = false;
+  unset($_SESSION['fail_membership_existence']);
+}
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -45,7 +45,7 @@ if(count($characters) > 0) {
         <p class="nav-paragraph"><a href="member-invitations.php">Manage Invitations</a></p>
 	<p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
 	<p class="nav-paragraph"><a href="create-character.php">Create Character</a></p>
-	<p class="nav-paragraph">or <a href="proc-logout.php">Logout</a></p>
+	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
     </div> <!-- end #main-contianer -->
   </body>
