@@ -3,10 +3,9 @@ session_start();
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
     header('Location: http://127.0.1.1/dnd/html/index.php');
+//    header('Location: http://dnd.nima-design.net');
 }
 
-//require_once $_SESSION['config'];
-//require_once ROOT . BASE . MODELS . 'charsql.class.php';
 require_once '../configs/config.php';
 require_once '../models/charsql.class.php';
 
@@ -16,7 +15,6 @@ $csql = new Charsql();
 $char = $csql->getCharacter($sheet_id);
 $characterHTML = $csql->buildCharacterHTML($char);
 
-//require_once ROOT . BASE . VIEWS . 'head.php';
 
 ?>
 <html lang="en">
@@ -33,9 +31,6 @@ $characterHTML = $csql->buildCharacterHTML($char);
 	<?php echo $characterHTML; ?>
       </div> <!-- end #outer-form-container -->
       <section class="sec-nav-container">
-<!--	<p><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Back to Characters View</a></p>
-	<p><a href="<?php echo BASE . CONTROLLERS . 'delete-character.php'; ?>">Delete Character</a></p>
-	<p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p> -->
 	<p><a href="characters.php">Back to Characters View</a></p>
 	<p><a href="../controllers/delete-character.php">Delete Character</a></p>
 	<p>or <a href="../controllers/proc-logout.php">Logout</a></p>

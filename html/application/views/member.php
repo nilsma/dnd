@@ -2,11 +2,10 @@
 session_start();
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-//    header('Location: http://127.0.1.1/dnd/html/index.php');
-    header('Location: http://dnd.nima-design.net/');
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+//    header('Location: http://dnd.nima-design.net');
 }
 
-//require_once $_SESSION['config'];
 require_once '../configs/config.php';
 
 if(isset($_SESSION['gm'])) {
@@ -24,7 +23,6 @@ if(isset($_SESSION['sheet_id'])) {
   unset($_SESSION['sheet_id']);
 }
 
-//require_once ROOT . BASE . VIEWS . 'head.php';
 require_once 'head.php';
 
 ?>
@@ -37,9 +35,6 @@ require_once 'head.php';
     <div id="main-container">
       <h1>Member view</h1>
       <section class="sec-nav-container">
-<!--	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'characters.php'; ?>">Slay Some Dwagons!</a></p>
-	<p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'gamemasters.php'; ?>">Rule Ze World!</a></p>
-	<p class="nav-paragraph">or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p> -->
 	<p class="nav-paragraph"><a href="characters.php">Slay Some Dwagons!</a></p>
 	<p class="nav-paragraph"><a href="gamemasters.php">Rule Ze World!</a></p>
 	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>

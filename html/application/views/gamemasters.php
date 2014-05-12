@@ -2,13 +2,10 @@
 session_start();
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-//    header('Location: http://127.0.1.1/dnd/html/index.php');
-    header('Location: http://dnd.nima-design.net');
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+//    header('Location: http://dnd.nima-design.net');
 }
 
-//require_once $_SESSION['config'];
-//require_once ROOT . BASE . MODELS . 'membersql.class.php';
-//require_once ROOT . BASE . MODELS . 'gmsql.class.php';
 require_once '../configs/config.php';
 require_once '../models/membersql.class.php';
 require_once '../models/gmsql.class.php';
@@ -31,7 +28,6 @@ if(isset($_SESSION['gm'])) {
   unset($_SESSION['gm']);
 }
 
-//require_once ROOT . BASE . VIEWS . 'head.php';
 require_once 'head.php';
 
 ?>
@@ -52,9 +48,6 @@ if(count($gamemasters) > 0) {
 	</div> <!-- end .form-entry -->
       </div> <!-- end #outer-form-container -->
     <section class="sec-nav-container">
-<!--      <p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'member.php'; ?>">Back to Member View</a></p>
-      <p class="nav-paragraph"><a href="<?php echo BASE . VIEWS . 'create-gamemaster.php';?>">Create Gamemaster</a></p>
-      <p>or <?php echo '<a href="' . BASE . CONTROLLERS . 'proc-logout.php">Logout</a>' ?></p> -->
       <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
       <p class="nav-paragraph"><a href="create-gamemaster.php">Create Gamemaster</a></p>
       <p>or <a href="../controllers/proc-logout.php">Logout</a></p>

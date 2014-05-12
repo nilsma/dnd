@@ -2,7 +2,8 @@
 session_start();
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-    header('Location: http://dnd.nima-design.net');
+    header('Location: http://127.0.1.1/dnd/html/index.php');
+//    header('Location: http://dnd.nima-design.net');
 }
 
 require_once '../configs/config.php';
@@ -12,6 +13,9 @@ require_once '../models/charsql.class.php';
 $db = new Membersql();
 $characters = $db->getCharacters($_SESSION['user_id']);
 
+var_dump($characters);
+
+/*
 if(isset($_SESSION['gm_id'])) {
   $_SESSION['gm_id'] = false;
   unset($_SESSION['gm_id']);
@@ -33,7 +37,7 @@ require_once 'head.php';
 <?php
 if(count($characters) > 0) {
   $csql = new Charsql();
-  $html = $csql->buildCharacterSelect($characters);
+  $html = $csql->buildCharactersList($characters);
   echo $html;
 } else {
   echo '<p>You have not created any characters yet!</p>';
@@ -50,3 +54,4 @@ if(count($characters) > 0) {
     </div> <!-- end #main-contianer -->
   </body>
 </html>
+*/
