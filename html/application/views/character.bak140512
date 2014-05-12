@@ -15,10 +15,6 @@ $csql = new Charsql();
 $char = $csql->getCharacter($sheet_id);
 $characterHTML = $csql->buildCharacterHTML($char);
 
-if(isset($_SESSION['chosen'])) {
-  $_SESSION['chosen'] = false;
-  unset($_SESSION['chosen']);
-}
 
 ?>
 <html lang="en">

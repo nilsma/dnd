@@ -54,17 +54,21 @@ if(!class_exists('Mysql')) {
 	exit();
       }
 
-      $query = "SELECT id, name, class, level FROM sheets WHERE owner=?";
+      $query = "SELECT name, class, level FROM sheets WHERE owner=?";
       $query = $mysqli->real_escape_string($query);
       $results = array();
 
       if($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
-	$stmt->bind_result($id, $name, $class, $level);
+	$stmt->bind_result($name, $class, $level);
 
 	while($stmt->fetch()) {
-	  $results[$id] = array($name, $class, $level);
+	  $results[] = array(
+			     'name' => $name,
+			     'class' => $class,
+			     'level' => $level
+			     );
 	}
 
 	return $results;

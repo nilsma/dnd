@@ -414,9 +414,39 @@ if(!class_exists('Charsql')) {
     }
 
     /**
+     * A function to build an HTML representation of the characters overview list
+     * @param $characters array - an array holding the characters' details
+     */
+    public function buildCharactersList($characters) {
+      $html = '';
+
+      $html = $html . '<section id="characters">' . "\n";
+      $html = $html . '<div>' . "\n";
+      $html = $html . '<h2>Characters</h2>' . "\n";
+      $html = $html . '</div>' . "\n";
+      
+      if(count($characters) > 0) {
+	foreach($characters as $c) {
+	  $html = $html . '<section class="character">' . "\n";
+	  $html = $html . '<p><span class="char-name">' . ucwords($c['name']) . '</span> Level <span class="level">' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
+	  $html = $html . '</section> <!-- end .character -->' . "\n";
+	}
+      } else {
+	$html = $html . '<section class="character">' . "\n";
+	$html = $html . '<p>You have not made any characters yet.</p>' . "\n";
+	$html = $html . '</section> <!-- end .character -->' . "\n";
+      }
+
+      $html = $html . '</section> <!-- end #characters -->' . "\n";
+      
+      return $html;
+    }
+
+    /**
      * A function to build the form for character selection
      * @param $characters array - an array holding the characters to list in the form
      */
+    /*
     public function buildCharacterSelect($characters) {
       $html = '';
 
@@ -435,6 +465,7 @@ if(!class_exists('Charsql')) {
       return $html;
 
     }
+    */
 
     /**
      * A function to delete the given character sheet, and the

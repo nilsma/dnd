@@ -13,22 +13,24 @@ require_once '../models/charsql.class.php';
 $db = new Membersql();
 $characters = $db->getCharacters($_SESSION['user_id']);
 
-var_dump($characters);
-
-/*
 if(isset($_SESSION['gm_id'])) {
   $_SESSION['gm_id'] = false;
   unset($_SESSION['gm_id']);
 }
 
-if(isset($_SESSION['sheet_id'])) {
-  $_SESSION['sheet_id'] = false;
-  unset($_SESSION['sheet_id']);
+if(isset($_SESSION['chosen'])) {
+  header('Location: character.php');
 }
 
-require_once 'head.php';
-
 ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../public/css/main.css"/>
+    <script type="text/javascript" src="../../public/js/chars.js"></script>
+    <title>DND Helper</title>
+  </head>
   <body>
     <div id="main-container">
       <h1>Characters view</h1>
@@ -54,4 +56,3 @@ if(count($characters) > 0) {
     </div> <!-- end #main-contianer -->
   </body>
 </html>
-*/

@@ -5,7 +5,7 @@
 
 html {
     min-height: 100%;
-//    overflow: hidden;
+    overflow: hidden;
     }
 
 body {
@@ -130,7 +130,8 @@ section#gm-details,
 section#invitations div:first-child,
 section#current-members div:first-child,
 section#invite div:first-child,
-section#memberships div:first-child {
+section#memberships div:first-child,
+section#characters div:first-child {
     border: 1px dashed black;
     margin-bottom: 1em;
     }
@@ -139,7 +140,8 @@ section#gm-details h2,
 section#invitations h2,
 section#current-members h2,
 section#invite h2,
-section#memberships h2 {
+section#memberships h2,
+section#characters h2 {
     font-family: sans-serif;
     font-size: 1.7em;
     font-weight: normal;
@@ -274,13 +276,15 @@ section.member section.purse h5 {
     }
 
 section.member section.attributes h5:hover,
-section.member section.purse h5:hover {
+section.member section.purse h5:hover,
+section.character:hover {
     background-color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     }
 
 section.member section.attributes h5:active,
-section.member section.attributes h5:active {
+section.member section.attributes h5:active,
+section.character:active {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     }
@@ -295,7 +299,8 @@ section.member section.purse {
 section.invitation,
 section.current-member,
 section#invite div:nth-child(2),
-section.membership {
+section.membership,
+section.character {
     background-color: rgba(255, 255, 255, 0.3);
     border: 1px dashed black;
     box-shadow: 1px 2px 2px #333;

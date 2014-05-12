@@ -41,7 +41,7 @@ if(isset($_SESSION['fail_user_details_exists'])) {
 
 if(isset($_SESSION['fail_no_password_match'])) {
   echo '<div class="reg-error">' . "\n";
-  echo '<p>The passwords does not match!</p>';
+  echo '<p>The passwords does not match!</p>' . "\n";
   echo '</div>' . "\n";
   $_SESSION['fail_no_password_match'] = false;
   unset($_SESSION['fail_no_password_match']);
