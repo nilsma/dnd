@@ -13,10 +13,20 @@ if(isset($_SESSION['gm_id'])) {
   unset($_SESSION['gm_id']);
 }
 
-require_once 'head.php';
+//require_once 'head.php';
 
 ?>
-  <body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel="stylesheet" href="../../public/css/main.css"/>
+<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
+<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
+    <title>DND Helper</title>
+  </head>
+  <body id="gamemaster-create">
     <h1>Create Gamemaster View</h1>
     <div id="main-container">
       <div id="outer-form-container">
@@ -31,7 +41,7 @@ require_once 'head.php';
 	</div> <!-- end .form-entry -->
       </div> <!-- end #outer-form-container -->
         <section class="sec-nav-container">
-	<p class="nav-paragraph"><a href="gamemasters.php">Back to Member View</a></p>
+	<p class="nav-paragraph"><a href="gamemasters.php">Back to Gamemasters View</a></p>
 	<p class="nav-paragraph">or <a href="proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
     </div> <!-- end #main-container -->

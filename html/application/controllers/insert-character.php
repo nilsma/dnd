@@ -6,9 +6,6 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: http://dnd.nima-design.net');
 }
 
-//require_once $_SESSION['config'];
-//require_once ROOT . BASE . MODELS . 'utils.class.php';
-//require_once ROOT . BASE . MODELS . 'charsql.class.php';
 require_once '../configs/config.php';
 require_once '../models/utils.class.php';
 require_once '../models/charsql.class.php';
@@ -44,13 +41,13 @@ $sheet['dmg'] = 0;
 $sheet['init_mod'] = $_POST['init_mod'];
 $sheet['init_roll'] = 0;
 
-$sheet_id = $csql->insertSheet($sheet, $attrs, $purse);
-
-$_SESSION['sheet_id'] = $sheet_id;
-
-echo '<br/><br/>' . $_SESSION['sheet_id'];
-
-//header('Location: ' . BASE . VIEWS . 'character.php');
-header('Location: ../views/character.php');
+if(!$csql->alreadyOwnsName($_SESSION['user_id'], $sheet['name'])) {
+  $sheet_id = $csql->insertSheet($sheet, $attrs, $purse);
+  $_SESSION['sheet_id'] = $sheet_id;
+  header('Location: ../views/characters.php');
+} else {
+  header('Location: ../views/create-character.php');
+  //TODO define else rule
+}
 
 ?>

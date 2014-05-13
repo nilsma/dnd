@@ -10,6 +10,45 @@ if(!class_exists('Charsql')) {
     public function __construct() { }
 
     /**
+     * A function to check whether a given user already has a character of a given name
+     * @param $user_id int - the user id of the sheet owner
+     * @param $char_name string - the name of the character to check for
+     * @return boolean - returns true if the given user already owns a character of that name, false otherwise
+     */
+    public function alreadyOwnsName($user_id, $char_name) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error());
+        exit();
+      }
+
+      $query = "SELECT * FROM sheets as s, users as u WHERE s.name=? AND s.owner=u.id AND u.id=?";
+      $query = $mysqli->real_escape_string($query);
+      $results = array();
+
+      if($stmt = $mysqli->prepare($query)) {
+         $stmt->bind_param('si', $char_name, $user_id);
+         $stmt->execute();
+         $stmt->store_result();
+         $stmt->fetch();
+         $num_rows = $stmt->num_rows;
+
+         $stmt->close();
+
+         if($num_rows >= 1) {
+           return true;
+         } else {
+          return false;
+         }
+     }
+
+      $mysqli->close();
+
+    }
+
+
+    /**
      * A function to have a character leave a given campaign
      * @param $char_name string - the invitation's character name
      * @param $user_id int - the character's owning user id
@@ -569,19 +608,24 @@ if(!class_exists('Charsql')) {
       $purseHTML = $this->buildPurse($purse);
 
       $html = '';
+      $html = $html . '<section id="character">' . "\n";
       $html = $html . '<div id="top-entries">' . "\n";
       $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<h2>Personalia</h2>' . "\n";
       $html = $html . $sheetHTML . "\n";
       $html = $html . '</div> <!-- end .form-entry -->' . "\n";
       $html = $html . '</div> <!-- end #top-entries -->' . "\n";
       $html = $html . '<div id="bottom-entries">' . "\n";
       $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<h2>Attributes</h2>' . "\n";
       $html = $html . $attrsHTML . "\n";
       $html = $html . '</div> <!-- end .form-entry -->' . "\n";
       $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<h2>Purse</h2>' . "\n";
       $html = $html . $purseHTML . "\n";
       $html = $html . '</div> <!-- end .form-entry -->' . "\n";
       $html = $html . '</div> <!-- end #bottom-entries -->' . "\n";
+      $html = $html . '</section> <!-- end #character -->' . "\n";
       
       return $html;
 

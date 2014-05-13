@@ -28,10 +28,20 @@ if(isset($_SESSION['gm'])) {
   unset($_SESSION['gm']);
 }
 
-require_once 'head.php';
+//require_once 'head.php';
 
 ?>
-  <body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel="stylesheet" href="../../public/css/main.css"/>
+<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
+<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
+    <title>DND Helper</title>
+  </head>
+  <body id="gamemasters-overview">
     <h1>Gamemasters view</h1>
     <div id="main-container">
       <div id="outer-form-container">

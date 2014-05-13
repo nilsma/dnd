@@ -8,9 +8,19 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 
 require_once '../configs/config.php';
 
-require_once 'head.php';
+//require_once 'head.php';
 ?>
-  <body id="create-character">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
+    <link rel="stylesheet" href="../../public/css/main.css"/>
+<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
+<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
+    <title>DND Helper</title>
+  </head>
+  <body id="character-create">
     <div id="main-container">
       <h1>Create Character View</h1>
       <div id="outer-form-container">
@@ -53,7 +63,7 @@ require_once 'head.php';
 	</div> <!-- end #top-entries -->
       </div> <!-- end #outer-form-container -->
       <section class="sec-nav-container">
-	<p class="nav-paragraph"><a href="characters.php">Back to Member View</a></p>
+	<p class="nav-paragraph"><a href="characters.php">Back to Characters View</a></p>
 	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
     </div> <!-- end #main-container -->

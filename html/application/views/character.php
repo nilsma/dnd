@@ -24,11 +24,12 @@ if(isset($_SESSION['chosen'])) {
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <script type="text/javascript" src="../../public/js/char.js"></script>
     <title>DND Helper</title>
   </head>
-  <body id="character">
+  <body id="character-sheet">
     <div id="main-container">
       <h1>Character View</h1>
       <div id="outer-form-container">
@@ -36,7 +37,7 @@ if(isset($_SESSION['chosen'])) {
       </div> <!-- end #outer-form-container -->
       <section class="sec-nav-container">
 	<p><a href="characters.php">Back to Characters View</a></p>
-	<p><a href="../controllers/delete-character.php">Delete Character</a></p>
+	<p><a href="../views/confirm-delete-character.php">Delete Character</a></p>
 	<p>or <a href="../controllers/proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
     </div> <!-- end #main-container -->

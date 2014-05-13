@@ -10,6 +10,88 @@ if(!class_exists('Gmsql')) {
     public function __construct() { }
 
     /**
+     * A function to delete a gamemaster and subsequently it's campaigns
+     * and all invitations and memberships related to that campaing - this
+     * will not delete the actual sheets (characters) from the application database
+     * @param $user_id int - the id of the gamemaster's owner
+     * @param $gm_id int - the id of the gamemaster
+     * @param $cmp_id int - the id of the gamemaster's related campaign
+     * @return int - the number of affected rows in the database
+     */
+    public function deleteGamemaster($user_id, $gm_id, $cmp_id) {
+      $mysqli = $this->connect();
+
+      if($mysqli->connect_errno) {
+        printf("Connection failed: %s\n", $mysqli->connect_error);
+      }
+
+      try {
+        $mysqli->autocommit(FALSE);
+
+        //begin delete memberships
+	$query = "DELETE FROM members USING members, campaigns, gamemasters, users WHERE members.campaign=campaigns.id AND campaigns.id=? AND campaigns.gamemaster=gamemasters.id AND gamemasters.id=? AND gamemasters.owner=users.id AND users.id=?";
+        $query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error . ' || ' . $mysqli->errno);
+        }
+
+        $stmt->bind_param('iii', $cmp_id, $gm_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+
+       //begin delete invitations
+	$query = "DELETE FROM invitations USING invitations, campaigns, gamemasters, users WHERE invitations.campaign=campaigns.id AND campaigns.id=? AND campaigns.gamemaster=gamemasters.id AND gamemasters.id=? AND gamemasters.owner=users.id AND users.id=?";
+        $query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error);
+        }
+
+	$stmt->bind_param('iii', $cmp_id, $gm_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+
+       //begin delete campaigns
+        $query = "DELETE FROM campaigns USING campaigns, gamemasters, users WHERE campaigns.id=? AND campaigns.gamemaster=gamemasters.id AND gamemasters.id=? AND gamemasters.owner=users.id AND users.id=?";
+        $query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error);
+        }
+
+        $stmt->bind_param('iii', $cmp_id, $gm_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+
+       //begin delete gamemasters
+        $query = "DELETE FROM gamemasters USING gamemasters, users WHERE gamemasters.id=? AND gamemasters.owner=users.id AND users.id=?";
+        $query = $mysqli->real_escape_string($query);
+
+        if(!$stmt = $mysqli->prepare($query)) {
+          throw new Exception($mysqli->error);
+        }
+
+        $stmt->bind_param('ii', $gm_id, $user_id);
+        $stmt->execute();
+        $stmt->close();
+
+        $mysqli->commit();
+
+	return $mysqli->affected_rows;
+
+      } catch(Exception $e) {
+        $mysqli->rollback();
+        $mysqli->autocommit(TRUE);
+        echo 'Caught exception: ' . $e->getMessage();
+
+      }
+
+      $mysqli->close();
+
+    }
+
+    /**
      * A function to check if a given membership already exists
      * @param $sheet_id int - the sheet id
      * @param $cmp_id int - the campaign id

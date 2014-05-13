@@ -27,11 +27,12 @@ if(isset($_SESSION['chosen'])) {
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <script type="text/javascript" src="../../public/js/chars.js"></script>
     <title>DND Helper</title>
   </head>
-  <body>
+  <body id="characters-overview">
     <div id="main-container">
       <h1>Characters view</h1>
       <div id="outer-form-container">
