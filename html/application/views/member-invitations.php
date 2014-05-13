@@ -27,8 +27,8 @@ $invHTML = $csql->buildInvHTML($invitations, $memberships);
   </head>
   <body id="characters-invitations">
     <div id="main-container">
+      <h1>Invitations View</h1>
       <div id="inner-container">
-	<h1>Invitations View</h1>
 	<?php echo $invHTML; ?>
 	<p><a href="characters.php">Back to Characters View</a></p>
 	<p>or <a href="../controllers/proc-logout.php">Logout</a></p>

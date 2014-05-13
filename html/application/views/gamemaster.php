@@ -34,8 +34,8 @@ $gamemasterHTML = $gmsql->buildGamemasterHTML($gm);
   </head>
   <body id="gamemaster-screen">
     <div id="main-container">
+      <h1>Gamemaster View</h1>
       <div id="inner-container">
-	<h1>Gamemaster View</h1>
 	<?php echo $gamemasterHTML; ?>
 	<section class="sec-nav-container">
 	  <p class="nav-paragraph"><a href="gamemaster-invitations.php">Manage Invitations</a></p>

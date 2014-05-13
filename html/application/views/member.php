@@ -33,18 +33,18 @@ if(isset($_SESSION['sheet_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
-<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
-<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
     <title>DND Helper</title>
   </head>
   <body id="member-landing">
     <div id="main-container">
       <h1>Member view</h1>
-      <section class="sec-nav-container">
-	<p class="nav-paragraph"><a href="characters.php">Slay Some Dwagons!</a></p>
-	<p class="nav-paragraph"><a href="gamemasters.php">Rule Ze World!</a></p>
-	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
-      </section> <!-- end .sec-nav-container -->
+      <div id="inner-container">
+	<section class="sec-nav-container">
+	  <p class="nav-paragraph"><a href="characters.php">Slay Some Dwagons!</a></p>
+	  <p class="nav-paragraph"><a href="gamemasters.php">Rule Ze World!</a></p>
+	  <p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
+	</section> <!-- end .sec-nav-container -->
+      </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
 </html>

@@ -1,0 +1,338 @@
+* {
+    margin: 0;
+    padding: 0;
+    }
+
+html {
+    min-height: 100%;
+//    overflow: hidden;
+    }
+
+body {
+    background-image: url('../images/parchment4.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    }
+
+h1 {
+    display: none;
+    }
+
+div#main-container {
+    display: block;
+    width: 100%;
+    }
+
+.form-entry {
+    margin: 3em auto 0;
+    text-align: center;
+    width: 80%;
+    }
+
+fieldset {
+    border: 0;
+    }
+
+//body#character fieldset,
+body#create-character fieldset {
+    border: 1px dashed black;
+    }
+
+body#create-character fieldset {
+    margin-bottom: 3em;
+    }
+
+legend {
+    display: none;
+    }
+
+//body#character legend,
+body#create-character legend {
+    display: block;
+    font-family: sans-serif;
+    }
+
+form {
+    font-family: sans-serif;
+    text-align: center;
+    }
+
+form label {
+    font-size: 0.85em;
+    }
+
+form input {
+    margin: 0.5em 0 1.5em 0.25em;
+    }
+
+body#character input#name,
+body#character input#class {
+    width: 11.5em;
+    }
+
+body#character input#level,
+body#create-character input#level {
+    margin-right: 1em;
+    width: 3em;
+    }
+
+body#character input#experience_points,
+body#create-character input#experience_points {
+    width: 7em;
+    }
+
+body#character input#hitpoints,
+body#create-character input#hitpoints {
+    width: 9em;
+    }
+
+body#character input#initiativeRoll,
+body#character input#modifier,
+body#create-character input#initiativeRoll,
+body#create-character input#initiativeModifier {
+    width: 4em;
+    }
+
+body#character div#bottom-entries div:first-child input {
+    margin-right: 1em;
+    text-align: center;
+    width: 4em;
+    }
+
+body#create-character fieldset:nth-child(2) input {
+    margin-right: 1em;
+    text-align: center;
+    width: 4em;
+    }
+
+section.sec-nav-container {
+    font-family: sans-serif;
+    font-size: 1em;
+    margin-top: 3em;
+    text-align: center;
+    }
+
+p.nav-paragraph {
+    margin: 0 0 1em 0;
+    }
+
+button.accept-inv {
+    margin-right: 1em;
+    }
+
+/* ---------------------- */
+/* ----- GAMEMASTER ----- */
+/* ---------------------- */
+
+div#inner-container {
+    margin: 3em auto 0;
+    text-align: center;
+    width: 80%;
+    }
+
+section#gm-details,
+section#invitations div:first-child,
+section#current-members div:first-child,
+section#invite div:first-child,
+section#memberships div:first-child,
+section#characters div:first-child,
+section#character div:first-child,
+div.inner-header {
+    border: 1px dashed black;
+    margin-bottom: 1em;
+    }
+
+section#gm-details h2,
+section#invitations h2,
+section#current-members h2,
+section#invite h2,
+section#memberships h2,
+section#characters h2,
+div.form-entry h2,
+div.inner-header h2 {
+    font-family: sans-serif;
+    font-size: 1.7em;
+    font-weight: normal;
+    }
+
+section#gm-details h3 {
+    font-family: sans-serif;
+    font-size: 1.1em;
+    font-weight: normal;
+    }
+
+section#tools {
+    margin-bottom: 1em;
+    text-align: right;
+    }
+
+section#tools button {
+    margin-left: 0.75em;
+    }
+
+section#members h3 {
+    display: none;
+    }
+
+section.member {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed black;
+    box-shadow: 1px 2px 2px #333;
+    font-family: sans-serif;
+    margin-bottom: 1em;
+    }
+
+section.member div.trigger {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    }
+
+section.member div.trigger:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    }
+
+section.member div.trigger:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    }
+
+div.name {
+    align-items: center;
+    border-right: 1px solid black;
+    display: flex;
+    width: 50%;
+    }
+
+div.name h4 {
+    font-size: 1.5em;
+    font-weight: normal;
+    text-align: center;
+    width: 100%;
+    }
+
+div.inner-head-wrapper {
+    padding: 0.25em 0.5em;
+    }
+
+div.inner-head-wrapper h4 {
+    font-size: 1.3em;
+    font-weight: normal;
+    }
+
+div.inner-head-wrapper span.label {
+    font-size: 0.6em;
+    font-weight: normal;
+    }
+
+div.inner-head-wrapper div.initiative {
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5em;
+    padding: 0.25em;
+    }
+
+div.inner-head-wrapper div.health h4 {
+    font-size: 1.2em;
+    }
+
+section.member table th {
+    font-weight: normal;
+    letter-spacing: 1px;
+    }
+
+section.member table caption {
+    display: none;
+    }
+
+section.member table {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1em;
+    padding: 0.5em 0;
+    width: 90%;
+    }
+
+section.member th, td {
+    padding: 2px 4px;
+    }
+
+section.member table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    }
+
+section.member section.personalia p {
+    margin-bottom: 0.25em;
+    }
+
+section.member section.personalia p:last-child {
+    margin-bottom: 0;
+    }
+
+section.member section.attributes h5,
+section.member section.purse h5 {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0 auto;
+    padding: 0.25em 0 0.25em 0;
+    width: 90%;
+    }
+
+section.member section.attributes h5:hover,
+section.member section.purse h5:hover,
+section.character:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    }
+
+section.member section.attributes h5:active,
+section.member section.attributes h5:active,
+section.character:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    }
+
+section.member section.personalia,
+section.member section.attributes,
+section.member section.purse {
+    display: block;
+    margin-top: 0.5em;
+    }
+
+section.invitation,
+section.current-member,
+section#invite div:nth-child(2),
+section.membership,
+section.character,
+div#personalia,
+div#attributes,
+div#purse {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed black;
+    box-shadow: 1px 2px 2px #333;
+    display: flex;
+    font-family: sans-serif;
+    justify-content: space-around;
+    margin-bottom: 1em;
+    padding: 1em;
+    }
+
+section.invitation p {
+    margin-right: 2em;
+    }
+
+section#current-members,
+section#invitations,
+section#memberships,
+body#character-sheet div.inner-header {
+    margin-top: 3em;
+    }
+
+body#character-sheet div.inner-header:nth-child(1) {
+    margin-top: 0;
+    }
+

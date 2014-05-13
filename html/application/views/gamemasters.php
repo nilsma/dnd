@@ -37,14 +37,12 @@ if(isset($_SESSION['gm'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
-<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
-<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
     <title>DND Helper</title>
   </head>
   <body id="gamemasters-overview">
-    <h1>Gamemasters view</h1>
     <div id="main-container">
-      <div id="outer-form-container">
+      <h1>Gamemasters view</h1>
+      <div id="inner-container">
 	<div class="form-entry">
 <?php
 if(count($gamemasters) > 0) {
@@ -56,12 +54,12 @@ if(count($gamemasters) > 0) {
 }
 ?>
 	</div> <!-- end .form-entry -->
-      </div> <!-- end #outer-form-container -->
-    <section class="sec-nav-container">
-      <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
-      <p class="nav-paragraph"><a href="create-gamemaster.php">Create Gamemaster</a></p>
-      <p>or <a href="../controllers/proc-logout.php">Logout</a></p>
-    </section> <!-- end .sec-nav-container -->
+	<section class="sec-nav-container">
+	  <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
+	  <p class="nav-paragraph"><a href="create-gamemaster.php">Create Gamemaster</a></p>
+	  <p>or <a href="../controllers/proc-logout.php">Logout</a></p>
+	</section> <!-- end .sec-nav-container -->
+      </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
 </html>

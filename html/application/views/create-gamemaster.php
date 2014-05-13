@@ -22,14 +22,12 @@ if(isset($_SESSION['gm_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
-<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
-<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
     <title>DND Helper</title>
   </head>
   <body id="gamemaster-create">
-    <h1>Create Gamemaster View</h1>
     <div id="main-container">
-      <div id="outer-form-container">
+      <h1>Create Gamemaster View</h1>
+      <div id="inner-container">
 	<div class="form-entry">
 	  <fieldset>
 	    <form name="gamemaster" action="../controllers/insert-gamemaster.php" method="POST">
@@ -39,11 +37,11 @@ if(isset($_SESSION['gm_id'])) {
 	    </form>
 	  </fieldset>
 	</div> <!-- end .form-entry -->
-      </div> <!-- end #outer-form-container -->
         <section class="sec-nav-container">
-	<p class="nav-paragraph"><a href="gamemasters.php">Back to Gamemasters View</a></p>
-	<p class="nav-paragraph">or <a href="proc-logout.php">Logout</a></p>
+	  <p class="nav-paragraph"><a href="gamemasters.php">Back to Gamemasters View</a></p>
+	  <p class="nav-paragraph">or <a href="proc-logout.php">Logout</a></p>
       </section> <!-- end .sec-nav-container -->
+      </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
 </html>

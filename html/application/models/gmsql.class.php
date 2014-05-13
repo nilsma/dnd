@@ -437,7 +437,9 @@ if(!class_exists('Gmsql')) {
       $html = '';
       
       $html = $html . '<section id="gm-details">' . "\n";
+      $html = $html . '<div class="inner-header">' . "\n";
       $html = $html . '<h2>' . ucfirst($det['alias']) . ' - ' . ucfirst($cmp['title']) . '</h2>' . "\n";
+      $html = $html . '</div>' . "\n";
       //      $html = $html . '<h3>(There ' . $noun . ' ' . $cnt . ' ' . $sbj . ')</h3>' . "\n";
       $html = $html . '</section> <!-- end #gm-details -->' . "\n";
       $html = $html . '<section id="tools">' . "\n";

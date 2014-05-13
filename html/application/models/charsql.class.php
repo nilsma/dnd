@@ -459,24 +459,24 @@ if(!class_exists('Charsql')) {
     public function buildCharactersList($characters) {
       $html = '';
 
-      $html = $html . '<section id="characters">' . "\n";
-      $html = $html . '<div>' . "\n";
-      $html = $html . '<h2>Characters</h2>' . "\n";
-      $html = $html . '</div>' . "\n";
+      $html = $html . '        <section id="characters">' . "\n";
+      $html = $html . '          <div>' . "\n";
+      $html = $html . '            <h2>Characters</h2>' . "\n";
+      $html = $html . '          </div>' . "\n";
       
       if(count($characters) > 0) {
 	foreach($characters as $c) {
-	  $html = $html . '<section class="character">' . "\n";
-	  $html = $html . '<p><span class="char-name">' . ucwords($c['name']) . '</span> Level <span class="level">' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
-	  $html = $html . '</section> <!-- end .character -->' . "\n";
+	  $html = $html . '          <section class="character">' . "\n";
+	  $html = $html . '            <p><span class="char-name">' . ucwords($c['name']) . '</span> Level <span class="level">' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
+	  $html = $html . '          </section> <!-- end .character -->' . "\n";
 	}
       } else {
-	$html = $html . '<section class="character">' . "\n";
-	$html = $html . '<p>You have not made any characters yet.</p>' . "\n";
-	$html = $html . '</section> <!-- end .character -->' . "\n";
+	$html = $html . '          <section class="character">' . "\n";
+	$html = $html . '            <p>You have not made any characters yet.</p>' . "\n";
+	$html = $html . '          </section> <!-- end .character -->' . "\n";
       }
 
-      $html = $html . '</section> <!-- end #characters -->' . "\n";
+      $html = $html . '        </section> <!-- end #characters -->' . "\n";
       
       return $html;
     }
@@ -608,24 +608,26 @@ if(!class_exists('Charsql')) {
       $purseHTML = $this->buildPurse($purse);
 
       $html = '';
-      $html = $html . '<section id="character">' . "\n";
-      $html = $html . '<div id="top-entries">' . "\n";
-      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<section id="character-overview">' . "\n";
+      $html = $html . '<section id="personalia">' . "\n";
       $html = $html . '<h2>Personalia</h2>' . "\n";
-      $html = $html . $sheetHTML . "\n";
-      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
-      $html = $html . '</div> <!-- end #top-entries -->' . "\n";
-      $html = $html . '<div id="bottom-entries">' . "\n";
-      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<div class="character-form-entry">' . "\n";
+      $html = $html . $sheetHTML;
+      $html = $html . '</div> <!-- end .character-form-entry -->' . "\n";
+      $html = $html . '</section> <!-- end #personalia -->' . "\n";
+      $html = $html . '<section id="attributes">' . "\n";
       $html = $html . '<h2>Attributes</h2>' . "\n";
-      $html = $html . $attrsHTML . "\n";
-      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
-      $html = $html . '<div class="form-entry">' . "\n";
+      $html = $html . '<div class="character-form-entry">' . "\n";
+      $html = $html . $attrsHTML;
+      $html = $html . '</div> <!-- end .character-form-entry -->' . "\n";
+      $html = $html . '</section> <!-- end #attributes -->' . "\n";
+      $html = $html . '<section id="purse">' . "\n";
       $html = $html . '<h2>Purse</h2>' . "\n";
-      $html = $html . $purseHTML . "\n";
-      $html = $html . '</div> <!-- end .form-entry -->' . "\n";
-      $html = $html . '</div> <!-- end #bottom-entries -->' . "\n";
-      $html = $html . '</section> <!-- end #character -->' . "\n";
+      $html = $html . '<div class="character-form-entry">' . "\n";
+      $html = $html . $purseHTML;
+      $html = $html . '</div> <!-- end .character-form-entry -->' . "\n";
+      $html = $html . '</section> <!-- end #purse -->' . "\n";
+      $html = $html . '</section> <!-- end #character-overview -->' . "\n";
       
       return $html;
 

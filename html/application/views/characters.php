@@ -35,8 +35,7 @@ if(isset($_SESSION['chosen'])) {
   <body id="characters-overview">
     <div id="main-container">
       <h1>Characters view</h1>
-      <div id="outer-form-container">
-	<div class="form-entry">
+      <div id="inner-container">
 <?php
 if(count($characters) > 0) {
   $csql = new Charsql();
@@ -46,14 +45,13 @@ if(count($characters) > 0) {
   echo '<p>You have not created any characters yet!</p>';
 }
 ?>
-	</div> <!-- end .form-entry -->
-      </div> <!-- end #outer-form-container -->
-      <section class="sec-nav-container">
-        <p class="nav-paragraph"><a href="member-invitations.php">Manage Invitations</a></p>
-	<p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
-	<p class="nav-paragraph"><a href="create-character.php">Create Character</a></p>
-	<p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
-      </section> <!-- end .sec-nav-container -->
+        <section class="sec-nav-container">
+          <p class="nav-paragraph"><a href="member-invitations.php">Manage Invitations</a></p>
+	  <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
+	  <p class="nav-paragraph"><a href="create-character.php">Create Character</a></p>
+	  <p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
+        </section> <!-- end .sec-nav-container -->
+      </div> <!-- end #inner-container -->
     </div> <!-- end #main-contianer -->
   </body>
 </html>

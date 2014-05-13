@@ -23,8 +23,8 @@ $sheet = $csql->getSheet($_SESSION['sheet_id']);
   </head>
   <body id="gamemaster-delete">
     <div id="main-container">
+      <h1>Confirm Delete Character View</h1>
       <div id="inner-container">
-	<h1>Confirm Delete Character View</h1>
 	<section id="gm-details">
 	<form name="confirm-delete" action="../controllers/delete-character.php" method="POST">
 	  <label for="confirmation">Are you sure you want to delete <?php echo ucwords($sheet['name']); ?> the <?php echo ucwords($sheet['class']); ?>?</label></br>
@@ -32,9 +32,9 @@ $sheet = $csql->getSheet($_SESSION['sheet_id']);
 	  <label for="cancel">No</label><input name="confirm" id="cancel" type="radio" value="No" checked><br/>
 	  <input type="submit" value="Respond">
 	</form>
-	</section>
-      </div>
-    </div>
+	</section> <!-- end #gm-details -->
+      </div> <!-- end #inner-container -->
+    </div> <!-- end #main-container -->
   </body>
 </html>
 
