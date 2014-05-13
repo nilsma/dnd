@@ -8,6 +8,7 @@ function addListeners() {
     document.getElementById('class').addEventListener('blur', function() { updateSheet() }, false);
     document.getElementById('level').addEventListener('blur', function() { updateSheet() }, false);
     document.getElementById('experience_points').addEventListener('blur', function() { updateSheet() }, false);
+    document.getElementById('damage').addEventListener('blur', function() { updateSheet() }, false);
     document.getElementById('hitpoints').addEventListener('blur', function() { updateSheet() }, false);
     document.getElementById('initiativeRoll').addEventListener('blur', function() { updateSheet() }, false);
     document.getElementById('modifier').addEventListener('blur', function() { updateSheet() }, false);

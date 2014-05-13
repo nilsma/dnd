@@ -245,6 +245,12 @@ function init() {
     els.push(el);
     addListeners(els, resetInitiatives);
 
+    //add listeners to the delete gamemaster link
+    var el = document.getElementById('delete-gamemaster');
+    var els = new Array();
+    els.push(el);
+    addListeners(els, deleteGamemaster);
+
 }
 
 /**
