@@ -1,11 +1,11 @@
 <?php
 session_start();
+require_once '../configs/config.php';
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-    header('Location: http://dnd.nima-design.net');
+  header('Location: ' . URL . '');
 }
 
-require_once '../configs/config.php';
 require_once '../models/charsql.class.php';
 
 $csql = new Charsql();

@@ -1,17 +1,17 @@
 <?php
 session_start();
+require_once '../configs/config.php';
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-//    header('Location: http://127.0.1.1/dnd/html/index.php');
-    header('Location: http://dnd.nima-design.net');
+  header('Location: ' . URL . '');
 }
 
-require_once '../configs/config.php';
 require_once '../models/charsql.class.php';
 
 if(isset($_POST['confirm']) && (strtolower($_POST['confirm']) == 'yes')) {
   $csql = new Charsql();
-  $csql->deleteCharacter($_SESSION['sheet_id']);
+  $characterData = $csql->getCharacter($_SESSION['sheet_id']);
+  $csql->deleteCharacter($characterData);
 
   $_SESSION['sheet_id'] = false;
   unset($_SESSION['sheet_id']);
@@ -20,6 +20,4 @@ if(isset($_POST['confirm']) && (strtolower($_POST['confirm']) == 'yes')) {
 } else {
   header('Location: ../views/character.php');
 }
-
-
 ?>

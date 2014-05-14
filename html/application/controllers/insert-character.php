@@ -1,15 +1,16 @@
 <?php
 session_start();
+require_once '../configs/config.php';
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-//  header('Location: http://127.0.1.1/dnd/html');
-  header('Location: http://dnd.nima-design.net');
+  header('Location: ' . URL . '');
 }
 
-require_once '../configs/config.php';
 require_once '../models/utils.class.php';
 require_once '../models/charsql.class.php';
+require_once '../models/membersql.class.php';
 
+$msql = new Membersql();
 $csql = new Charsql();
 
 $attrs = array();
@@ -41,13 +42,16 @@ $sheet['dmg'] = 0;
 $sheet['init_mod'] = $_POST['init_mod'];
 $sheet['init_roll'] = 0;
 
-if(!$csql->alreadyOwnsName($_SESSION['user_id'], $sheet['name'])) {
+if(!$msql->alreadyOwnsName($_SESSION['user_id'], $sheet['name'])) {
   $sheet_id = $csql->insertSheet($sheet, $attrs, $purse);
   $_SESSION['sheet_id'] = $sheet_id;
   header('Location: ../views/characters.php');
 } else {
-  header('Location: ../views/create-character.php');
   //TODO define else rule
+  //give user feedback upon error on creating
+  //new character, i.e. when alreadyOwnsName function
+  //returns true
+  header('Location: ../views/create-character.php');
 }
 
 ?>

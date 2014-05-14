@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: http://127.0.1.1/dnd/html/');
+}
+
 require_once 'database.class.php';
 
 if(!class_exists('Mysql')) {
@@ -17,12 +21,9 @@ if(!class_exists('Mysql')) {
       $mysqli = $this->connect();
       $hashed = Utils::hashPassword($password);
 
-      if(mysqli_connect_errno()) {
-	printf("Connection failed: %s\n", mysqli_connect_error());
-	exit();
-      }
-
       $query = "INSERT INTO users VALUES(NULL, ?, ?, ?)";
+      $query = $mysqli->real_escape_string($query);
+
       $stmt = $mysqli->stmt_init();
 
       if(!$stmt->prepare($query)) {
@@ -42,15 +43,15 @@ if(!class_exists('Mysql')) {
      */
     public function getPassword($id) {
       $mysqli = $this->connect();
-      
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
 
       $query = "SELECT password FROM users WHERE id=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+      
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $id);
 	$stmt->execute();
 	$stmt->bind_result($pwd);
@@ -71,12 +72,8 @@ if(!class_exists('Mysql')) {
     public function checkLogin($username, $password) {
       $mysqli = $this->connect();
 
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
-
       $query = "SELECT password FROM users WHERE username=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
 
       $stmt = $mysqli->stmt_init();
 
@@ -112,11 +109,6 @@ if(!class_exists('Mysql')) {
     public function usernameExistence($username) {
       $mysqli = $this->connect();
 
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
-
       $query = "SELECT id FROM users WHERE username=? LIMIT 1";
       $query = $mysqli->real_escape_string($query);
 
@@ -148,12 +140,8 @@ if(!class_exists('Mysql')) {
     public function emailExistence($email) {
       $mysqli = $this->connect();
 
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
-
       $query = "SELECT id FROM users WHERE email=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
 
       $stmt = $mysqli->stmt_init();
 
@@ -182,16 +170,15 @@ if(!class_exists('Mysql')) {
      */
     public function getUsername($user_id) {
       $mysqli = $this->connect();
-      
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
 
       $query = "SELECT username FROM users WHERE id=? LIMIT 1";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
 	$stmt->bind_result($username);
@@ -211,24 +198,25 @@ if(!class_exists('Mysql')) {
      */
     public function getUserId($username) {
       $mysqli = $this->connect();
-      
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
 
       $query = "SELECT id FROM users WHERE username=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('s', $username);
 	$stmt->execute();
 	$stmt->bind_result($id);
 	$stmt->fetch();
-	
+
+	$stmt->close();
+
 	return $id;
       }
 
-      $stmt->close();
       $mysqli->close();
     }
 

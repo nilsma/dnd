@@ -10,8 +10,8 @@ ini_set('display_errors', 1);
 /**
  * Application base URL
  */
-//define('URL', 'http://127.0.1.1/login/html/');
-define('URL', 'http://dnd.nima-design.net/');
+//define('URL', 'http://dnd.nima-design.net/');
+define('URL', 'http://127.0.1.1/dnd/html/');
 
 /**
  * Folder paths

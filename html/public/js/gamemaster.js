@@ -97,7 +97,7 @@ function updateCharacters(ch, el) {
  * A function to get the members' section elements from the DOM
  */
 function getMembers(callback) {
-    var members = document.getElementsByClassName('member');
+    var members = document.getElementsByClassName('campaign-member');
     callback(members);
 }
 
@@ -134,7 +134,7 @@ function toggleTable() {
     for(var i = 0; i < nodes.length; i++) {
 	if(nodes[i].className === 'char-table') {
 	    if(window.getComputedStyle(nodes[i], null).getPropertyValue('display') === 'none') {
-		nodes[i].style.display='flex';
+		nodes[i].style.display='';
 	    } else {
 		nodes[i].style.display='none';
 	    }
@@ -244,12 +244,6 @@ function init() {
     var els = new Array();
     els.push(el);
     addListeners(els, resetInitiatives);
-
-    //add listeners to the delete gamemaster link
-    var el = document.getElementById('delete-gamemaster');
-    var els = new Array();
-    els.push(el);
-    addListeners(els, deleteGamemaster);
 
 }
 

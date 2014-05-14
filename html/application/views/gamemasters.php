@@ -1,16 +1,16 @@
 <?php
 session_start();
+require_once '../configs/config.php';
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-    header('Location: http://127.0.1.1/dnd/html/index.php');
-//    header('Location: http://dnd.nima-design.net');
+  header('Location: ' . URL . '');
 }
 
-require_once '../configs/config.php';
 require_once '../models/membersql.class.php';
 require_once '../models/gmsql.class.php';
 
 $db = new Membersql();
+
 $gamemasters = $db->getGamemasters($_SESSION['user_id']);
 
 if(isset($_SESSION['sheet_id'])) {

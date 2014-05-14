@@ -1,8 +1,11 @@
 <?php
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: http://127.0.1.1/dnd/html/');
+}
 
 require_once 'database.class.php';
 
-if(!class_exists('Mysql')) {
+if(!class_exists('Membersql')) {
 
   class Membersql extends Database {
     
@@ -13,40 +16,37 @@ if(!class_exists('Mysql')) {
      * @param $user_id int - the user id of the sheet owner
      * @param $char_name string - the name of the character to check for
      * @return boolean - returns true if the given user already owns a character of that name, false otherwise
-     *
+     */
     public function alreadyOwnsName($user_id, $char_name) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_errno) {
-        printf("Connect failed: %s\n", $mysqli->connect_error());
-        exit();
-      }
 
       $query = "SELECT * FROM sheets as s, users as u WHERE s.name=? AND s.owner=u.id AND u.id=?";
       $query = $mysqli->real_escape_string($query);
-      $results = array();
 
-      if($stmt = $mysqli->prepare($query)) {
-         $stmt->bind_param('si', $char_name, $user_id);
-         $stmt->execute();
-         $stmt->store_result();
-	 $stmt->fetch();
-	 $num_rows = $stmt->num_rows;
+      $stmt = $mysqli->stmt_init();
 
-	 $stmt->close();
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 
-         if($num_rows >= 1) {
-           return true;
-         } else {
+	$stmt->bind_param('si', $char_name, $user_id);
+	$stmt->execute();
+	$stmt->store_result();
+	$stmt->fetch();
+	$num_rows = $stmt->num_rows;
+
+	if($num_rows >= 1) {
+	  return true;
+	} else {
           return false;
-         }
+	}
 
       }
 
+      $stmt->close();
       $mysqli->close();
-      
     }
-	*/
 
     /**
      * A function to get the details of a given users gamemasters based on the user id
@@ -55,17 +55,17 @@ if(!class_exists('Mysql')) {
      */
     public function getGamemasters($user_id) {
       $mysqli = $this->connect();
-      
-      if($mysqli->connect_errno) {
-	printf("Connect failed: %s\n", $mysqli->connect_error());
-	exit();
-      }
 
       $query = "SELECT g.id, g.alias, c.title FROM gamemasters as g, campaigns as c WHERE g.owner=? AND g.id=c.gamemaster";
       $query = $mysqli->real_escape_string($query);
-      $results = array();
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$results = array();
+
 	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
 	$stmt->bind_result($id, $alias, $title);
@@ -79,9 +79,9 @@ if(!class_exists('Mysql')) {
 	}
 
 	return $results;
-
-	$stmt->close();
       }
+
+      $stmt->close();
       $mysqli->close();
     }
 
@@ -92,17 +92,17 @@ if(!class_exists('Mysql')) {
      */
     public function getCharacters($user_id) {
       $mysqli = $this->connect();
-      
-      if($mysqli->connect_errno) {
-	printf("Connect failed: %s\n", $mysqli->connect_error());
-	exit();
-      }
 
       $query = "SELECT name, class, level FROM sheets WHERE owner=?";
       $query = $mysqli->real_escape_string($query);
-      $results = array();
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$results = array();
+
 	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
 	$stmt->bind_result($name, $class, $level);
@@ -114,16 +114,13 @@ if(!class_exists('Mysql')) {
 			     'level' => $level
 			     );
 	}
-
 	return $results;
-
-	$stmt->close();
       }
+
+      $stmt->close();
       $mysqli->close();
     }
-
   }
-
 }
 
 ?>

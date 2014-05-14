@@ -1,0 +1,26 @@
+h3 {
+    display: none;
+    }
+
+section.campaign-member {
+    margin-top: 1em;
+    }
+
+section.campaign-member:last-child {
+    margin-bottom: 1em;
+    }
+
+section.attributes {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    }
+
+div.char-table {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5em;
+    }
+
+div.char-table caption {
+    display: none;
+    }

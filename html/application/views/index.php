@@ -3,11 +3,6 @@ session_start();
 
 require_once '../configs/config.php';
 
-if(isset($_SESSION['reg_failed'])) {
-  $_SESSION['reg_failed'] = false;
-  unset($_SESSION['reg_failed']);
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,11 +33,11 @@ if(isset($_SESSION['auth_failed'])) {
   $_SESSION['auth_failed'] = false;
   unset($_SESSION['auth_failed']);
   echo '<div class="auth-error">' . "\n";
-  echo '<p>username or password wrong!</p>' . "\n";
+  echo '<p>Username or password wrong!</p>' . "\n";
   echo '</div>' . "\n";
 } 
 ?>
-      </div> <!-- end .formEntry -->
+      </div> <!-- end .form-entry -->
       <section class="sec-nav-container">
 	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
       </section> <!-- end .sec-nav-container -->

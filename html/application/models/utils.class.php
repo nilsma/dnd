@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: http://127.0.1.1/dnd/html/');
+}
+
 if(!class_exists('Utils')) {
 
   class Utils {
@@ -49,9 +53,7 @@ if(!class_exists('Utils')) {
       }
       return $validate;
     }
-
   }
-
 }
 
 

@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: http://127.0.1.1/dnd/html/');
+}
+
 require_once 'database.class.php';
 require_once 'charsql.class.php';
 require_once 'mysql.class.php';
@@ -21,10 +25,6 @@ if(!class_exists('Gmsql')) {
     public function deleteGamemaster($user_id, $gm_id, $cmp_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_errno) {
-        printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       try {
         $mysqli->autocommit(FALSE);
 
@@ -33,7 +33,7 @@ if(!class_exists('Gmsql')) {
         $query = $mysqli->real_escape_string($query);
 
         if(!$stmt = $mysqli->prepare($query)) {
-          throw new Exception($mysqli->error . ' || ' . $mysqli->errno);
+          throw new Exception($mysqli->error);
         }
 
         $stmt->bind_param('iii', $cmp_id, $gm_id, $user_id);
@@ -78,17 +78,13 @@ if(!class_exists('Gmsql')) {
 
         $mysqli->commit();
 
-	return $mysqli->affected_rows;
-
       } catch(Exception $e) {
         $mysqli->rollback();
         $mysqli->autocommit(TRUE);
         echo 'Caught exception: ' . $e->getMessage();
-
       }
 
       $mysqli->close();
-
     }
 
     /**
@@ -99,11 +95,6 @@ if(!class_exists('Gmsql')) {
      */
      public function membershipExists($sheet_id, $cmp_id) {
       $mysqli = $this->connect();
-
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
       
       $query = "SELECT * FROM members WHERE sheet=? AND campaign=?";
       $query = $mysqli->real_escape_string($query);
@@ -124,10 +115,8 @@ if(!class_exists('Gmsql')) {
 	} else {
 	  return false;
 	}
-
-	$stmt->close();
-	
       }
+      $stmt->close();
       $mysqli->close();
      }
 
@@ -140,11 +129,6 @@ if(!class_exists('Gmsql')) {
      */
      public function invitationExists($gm_id, $sheet_id, $cmp_id) {
       $mysqli = $this->connect();
-
-      if (mysqli_connect_errno()) {
-	printf("Connect failed: %s\n", mysqli_connect_error());
-	exit();
-      }
       
       $query = "SELECT * FROM invitations WHERE gamemaster=? AND sheet=? AND campaign=?";
       $query = $mysqli->real_escape_string($query);
@@ -165,10 +149,8 @@ if(!class_exists('Gmsql')) {
 	} else {
 	  return false;
 	}
-
-	$stmt->close();
-	
       }
+      $stmt->close();
       $mysqli->close();
      }
 
@@ -181,22 +163,20 @@ if(!class_exists('Gmsql')) {
     public function createInvite($gm_id, $sheet_id, $cmp_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "INSERT INTO invitations (gamemaster, sheet, campaign) VALUES(?, ?, ?)";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('iii', $gm_id, $sheet_id, $cmp_id);
 	$stmt->execute();
-	
-	$stmt->close();
       }
 
+      $stmt->close();
       $mysqli->close();
-      
     }
 
     /**
@@ -207,22 +187,20 @@ if(!class_exists('Gmsql')) {
     public function removeMember($name, $cmp_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "DELETE FROM members USING members, sheets WHERE members.sheet=sheets.id AND sheets.name=? AND members.campaign=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('si', $name, $cmp_id);
 	$stmt->execute();
-	
-	$stmt->close();
       }
 
+      $stmt->close();
       $mysqli->close();
-      
     }
 
     /**
@@ -234,22 +212,20 @@ if(!class_exists('Gmsql')) {
     public function removeInvitation($name, $gm_id, $cmp_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "DELETE FROM invitations USING invitations, sheets WHERE sheets.id=invitations.sheet AND invitations.gamemaster=? AND invitations.campaign=? AND sheets.name=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('iis', $gm_id, $cmp_id, $name);
 	$stmt->execute();
-	
-	$stmt->close();
       }
 
+      $stmt->close();
       $mysqli->close();
-      
     }
 
     /**
@@ -259,22 +235,20 @@ if(!class_exists('Gmsql')) {
     public function resetInitiatives($cmp_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
-      $query = "UPDATE sheets s, members m, campaigns c SET s.init_roll=1 WHERE s.id=m.sheet AND m.campaign=c.id AND c.id=?";
+      $query = "UPDATE sheets s JOIN members m ON s.id=m.sheet AND m.campaign=? SET s.init_roll=1;";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $cmp_id);
 	$stmt->execute();
-	
-	$stmt->close();
       }
-
+	
+      $stmt->close();
       $mysqli->close();
-      
     }
 
     /**
@@ -293,8 +267,7 @@ if(!class_exists('Gmsql')) {
       $html = $html . $invitations;
       $html = $html . $members;
       
-      return $html;
-      
+      return $html;      
     }
 
     /**
@@ -303,6 +276,7 @@ if(!class_exists('Gmsql')) {
     */
     public function buildInvite() {
       $html = '';
+
       $html = $html . '<section id="invite">' . "\n";
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Create Invitation</h2>' . "\n";
@@ -341,30 +315,27 @@ if(!class_exists('Gmsql')) {
      * @param $html string - the HTML representation of the invitations
      */
      public function buildMembers($members) {
-       $csql = new Charsql();
-
        $html = '';
+
        $html = $html . '<section id="current-members">' . "\n";
        $html = $html . '<div>' . "\n";
        $html = $html . '<h2>Current Members</h2>' . "\n";
        $html = $html . '</div>' . "\n";
 
-      if(count($members) > 0) {
-       foreach($members as $member) {
-         $name = $csql->getCharacterName($member);
+       if(count($members) > 0) {
+	 $csql = new Charsql();
+	 foreach($members as $member) {
+	   $name = $csql->getCharacterName($member);
 	 
+	   $html = $html . '<section class="current-member">' . "\n";
+	   $html = $html . '<p><span class="char-name">' . ucwords($name) . '</span></p><button class="remove-member">Remove Member</button>' . "\n";
+	   $html = $html . '</section> <!-- end .current-member -->' . "\n";
+	 }
+       } else {
 	 $html = $html . '<section class="current-member">' . "\n";
-	 $html = $html . '<p><span class="char-name">' . ucwords($name) . '</span></p><button class="remove-member">Remove Member</button>' . "\n";
-	 $html = $html . '</section> <!-- end .current-member -->' . "\n";
-	 
+	 $html = $html . '<p>There are no members yet.</p>' . "\n";
+	 $html = $html . '</section> <!-- end .member -->' . "\n";
        }
-
-      } else {
-        $html = $html . '<section class="current-member">' . "\n";
-	$html = $html . '<p>There are no members yet.</p>' . "\n";
-	$html = $html . '</section> <!-- end .member -->' . "\n";
-
-      }
 
        $html = $html . '</section> <!-- end #current-members -->' . "\n";
 
@@ -378,16 +349,16 @@ if(!class_exists('Gmsql')) {
      * @param $html string - the HTML representation of the invitations
      */
     public function buildInvitations($inv) {
-      $csql = new Charsql();
-      $mysql = new Mysql();
-
       $html = '';
+
       $html = $html . '<section id="invitations">' . "\n";
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Pending Invitations</h2>' . "\n";
       $html = $html . '</div>' . "\n";
       
       if(count($inv) > 0) {
+	$csql = new Charsql();
+	$mysql = new Mysql();
 	foreach($inv as $i) {
 	  $invited = $csql->getCharacter($i);
 	  $char_name = $invited['sheet']['name'];
@@ -415,8 +386,6 @@ if(!class_exists('Gmsql')) {
      * @return $gmHTML string - a string representation of the gamemaster's data as HTML
      */
     public function buildGamemasterHTML($gm) {
-      $csql = new Charsql();
-
       $det = $gm['details'];
       $cmp = $gm['campaign'];
       $inv = $gm['invitations'];
@@ -437,6 +406,7 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<h3>Members:</h3>' . "\n";
       
       if(count($members) > 0) {
+	$csql = new Charsql();
 	foreach($members as $m) {
 	  $member = $csql->getCharacter($m);
 	  $member_html = $this->buildCharacterHTML($member);
@@ -468,6 +438,7 @@ if(!class_exists('Gmsql')) {
       $purseHTML = $this->buildPurseHTML($purse);
       
       $html = '';
+
       $html = $html . '<section class="campaign-member">' . "\n";
       $html = $html . $sheetHTML . "\n";
       $html = $html . $attrsHTML . "\n";
@@ -475,7 +446,6 @@ if(!class_exists('Gmsql')) {
       $html = $html . '</section> <!-- end .campaign-member -->' . "\n";
 
       return $html;
-
     }
 
     /**
@@ -486,10 +456,11 @@ if(!class_exists('Gmsql')) {
      */
     public function buildSheetHTML($sheet) {
       $sheetHTML = '';
+
       $sheetHTML = $sheetHTML . '<p>Level: <span class="level">' . $sheet['level'] . '</span> <span class="class">' . ucwords($sheet['class']) . '</span> (XP: <span class="xp">' . $sheet['xp'] . '</span>)</p>' . "\n";
       $html = '';
       $html = $html . '<div class="name">' . "\n";
-      $html = $html . '<h4>' . ucwords($sheet['name']) . '</h4>' . "\n";
+      $html = $html . '<h4 class="char_name">' . ucwords($sheet['name']) . '</h4>' . "\n";
       $html = $html . '</div> <!-- end .name -->' . "\n";
       $html = $html . '<div class="details-wrapper">' . "\n";
       $html = $html . '<h4><span class="label">Initiative: </span><span class="init_roll">' . $sheet['init_roll'] . '</span></h4>' . "\n";
@@ -509,6 +480,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildAttrsHTML($attrs) {
       $table = '';
+
       $table = $table . '<table>' . "\n";
       $table = $table . '<caption>Attributes</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
@@ -541,6 +513,7 @@ if(!class_exists('Gmsql')) {
       $table = $table . '</table>';
 
       $html = '';
+
       $html = $html . '<section class="attributes">' . "\n";
       $html = $html . '<h5>Attributes</h5>' . "\n";
       $html = $html . '<div class="char-table">' . "\n";
@@ -558,6 +531,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildPurseHTML($purse) {
       $table = '';
+
       $table = $table . '<table>' . "\n";
       $table = $table . '<caption>Purse</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
@@ -579,8 +553,8 @@ if(!class_exists('Gmsql')) {
       $table = $table . '</tbody>' . "\n";
       $table = $table . '</table>';
 
-
       $html = '';
+
       $html = $html . '<section class="purse">' . "\n";
       $html = $html . '<h5>Purse</h5>' . "\n";
       $html = $html . '<div class="char-table">' . "\n";
@@ -599,10 +573,6 @@ if(!class_exists('Gmsql')) {
     public function getCharacterStats($char_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $sheet_data = array();
       $attrs_data = array();
       $purse_data = array();
@@ -611,7 +581,11 @@ if(!class_exists('Gmsql')) {
       $query = "SELECT s.name, s.level, s.xp, s.class, s.init_mod, s.init_roll, s.hp, s.dmg, a.str, a.str_mod, a.con, a.con_mod, a.dex, a.dex_mod, a.intel, a.intel_mod, a.wis, a.wis_mod, a.cha, a.cha_mod, p.gold, p.silver, p.copper FROM sheets as s, attrs as a, purse as p WHERE s.id=? AND s.purse=p.id AND s.attr=a.id";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $char_id);
 	$stmt->execute();
 	$stmt->bind_result($name, $level, $xp, $class, $init_mod, $init_roll, $hp, $dmg, $str, $str_mod, $con, $con_mod, $dex, $dex_mod, $intel, $intel_mod, $wis, $wis_mod, $cha, $cha_mod, $gold, $silver, $copper);
@@ -654,15 +628,11 @@ if(!class_exists('Gmsql')) {
 			       'attrs' => $attrs_data,
 			       'purse' => $purse_data
 			       );
-
 	}
-	
-	$stmt->close();
       }
-
+      $stmt->close();
       $mysqli->close();
       return $return_data;
-
     }
 
     /**
@@ -701,14 +671,14 @@ if(!class_exists('Gmsql')) {
 
       $members = array();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "SELECT sheet FROM members WHERE campaign=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $campaign_id);
 	$stmt->execute();
 	$stmt->bind_result($sheet_id);
@@ -722,7 +692,6 @@ if(!class_exists('Gmsql')) {
 
       $mysqli->close();
       return $members;
-
     }    
 
     /**
@@ -735,14 +704,14 @@ if(!class_exists('Gmsql')) {
 
       $invitations = array();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "SELECT sheet FROM invitations WHERE campaign=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $campaign_id);
 	$stmt->execute();
 	$stmt->bind_result($sheet_id);
@@ -756,7 +725,6 @@ if(!class_exists('Gmsql')) {
 
       $mysqli->close();
       return $invitations;
-
     }
       
 
@@ -768,14 +736,14 @@ if(!class_exists('Gmsql')) {
     public function getGamemasterCampaign($gm_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "SELECT id, title FROM campaigns WHERE gamemaster=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $gm_id);
 	$stmt->execute();
 	$stmt->bind_result($id, $title);
@@ -785,13 +753,10 @@ if(!class_exists('Gmsql')) {
 			  'id' => $id,
 			  'title' => $title
 			  );
-	
-	$stmt->close();
       }
-
+      $stmt->close();
       $mysqli->close();
       return $campaign;
-
     }
 
     /**
@@ -801,15 +766,15 @@ if(!class_exists('Gmsql')) {
      */
     public function getGamemasterDetails($gm_id) {
       $mysqli = $this->connect();
-      
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
 
       $query = "SELECT owner, alias FROM gamemasters WHERE id=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('i', $gm_id);
 	$stmt->execute();
 	$stmt->bind_result($owner, $alias);
@@ -819,13 +784,11 @@ if(!class_exists('Gmsql')) {
 		    'owner' => $owner,
 		    'alias' => $alias
 		    );
-	
-	$stmt->close();
       }
 
+      $stmt->close();
       $mysqli->close();
       return $gm;
-
     }
 
     /**
@@ -837,24 +800,22 @@ if(!class_exists('Gmsql')) {
     public function getGamemasterId($alias, $user_id) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "SELECT id FROM gamemasters WHERE alias=? AND owner=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('si', $alias, $user_id);
 	$stmt->execute();
 	$stmt->bind_result($id);
 	$stmt->fetch();
-
-	$stmt->close();
 	
 	return $id;
       }
-      
+      $stmt->close();
       $mysqli->close();
     }
 
@@ -886,30 +847,6 @@ if(!class_exists('Gmsql')) {
 
       return $html;
     }
-
-    /**
-     * A function to build the form for character selection
-     * @param $characters array - an array holding the characters to list in the form
-     */
-    /*
-    public function buildGamemasterSelect($gms) {
-      $html = '';
-
-      $html = $html . '<fieldset>' . "\n";
-      $html = $html . '<legend>Select Gamemaster</legend>' . "\n";
-      $html = $html . '<form name="gm-select" action="../controllers/load-gamemaster.php" method="POST">' . "\n";
-      $html = $html . '<select name="gamemaster">' . "\n";
-      foreach($gms as $gm) {
-        $html = $html . '<option value="' . $gm . '">' . ucfirst($gm) . '</option>' . "\n";
-      }
-      $html = $html . '</select>' . "\n";
-      $html = $html . '<input type="submit" value="Play">' . "\n";
-      $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
-
-      return $html;
-    }
-    */
     
     /**
      * A function to insert a new gamemaster in the database
@@ -923,10 +860,6 @@ if(!class_exists('Gmsql')) {
       $title = $gm['campaign'];
 
       $mysqli = $this->connect();
-      
-      if($mysqli->connect_errno) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
 
       try {
 	$mysqli->autocommit(FALSE);
@@ -978,28 +911,26 @@ if(!class_exists('Gmsql')) {
     public function getCampaignId($alias, $title) {
       $mysqli = $this->connect();
 
-      if($mysqli->connect_error) {
-	printf("Connection failed: %s\n", $mysqli->connect_error);
-      }
-
       $query = "SELECT c.id FROM campaigns as c, gamemasters as g WHERE c.gamemaster=g.id AND g.alias=? AND c.title=?";
       $query = $mysqli->real_escape_string($query);
 
-      if($stmt = $mysqli->prepare($query)) {
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
 	$stmt->bind_param('ss', $alias, $title);
 	$stmt->execute();
 	$stmt->bind_result($id);
 	$stmt->fetch();
-
-	$stmt->close();
 	
 	return $id;
       }
-      
+
+      $stmt->close();
       $mysqli->close();
     }
-}
-}
 
-
+  }
+}
 ?>

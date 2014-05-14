@@ -1,12 +1,11 @@
 <?php
 session_start();
+require_once '../configs/config.php';
 
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-    header('Location: http://127.0.1.1/dnd/html/index.php');
-//    header('Location: http://dnd.nima-design.net');
+  header('Location: ' . URL . '');
 }
 
-require_once '../configs/config.php';
 require_once '../models/gmsql.class.php';
 
 if(!isset($_SESSION['gm_id'])) {
@@ -16,6 +15,7 @@ if(!isset($_SESSION['gm_id'])) {
 $gm_id = $_SESSION['gm_id'];
 
 $gmsql = new Gmsql();
+
 $gm = $gmsql->getGamemaster($gm_id);
 $_SESSION['gm'] = $gm;
 
@@ -34,7 +34,7 @@ if(isset($_SESSION['chosen'])) {
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <link rel="stylesheet" href="../../public/css/gamemaster.css"/>
-    <script type="text/javascript" src="../../public/js/main.js"></script>
+<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
     <script type="text/javascript" src="../../public/js/gamemaster.js"></script>
     <title>DND Helper</title>
   </head>
