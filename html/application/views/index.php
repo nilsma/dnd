@@ -8,7 +8,6 @@ if(isset($_SESSION['reg_failed'])) {
   unset($_SESSION['reg_failed']);
 }
 
-//require_once 'head.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,8 +15,7 @@ if(isset($_SESSION['reg_failed'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
-<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
-<!--    <script type="text/javascript" src="../../public/js/gm.js"></script> -->
+    <link rel="stylesheet" href="../../public/css/index.css"/>
     <title>DND Helper</title>
   </head>
   <body id="index">

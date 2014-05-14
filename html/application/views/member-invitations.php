@@ -22,6 +22,7 @@ $invHTML = $csql->buildInvHTML($invitations, $memberships);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/members-invitations.css"/>
     <script type="text/javascript" src="../../public/js/member-invitations.js"></script>
     <title>DND Helper</title>
   </head>

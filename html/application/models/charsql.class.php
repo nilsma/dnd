@@ -644,7 +644,7 @@ if(!class_exists('Charsql')) {
       
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Personalia</legend>' . "\n";
-      $html = $html . '<form name="character" action="" method="POST">' . "\n";
+      $html = $html . '<form name="character" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucfirst($sheet['name']) . '" required><br/>' . "\n";
       $html = $html . '<label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required><br/>' . "\n";
       $html = $html . '<label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required>' . "\n";
@@ -670,7 +670,7 @@ if(!class_exists('Charsql')) {
       
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Attributes</legend>' . "\n";
-      $html = $html . '<form name="attrs" action="" method="POST">' . "\n";
+      $html = $html . '<form name="attrs" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<label for="strength">STR:</label><input name="str" id="strength" type="number" value="' . $attrs['str'] . '" required>' . "\n";
       $html = $html . '<label for="strength_modifier">MOD:</label><input name="str_mod" id="strength_modifier" type="number" value="' . $attrs['strMod'] . '" required>' . "\n" . '<br/>';
       $html = $html . '<label for="constitution">CON:</label><input name="con" id="constitution" type="number" value="' . $attrs['con'] . '" required>' . "\n";
@@ -699,7 +699,7 @@ if(!class_exists('Charsql')) {
 
       $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Purse</legend>' . "\n";
-      $html = $html . '<form name="purse" action="" method="POST">' . "\n";
+      $html = $html . '<form name="purse" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required><br/>' . "\n";
       $html = $html . '<label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required><br/>' . "\n";
       $html = $html . '<label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required><br/>' . "\n";

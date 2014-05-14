@@ -21,12 +21,14 @@ if(isset($_SESSION['chosen'])) {
 }
 
 ?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css">
-    <script type="text/javascript" src="../../public/js/char.js"></script>
+    <link rel="stylesheet" href="../../public/css/character.css">
+    <script type="text/javascript" src="../../public/js/character.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="character-sheet">

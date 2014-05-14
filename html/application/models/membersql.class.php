@@ -51,7 +51,7 @@ if(!class_exists('Mysql')) {
     /**
      * A function to get the details of a given users gamemasters based on the user id
      * @param $user_id int - the id of the user
-     * @return $results array - an array holding the users gamemaster id and alias
+     * @return $results array - an array holding an array for each the user's gamemaster with the id, alias and campaign title
      */
     public function getGamemasters($user_id) {
       $mysqli = $this->connect();
@@ -61,17 +61,21 @@ if(!class_exists('Mysql')) {
 	exit();
       }
 
-      $query = "SELECT id, alias FROM gamemasters WHERE owner=?";
+      $query = "SELECT g.id, g.alias, c.title FROM gamemasters as g, campaigns as c WHERE g.owner=? AND g.id=c.gamemaster";
       $query = $mysqli->real_escape_string($query);
       $results = array();
 
       if($stmt = $mysqli->prepare($query)) {
 	$stmt->bind_param('i', $user_id);
 	$stmt->execute();
-	$stmt->bind_result($id, $alias);
+	$stmt->bind_result($id, $alias, $title);
 
 	while($stmt->fetch()) {
-	  $results[$id] = $alias;
+	  $results[] = array(
+			     'id' => $id,
+			     'alias' => $alias,
+			     'title' => $title
+			     );
 	}
 
 	return $results;

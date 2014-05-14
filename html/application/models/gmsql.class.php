@@ -422,40 +422,33 @@ if(!class_exists('Gmsql')) {
       $inv = $gm['invitations'];
       $members = $gm['members'];
 
-      $cnt = count($gm['invitations']);
-      $noun = null;
-      $sbj = null;
-
-      if($cnt <= 1) {
-	$noun = 'is';
-	$sbj = 'invitation';
-      } else {
-	$noun = 'are';
-	$sbj = 'invitations';
-      }
-
       $html = '';
       
-      $html = $html . '<section id="gm-details">' . "\n";
-      $html = $html . '<div class="inner-header">' . "\n";
+      $html = $html . '<section id="gamemaster-details">' . "\n";
+      $html = $html . '<div>' . "\n";
       $html = $html . '<h2>' . ucfirst($det['alias']) . ' - ' . ucfirst($cmp['title']) . '</h2>' . "\n";
       $html = $html . '</div>' . "\n";
-      //      $html = $html . '<h3>(There ' . $noun . ' ' . $cnt . ' ' . $sbj . ')</h3>' . "\n";
-      $html = $html . '</section> <!-- end #gm-details -->' . "\n";
-      $html = $html . '<section id="tools">' . "\n";
+      $html = $html . '</section> <!-- end #gamemaster-details -->' . "\n";
+      $html = $html . '<section id="gamemaster-tools">' . "\n";
       $html = $html . '<button id="reset-init">Reset Initiatives</button>' . "\n";
       $html = $html . '<button id="close-all">Close All</button>' . "\n";
-      $html = $html . '</section>' . "\n";
-      $html = $html . '<section id="members">' . "\n";
+      $html = $html . '</section> <!-- end #gamemaster-tools -->' . "\n";
+      $html = $html . '<section id="campaign-members">' . "\n";
       $html = $html . '<h3>Members:</h3>' . "\n";
       
-      foreach($members as $m) {
-	$mb = $csql->getCharacter($m);
-	$mb_html = $this->buildCharacterHTML($mb);
-	$html = $html . $mb_html;
+      if(count($members) > 0) {
+	foreach($members as $m) {
+	  $member = $csql->getCharacter($m);
+	  $member_html = $this->buildCharacterHTML($member);
+	  $html = $html . $member_html;
+	}
+      } else {
+	$html = $html . '<section class="campaign-member">' . "\n";
+	$html = $html . '<p>There are no members of this campaign yet!</p>' . "\n";
+	$html = $html . '</section> <!-- end .campaign-member -->' . "\n";
       }
       
-      $html = $html . '</section> <!-- end #members -->' . "\n";
+      $html = $html . '</section> <!-- end #campaign-members -->' . "\n";
 
       return $html;
     }
@@ -475,11 +468,11 @@ if(!class_exists('Gmsql')) {
       $purseHTML = $this->buildPurseHTML($purse);
       
       $html = '';
-      $html = $html . '<section class="member">' . "\n";
+      $html = $html . '<section class="campaign-member">' . "\n";
       $html = $html . $sheetHTML . "\n";
       $html = $html . $attrsHTML . "\n";
       $html = $html . $purseHTML . "\n";
-      $html = $html . '</section> <!-- end .member -->' . "\n";
+      $html = $html . '</section> <!-- end .campaign-member -->' . "\n";
 
       return $html;
 
@@ -494,23 +487,16 @@ if(!class_exists('Gmsql')) {
     public function buildSheetHTML($sheet) {
       $sheetHTML = '';
       $sheetHTML = $sheetHTML . '<p>Level: <span class="level">' . $sheet['level'] . '</span> <span class="class">' . ucwords($sheet['class']) . '</span> (XP: <span class="xp">' . $sheet['xp'] . '</span>)</p>' . "\n";
-
       $html = '';
-      $html = $html . '<div class="trigger">' . "\n";
       $html = $html . '<div class="name">' . "\n";
-      $html = $html . '<h4 class="char_name">' . ucwords($sheet['name']) . '</h4>' . "\n";
+      $html = $html . '<h4>' . ucwords($sheet['name']) . '</h4>' . "\n";
       $html = $html . '</div> <!-- end .name -->' . "\n";
-      $html = $html . '<div class="inner-head-wrapper">' . "\n";
-      $html = $html . '<div class="initiative">' . "\n";
+      $html = $html . '<div class="details-wrapper">' . "\n";
       $html = $html . '<h4><span class="label">Initiative: </span><span class="init_roll">' . $sheet['init_roll'] . '</span></h4>' . "\n";
-      $html = $html . '</div> <!-- end .initiative -->' . "\n";
-      $html = $html . '<div class="health">' . "\n";
       $html = $html . '<h4><span class="label">HP:</span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
-      $html = $html . '</div> <!-- end .health -->' . "\n";
-      $html = $html . '</div> <!-- end .inner-head-wrap -->' . "\n";
-      $html = $html . '</div> <!-- end .trigger -->' . "\n";
+      $html = $html . '</div> <!-- end .details-wrapper -->' . "\n";
       $html = $html . '<section class="personalia">' . "\n";
-      $html = $html . $sheetHTML . "\n";
+      $html = $html . $sheetHTML;
       $html = $html . '</section> <!-- end .personlia -->';
       
       return $html;
@@ -523,7 +509,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildAttrsHTML($attrs) {
       $table = '';
-      $table = $table . '<table class="char-table">' . "\n";
+      $table = $table . '<table>' . "\n";
       $table = $table . '<caption>Attributes</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
       $table = $table . '<tr>' . "\n";
@@ -557,7 +543,9 @@ if(!class_exists('Gmsql')) {
       $html = '';
       $html = $html . '<section class="attributes">' . "\n";
       $html = $html . '<h5>Attributes</h5>' . "\n";
+      $html = $html . '<div class="char-table">' . "\n";
       $html = $html . $table . "\n";
+      $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end .attributes -->';
 
       return $html;
@@ -570,7 +558,7 @@ if(!class_exists('Gmsql')) {
      */
     public function buildPurseHTML($purse) {
       $table = '';
-      $table = $table . '<table class="char-table">' . "\n";
+      $table = $table . '<table>' . "\n";
       $table = $table . '<caption>Purse</caption>' . "\n";
       $table = $table . '<thead>' . "\n";
       $table = $table . '<tr>' . "\n";
@@ -595,7 +583,9 @@ if(!class_exists('Gmsql')) {
       $html = '';
       $html = $html . '<section class="purse">' . "\n";
       $html = $html . '<h5>Purse</h5>' . "\n";
+      $html = $html . '<div class="char-table">' . "\n";
       $html = $html . $table . "\n";
+      $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end .purse -->';
 
       return $html;
@@ -869,9 +859,39 @@ if(!class_exists('Gmsql')) {
     }
 
     /**
+     * A function to build an HTML representation of the gamemasters overview list
+     * @param $gamemasters array - an array holding the gamemaster's details
+     */
+    public function buildGamemasterList($gamemasters) {
+      $html = '';
+
+      $html = $html . '<section id="gamemasters">' . "\n";
+      $html = $html . '<div>' . "\n";
+      $html = $html . '<h2>Gamemasters</h2>' . "\n";
+      $html = $html . '</div>' . "\n";
+
+      if(count($gamemasters) > 0) {
+	foreach($gamemasters as $gm) {
+	  $html = $html . '<section class="gamemaster-entry">' . "\n";
+	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the <span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '</span> campaign</p>' . "\n";
+	  $html = $html . '</section> <!-- end .gamemaster-entry -->' . "\n";
+	}
+      } else {
+	$html = $html . '<section class="gamemaster-entry">' . "\n";
+	$html = $html . '<p>You have not made any gamemasters yet!</p>' . "\n";
+	$html = $html . '</section> <!-- end .gamemaster-entry -->' . "\n";
+      }
+
+      $html = $html . '</section> <!-- end #gamemasters -->' . "\n";
+
+      return $html;
+    }
+
+    /**
      * A function to build the form for character selection
      * @param $characters array - an array holding the characters to list in the form
      */
+    /*
     public function buildGamemasterSelect($gms) {
       $html = '';
 
@@ -889,6 +909,7 @@ if(!class_exists('Gmsql')) {
 
       return $html;
     }
+    */
     
     /**
      * A function to insert a new gamemaster in the database

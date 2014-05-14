@@ -23,16 +23,14 @@ if(isset($_SESSION['sheet_id'])) {
   unset($_SESSION['sheet_id']);
 }
 
-//require_once 'head.php';
-
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/member.css"/>
     <title>DND Helper</title>
   </head>
   <body id="member-landing">

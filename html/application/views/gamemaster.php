@@ -21,6 +21,11 @@ $_SESSION['gm'] = $gm;
 
 $gamemasterHTML = $gmsql->buildGamemasterHTML($gm);
 
+if(isset($_SESSION['chosen'])) {
+  $_SESSION['chosen'] = false;
+  unset($_SESSION['chosen']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +33,9 @@ $gamemasterHTML = $gmsql->buildGamemasterHTML($gm);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/gamemaster.css"/>
     <script type="text/javascript" src="../../public/js/main.js"></script>
-    <script type="text/javascript" src="../../public/js/gm.js"></script>
+    <script type="text/javascript" src="../../public/js/gamemaster.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="gamemaster-screen">

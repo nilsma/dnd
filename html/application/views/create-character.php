@@ -16,6 +16,7 @@ require_once '../configs/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/create-character.css"/>
     <title>DND Helper</title>
   </head>
   <body id="character-create">

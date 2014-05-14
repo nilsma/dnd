@@ -29,7 +29,8 @@ if(isset($_SESSION['chosen'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
-    <script type="text/javascript" src="../../public/js/chars.js"></script>
+    <link rel="stylesheet" href="../../public/css/characters.css"/>
+    <script type="text/javascript" src="../../public/js/characters.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="characters-overview">

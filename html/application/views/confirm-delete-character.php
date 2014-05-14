@@ -19,20 +19,19 @@ $sheet = $csql->getSheet($_SESSION['sheet_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/confirm-delete-character.css"/>
     <title>DND Helper</title>
   </head>
   <body id="gamemaster-delete">
     <div id="main-container">
       <h1>Confirm Delete Character View</h1>
       <div id="inner-container">
-	<section id="gm-details">
 	<form name="confirm-delete" action="../controllers/delete-character.php" method="POST">
 	  <label for="confirmation">Are you sure you want to delete <?php echo ucwords($sheet['name']); ?> the <?php echo ucwords($sheet['class']); ?>?</label></br>
 	  <label for="confirm">Yes</label><input name="confirm" id="confirm" type="radio" value="Yes">
 	  <label for="cancel">No</label><input name="confirm" id="cancel" type="radio" value="No" checked><br/>
 	  <input type="submit" value="Respond">
 	</form>
-	</section> <!-- end #gm-details -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>

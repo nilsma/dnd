@@ -3,26 +3,34 @@ session_start();
 
 require_once '../configs/config.php';
 
-require_once 'head.php';
 ?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/register.css"/>
+    <title>DND Helper</title>
+  </head>
   <body id="register">
-    <h1>Register view</h1>
     <div id="main-container">
-      <div class="form-entry">
-	<fieldset>
-	  <legend>Register</legend>
-	  <form name="register" action="../controllers/proc-registration.php" method="POST">
-	    <label for="username">Username:</label><br/>
-	    <input name="username" type="text" maxlength="30" required><br/>
-	    <label for="email">Email:</label><br/>
-	    <input name="email" type="email" maxlength="40" required><br/>
-	    <label for="password1">Password:</label><br/>
-	    <input name="password1" type="password" maxlength="16" required><br/>
-	    <label for="password2">Password:</label><br/>
-	    <input name="password2" type="password" maxlength="16" required><br/>
-	    <input type="submit" value="Register">
-	  </form>
-	</fieldset>
+      <h1>Register view</h1>
+      <div id="inner-container">
+	<div class="form-entry">
+	  <fieldset>
+	    <legend>Register</legend>
+	    <form name="register" action="../controllers/proc-registration.php" method="POST">
+	      <label for="username">Username:</label><br/>
+	      <input id="username" name="username" type="text" maxlength="30" required><br/>
+	      <label for="email">Email:</label><br/>
+	      <input id="email" name="email" type="email" maxlength="40" required><br/>
+	      <label for="password1">Password:</label><br/>
+	      <input id="password1" name="password1" type="password" maxlength="16" required><br/>
+	      <label for="password2">Password:</label><br/>
+	      <input id="password2" name="password2" type="password" maxlength="16" required><br/>
+	      <input type="submit" value="Register">
+	    </form>
+	  </fieldset>
 <?php
 if(isset($_SESSION['reg_failed'])) {
   echo '<div class="reg-error">' . "\n";
@@ -57,10 +65,11 @@ if(isset($_SESSION['fail_password_format'])) {
 }
 
 ?>
-      </div> <!-- end .form-entry -->
-      <section class="sec-nav-container">
-	<p class="nav-paragraph">Or <a href="index.php">Go Back To The Home Page</a></p>
-      </section>
+	</div> <!-- end .form-entry -->
+	<section class="sec-nav-container">
+	  <p class="nav-paragraph">Or <a href="index.php">Go Back To The Home Page</a></p>
+	</section>
+      </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
 </html>

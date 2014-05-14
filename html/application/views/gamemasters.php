@@ -18,42 +18,34 @@ if(isset($_SESSION['sheet_id'])) {
   unset($_SESSION['sheet_id']);
 }
 
-if(isset($_SESSION['gm_id'])) {
-  $_SESSION['gm_id'] = false;
-  unset($_SESSION['gm_id']);
+if(isset($_SESSION['chosen'])) {
+  header('Location: gamemaster.php');
 }
-
-if(isset($_SESSION['gm'])) {
-  $_SESSION['gm'] = false;
-  unset($_SESSION['gm']);
-}
-
-//require_once 'head.php';
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/gamemasters.css"/>
+    <script type="text/javascript" src="../../public/js/gamemasters.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="gamemasters-overview">
     <div id="main-container">
       <h1>Gamemasters view</h1>
       <div id="inner-container">
-	<div class="form-entry">
 <?php
 if(count($gamemasters) > 0) {
   $gmsql = new Gmsql();
-  $html = $gmsql->buildGamemasterSelect($gamemasters);
+  $html = $gmsql->buildGamemasterList($gamemasters);
   echo $html;
 } else {
   echo '<p>You have not created any gamemasters yet!</p>';
 }
 ?>
-	</div> <!-- end .form-entry -->
 	<section class="sec-nav-container">
 	  <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>
 	  <p class="nav-paragraph"><a href="create-gamemaster.php">Create Gamemaster</a></p>
