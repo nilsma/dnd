@@ -4,15 +4,19 @@
 function removeMember() {
     var className = 'char-name';
     getRemoveName(className, this, function(name) {
-	initRemoveMember(name);
+	initRemoveMember(name, function() {
+	    location.reload();
+	});
     });
 }
 
 /**
- * A function to initiate the removal of a given character's sheet from the campaign
+ * A function to remove a given character's membership to the gamemaster's campaign
  * @param name string - the name of the character to remove
+ * @param callback callback - the callback to send to the calling function 
+ * @return callback name - sends an empty callback to the calling function
  */
-function initRemoveMember(name) {
+function initRemoveMember(name, callback) {
     var result;
 
     if (window.XMLHttpRequest) {
@@ -24,7 +28,7 @@ function initRemoveMember(name) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
-	    location.reload();
+	    callback();
         }
     }
 
@@ -35,22 +39,23 @@ function initRemoveMember(name) {
 }
 
 /**
- * A function to remove an invite from the database
+ * A function to remove an invitation from the database
  */
 function removeInvite() {
     var className = 'char-name';
     getRemoveName(className, this, function(name) {
-	initRemoveInvitation(name);
-	location.reload();
+	initRemoveInvitation(name, function() {
+	    location.reload();
+	});
     });
 }
 
 /**
- * A function to get the name of the member to remove
- * upon clicking the given members HTML-element button
- * @param element HTMLElement - the section current-member element holding the character's name
- * @param callback callback
- * @return callback name - return the charcter's name
+ * A function to get the name of the member to remove upon clicking the given member's remove button
+ * @param className string - the class name of the elements holding the character's name
+ * @param element HTMLElement - the character's HTMLButtonElement that is clicked
+ * @param callback callback - the callback to send to the calling function 
+ * @return callback name - sends a callback with the character's name
  */
 function getRemoveName(className, element, callback) {
     var name;
@@ -59,16 +64,17 @@ function getRemoveName(className, element, callback) {
 	if(nodes[i].className === className) {
 	    name = nodes[i].innerHTML
 	}
-    }
-	
+    }	
     callback(name);
 }
 
 /**
- * A function to initiate the removal of a given characters name from invitations
- * @param name string - the name of the character to remove
+ * A function to remove a given character's invitation to the gamemaster's campaign
+ * @param name string - the name of the character of which to remove invitation
+ * @param callback callback - the callback to send to the calling function 
+ * @return callback name - sends an empty callback to the calling function
  */
-function initRemoveInvitation(name) {
+function initRemoveInvitation(name, callback) {
     var result;
 
     if (window.XMLHttpRequest) {
@@ -80,6 +86,7 @@ function initRemoveInvitation(name) {
     xmlhttp.onreadystatechange=function() {
         if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             result = xmlhttp.responseText;
+	    callback();
         }
     }
 
@@ -90,8 +97,8 @@ function initRemoveInvitation(name) {
 }
 
 /**
- * A function to add eventlisteners to the stated elements
- * @param els array - an array of elements of which to add listeners to
+ * A function to add eventlistener to the given elements
+ * @param els array - an array of elements of which to add listener to
  * @param fnc function - the function name of which to trigger when the element is clicked
  */
 function addListeners(els, fnc) {
@@ -104,12 +111,12 @@ function addListeners(els, fnc) {
  * A function to initialize functions on load
  */
 function init() {
-    //add listeners to the remove invitation button
+    //add listener to the remove invitation buttons
     var els = new Array();
     var els = document.getElementsByClassName('remove-inv');
     addListeners(els, removeInvite);
 
-    //add listeners to the remove invitation button
+    //add listener to the remove member button
     var els = new Array();
     var els = document.getElementsByClassName('remove-member');
     addListeners(els, removeMember);

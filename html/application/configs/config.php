@@ -12,6 +12,7 @@ ini_set('display_errors', 1);
  */
 //define('URL', 'http://dnd.nima-design.net/');
 define('URL', 'http://127.0.1.1/dnd/html/');
+//define('URL', 'http://dikult205.h.uib.no/groups/G5/dnd/html/');
 
 /**
  * Folder paths

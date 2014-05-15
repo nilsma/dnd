@@ -1,5 +1,5 @@
 /**
- * A function to load a gamemaster upon click 
+ * A function to load a gamemaster when clicked in the gamemasters overview view
  */
 function loadGamemaster() {
     getGamemasterAlias(this, function(result) {
@@ -8,9 +8,10 @@ function loadGamemaster() {
 }
 
 /**                                                                                                                                    
- * A function to get the name of the gamemaster clicked
+ * A function to get the name of the gamemaster clicked in the gamemasteres overview view
  * @param element HTMLElement - the clicked HTML element representing the gamemaster
- * @return name callback - the name of the gamemaster that has been clicked
+ * @param callback callback - the callback to send to the calling function
+ * @return alias callback - the alias of the gamemaster that has been clicked
  */
 function getGamemasterAlias(element, callback) {
     var alias = element.getElementsByClassName('gamemaster-entry-alias')[0].innerHTML;
@@ -44,9 +45,9 @@ function initLoadGamemaster(alias) {
 }
 
 /**
- * A function to add eventlisteners to the stated elements
- * @param els array - an array of elements of which to add listeners to
- * @param fnc function - the function name of which to trigger when the element is clicked
+ * A function to add a given eventlistener to the elements in the given array
+ * @param els array - an array of elements of which to add the listener to
+ * @param fnc function - the function name of which to trigger when the given element is clicked
  */
 function addListeners(els, fnc) {
     for(var i = 0; i < els.length; i++) {
@@ -58,7 +59,7 @@ function addListeners(els, fnc) {
  * A function to initialize functions on load
  */
 function init() {
-    //add listeners to the remove invitation button
+    //add listeners to load the clicked gamemaster in the gamemasters overview
     var els = new Array();
     var els = document.getElementsByClassName('gamemaster-entry');
     addListeners(els, loadGamemaster);

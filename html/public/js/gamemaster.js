@@ -1,5 +1,5 @@
 /**
- * A function to reset the members' initiatives to 1
+ * A function to reset the campaign members' initiatives to 1
  */
 function resetInitiatives() {
     runInitQuery(function() {
@@ -13,8 +13,8 @@ function resetInitiatives() {
 }
 
 /**
- * A function that runs a query on the database through calling
- * the reset-initiatives.php file in the controllers folder
+ * A function that executes resetting the campaign members' initiatives
+ * @param callback callback - sends a callback after function execution
  */
 function runInitQuery(callback) {
     var result;
@@ -39,6 +39,7 @@ function runInitQuery(callback) {
 
 /**
  * A function to get the characters' details from the DB
+ * @param callback callback - will callback the resulting JSON parsed object
  */
 function getCharacters(callback) {
     var result = null;
@@ -64,9 +65,12 @@ function getCharacters(callback) {
 }
 
 /**
- * A function to update the given members' section elements with the given characters' details
+ * A function to update the innerHTML of a given members' section elements with the given characters' details
+ * @param ch array - the characters to details as a multidimensional array
+ * @param el HTMLElement - the HTML member campaigns HTMLElement
  */
 function updateCharacters(ch, el) {
+    //TODO refactor function
     for(var i = 0; i < el.length; i++) {
 	document.getElementsByClassName('char_name')[i].innerHTML=ch[i]['sheet']['name'];
 	document.getElementsByClassName('init_roll')[i].innerHTML=ch[i]['sheet']['init_roll'];
@@ -94,7 +98,7 @@ function updateCharacters(ch, el) {
 }
 
 /**
- * A function to get the members' section elements from the DOM
+ * A function to get the campaign members' section elements from the DOM
  */
 function getMembers(callback) {
     var members = document.getElementsByClassName('campaign-member');
@@ -102,9 +106,7 @@ function getMembers(callback) {
 }
 
 /**
- * A function to get the members' section elements from the DOM
- * and to get the characters' details from the DB and subsequently
- * call the updateCharacters function
+ * A function to update the gamemaster's view
  */
 function updateGm() {
     var elems;
@@ -118,7 +120,7 @@ function updateGm() {
 }
 
 /**
- * A function to run the updateGm function periodically - every 3 seconds
+ * A function to run the updateGm function periodically
  */
 setInterval(
     function() {
@@ -127,7 +129,8 @@ setInterval(
 );
 
 /**
- * A function to toggle the display of the correspodning clicked h5 elements table
+ * A function to toggle the display of the clicked table by
+ * changing the encompassing div's CSS style value from 'none' to '', or vice versa
  */
 function toggleTable() {
     var nodes = this.parentNode.childNodes;
@@ -143,8 +146,8 @@ function toggleTable() {
 }
 
 /**
- * A function to hide the given element by setting CSS style to none
- * @param $className HTMLElement - the HTMLElement to hide
+ * A function to hide the given element by setting CSS style value to 'none'
+ * @param className HTMLElement - the HTMLElement to hide
  */
 function hideElement(className) {
     var elements = document.getElementsByClassName(className);
@@ -155,7 +158,7 @@ function hideElement(className) {
 
 /**
  * A function to hide the stated elements on load by class name
- * @param classNames array - and array of elements to hide
+ * @param classNames array - an array of elements to hide
  */
 function hideElements(classNames) {
     for(var i = 0; i < classNames.length; i++) {
@@ -164,9 +167,9 @@ function hideElements(classNames) {
 }
 
 /**
- * A function to get the nodes that needs to be toggle when toggling the character overview
- * @param el HTMLHeadingElement - the h4 element that is clicked for toggling the character overview
- * @return toggleNodes array - the relevant nodes to toggle
+ * A function to get the nodes that needs to be toggled when clicking the character in the gamemaster view
+ * @param el HTMLElement - the trigger element that is clicked for toggling the character overview
+ * @return toggleNodes array - an array holding the nodes to be toggled
  */
 function getCharacterToggleNodes(el) {
     var nodes = el.parentNode.childNodes;
@@ -181,7 +184,9 @@ function getCharacterToggleNodes(el) {
 }
 
 /**
- * A function to toggle the display of the outer character container, the overview
+ * A function to toggle the display of the clicked character's details, attributes and purse, by
+ * changing the elements' CSS display value to 'block' if already 'none', or vice versa
+ * @param togglenodes array - the elements of which to toggle
  */
 function toggleCharacter(toggleNodes) {
     if(typeof toggleNodes.length === 'undefined' || toggleNodes.length < 1) {
@@ -199,8 +204,8 @@ function toggleCharacter(toggleNodes) {
 }
 
 /**
- * A function to add eventlisteners to the stated elements
- * @param els array - an array of elements of which to add listeners to
+ * A function to add eventlistener to the given elements
+ * @param els array - an array of elements of which to add listener to
  * @param fnc function - the function name of which to trigger when the element is clicked
  */
 function addListeners(els, fnc) {
@@ -211,7 +216,7 @@ function addListeners(els, fnc) {
 
 /**
  * A function to close all open characters in the gamemaster view
- * by hiding all elements of class personalia, attributes, purse and char-table
+ * by hiding all characters' details, attributes and purse contents from the view
  */
 function closeAll() {
     var gmSections = ['personalia', 'attributes', 'purse', 'char-table'];
@@ -222,24 +227,24 @@ function closeAll() {
  * A function to initialize functions on load
  */
 function init() {
-    //hide all elements of class personalia, attributes, purse and char-table
+    //hide the characters' details, attributes and purse contents from view
     closeAll();
 
-    //add listeners to the trigger elements
+    //add listener to the campaign member name elements
     var els = document.getElementsByClassName('name');
     addListeners(els, toggleCharacter);
 
-    //add listeners to the h5 elements
+    //add listener to the h5 elements
     var els = document.getElementsByTagName('h5');
     addListeners(els, toggleTable);
 
-    //add listeners to the close all button in gamemaster view
+    //add listener to the close all button in gamemaster view
     var el = document.getElementById('close-all');
     var els = new Array();
     els.push(el);
     addListeners(els, closeAll);
 
-    //add listeners to the close all button in gamemaster view
+    //add listeners to the reset initiative button in gamemaster view
     var el = document.getElementById('reset-init');
     var els = new Array();
     els.push(el);
