@@ -7,22 +7,23 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 }
 
 require_once '../models/charsql.class.php';
+require_once '../models/utils.class.php';
 
 $sheet_id = $_SESSION['sheet_id'];
 
 $params = array( 
-		'str' => $_POST['str'],
-		'str_mod' => $_POST['str_mod'],
-		'con' => $_POST['con'],
-		'con_mod' => $_POST['con_mod'],
-		'dex' => $_POST['dex'],
-		'dex_mod' => $_POST['dex_mod'],
-		'intel' => $_POST['intel'],
-		'intel_mod' => $_POST['intel_mod'],
-		'wis' => $_POST['wis'],
-		'wis_mod' => $_POST['wis_mod'],
-		'cha' => $_POST['cha'],
-		'cha_mod' => $_POST['cha_mod']
+		'str' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['str'])))),
+		'str_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['str_mod'])))),
+		'con' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['con'])))),
+		'con_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['con_mod'])))),
+		'dex' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['dex'])))),
+		'dex_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['dex_mod'])))),
+		'intel' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['intel'])))),
+		'intel_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['intel_mod'])))),
+		'wis' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['wis'])))),
+		'wis_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['wis_mod'])))),
+		'cha' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['cha'])))),
+		'cha_mod' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['cha_mod']))))
 		 );
 
 $csql = new Charsql();

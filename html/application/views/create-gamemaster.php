@@ -11,8 +11,6 @@ if(isset($_SESSION['gm_id'])) {
   unset($_SESSION['gm_id']);
 }
 
-//require_once 'head.php';
-
 ?>
 <!DOCTYPE html>
 <html>

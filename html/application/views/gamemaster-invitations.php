@@ -12,23 +12,17 @@ $gm_id = $_SESSION['gm_id'];
 $gmsql = new Gmsql();
 $gm = $gmsql->getGamemaster($gm_id);
 $_SESSION['gm'] = $gm;
+$inv_errors = array();
 
-$invHTML = $gmsql->buildInvHTML($gm['invitations'], $gm['members']);
-
-if(isset($_SESSION['fail_user_existence'])) {
-  $_SESSION['fail_user_existence'] = false;
-  unset($_SESSION['fail_user_existence']);
+if(isset($_SESSION['inv_failed'])) {
+  $inv_errors = $_SESSION['inv_errors'];
+  $_SESSION['inv_failed'] = false;
+  unset($_SESSION['inv_failed']);
+  $_SESSION['inv_errors'] = false;
+  unset($_SESSION['inv_errors']);
 }
 
-if(isset($_SESSION['fail_invitation_existence'])) {
-  $_SESSION['fail_invitation_existence'] = false;
-  unset($_SESSION['fail_invitation_existence']);
-}
-
-if(isset($_SESSION['fail_membership_existence'])) {
-  $_SESSION['fail_membership_existence'] = false;
-  unset($_SESSION['fail_membership_existence']);
-}
+$invHTML = $gmsql->buildInvHTML($gm['invitations'], $gm['members'], $inv_errors);
 
 ?>
 <!DOCTYPE html>

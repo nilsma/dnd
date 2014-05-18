@@ -7,13 +7,14 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 }
 
 require_once '../models/charsql.class.php';
+require_once '../models/utils.class.php';
 
 $sheet_id = $_SESSION['sheet_id'];
 
 $params = array( 
-		'gold' => $_POST['gold'],
-		'silver' => $_POST['silver'],
-		'copper' => $_POST['copper'],
+		'gold' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['gold'])))),
+		'silver' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['silver'])))),
+		'copper' => Utils::checkNumeric(Utils::html(strtolower(trim($_POST['copper']))))
 		 );
 
 $csql = new Charsql();

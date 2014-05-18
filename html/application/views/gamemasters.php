@@ -41,10 +41,10 @@ if(isset($_SESSION['chosen'])) {
 if(count($gamemasters) > 0) {
   $gmsql = new Gmsql();
   $html = $gmsql->buildGamemasterList($gamemasters);
-  echo $html;
 } else {
-  echo '<p>You have not created any gamemasters yet!</p>';
+  $html = '<p>You have not created any gamemasters yet!</p>' . "\n";
 }
+echo $html;
 ?>
 	<section class="sec-nav-container">
 	  <p class="nav-paragraph"><a href="member.php">Back to Member View</a></p>

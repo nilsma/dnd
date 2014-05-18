@@ -2,9 +2,9 @@
 session_start();
 require_once '../configs/config.php';
 
-//if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-//  header('Location: ' . URL . '');
-//}
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: ' . URL . '');
+}
 
 if(isset($_SESSION['gm'])) {
   $_SESSION['gm'] = false;

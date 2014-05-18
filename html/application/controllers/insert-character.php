@@ -14,33 +14,33 @@ $msql = new Membersql();
 $csql = new Charsql();
 
 $attrs = array();
-$attrs['str'] = $_POST['str'];
-$attrs['strMod'] = $_POST['strMod'];
-$attrs['con'] = $_POST['con'];
-$attrs['conMod'] = $_POST['conMod'];
-$attrs['dex'] = $_POST['dex'];
-$attrs['dexMod'] = $_POST['dexMod'];
-$attrs['intel'] = $_POST['intel'];
-$attrs['intelMod'] = $_POST['intelMod'];
-$attrs['wis'] = $_POST['wis'];
-$attrs['wisMod'] = $_POST['wisMod'];
-$attrs['cha'] = $_POST['cha'];
-$attrs['chaMod'] = $_POST['chaMod'];
+$attrs['str'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['str']))));
+$attrs['strMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['strMod']))));
+$attrs['con'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['con']))));
+$attrs['conMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['conMod']))));
+$attrs['dex'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['dex']))));
+$attrs['dexMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['dexMod']))));
+$attrs['intel'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['intel']))));
+$attrs['intelMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['intelMod']))));
+$attrs['wis'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['wis']))));
+$attrs['wisMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['wisMod']))));
+$attrs['cha'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['cha']))));
+$attrs['chaMod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['chaMod']))));
 
 $purse = array();
-$purse['gold'] = $_POST['gold'];
-$purse['silver'] = $_POST['silver'];
-$purse['copper'] = $_POST['copper'];
+$purse['gold'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['gold']))));
+$purse['silver'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['silver']))));
+$purse['copper'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['copper']))));
 
 $sheet = array();
-$sheet['name'] = strtolower($_POST['name']);
-$sheet['level'] = $_POST['level'];
-$sheet['xp'] = $_POST['xp'];
-$sheet['class'] = strtolower($_POST['class']);
-$sheet['hp'] = $_POST['hp'];
-$sheet['dmg'] = 0;
-$sheet['init_mod'] = $_POST['init_mod'];
-$sheet['init_roll'] = 0;
+$sheet['name'] = Utils::html(strtolower(trim($_POST['name'])));
+$sheet['level'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['level']))));
+$sheet['xp'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['xp']))));
+$sheet['class'] = Utils::html(strtolower(trim($_POST['class'])));
+$sheet['hp'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['hp']))));
+$sheet['dmg'] = Utils::checkNumeric(Utils::html(strtolower(trim(0))));
+$sheet['init_mod'] = Utils::checkNumeric(Utils::html(strtolower(trim($_POST['init_mod']))));
+$sheet['init_roll'] = Utils::checkNumeric(Utils::html(strtolower(trim(0))));
 
 if(!$msql->alreadyOwnsName($_SESSION['user_id'], $sheet['name'])) {
   $sheet_id = $csql->insertSheet($sheet, $attrs, $purse);

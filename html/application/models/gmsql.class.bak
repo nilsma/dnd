@@ -255,12 +255,10 @@ if(!class_exists('Gmsql')) {
      *	A function to build a HTML representation of the invtations
      * and a members overview for the invitations page
      * @param $inv array - an array holding the id's of the sheets that are invited
-     * @param $members array - an array holding the id's of the sheets already member of the gamemaster's campaign
-     * @param $inv_errors array - an array holding the errors reported while trying to add invitation as strings
      * @return $html string - the HTML representation of the invitations
      */
-    public function buildInvHTML($inv, $members, $inv_errors) {
-      $invite = $this->buildInvite($inv_errors); 
+    public function buildInvHTML($inv, $members) {
+      $invite = $this->buildInvite(); 
       $invitations = $this->buildInvitations($inv);
       $members = $this->buildMembers($members);
 
@@ -274,10 +272,9 @@ if(!class_exists('Gmsql')) {
 
     /**
     * A function to build an HTML representation of the create invite form for the gamemaster
-    * @param $inv_errors array - an array holding the errors reported while trying to add invitation as strings
     * @return $html string - the HTML representation of the form
     */
-    public function buildInvite($inv_errors) {
+    public function buildInvite() {
       $html = '';
 
       $html = $html . '<section id="invite">' . "\n";
@@ -291,22 +288,21 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<input type="submit" value="submit">' . "\n";
-      $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
 
-      if(!empty($inv_errors)) {
-	$html = $html . '<div id="inv-failed">' . "\n";
-	$html = $html . '<p>The invitation failed:</p>' . "\n";
-	$html = $html . '<ul>' . "\n";
-
-	foreach($inv_errors as $error) {
-	  $html = $html . '<li>' . $error . '</li>' . "\n";
-	}
-
-	$html = $html . '</ul>' . "\n";
-	$html = $html . '</div> <!-- end #inv-failed -->' . "\n";
+      if(isset($_SESSION['fail_invitation_existence']) && $_SESSION['fail_invitation_existence'] = true) {
+        $html = $html . '<p class="invite-error">Character already invited!</p>' . "\n";
       }
 
+      if(isset($_SESSION['fail_user_existence']) && $_SESSION['fail_user_existence'] = true) {
+        $html = $html . '<p class="invite-error">User or character does not exist!</p>' . "\n";
+      }
+
+      if(isset($_SESSION['fail_membership_existence']) && $_SESSION['fail_membership_existence'] = true) {
+        $html = $html . '<p class="invite-error">Character is already a member of this campaign!</p>' . "\n";
+      }
+
+      $html = $html . '</form>' . "\n";
+      $html = $html . '</fieldset>' . "\n";
       $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end #invite -->' . "\n";
 

@@ -20,8 +20,6 @@ $gm_id = $gmsql->insertGamemaster($gm);
 
 $_SESSION['gm_id'] = $gm_id;
 
-//header('Location: ' . BASE . VIEWS . 'gamemaster.php');
 header('Location: ../views/gamemaster.php');
-
 
 ?>

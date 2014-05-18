@@ -18,6 +18,19 @@ if(!class_exists('Utils')) {
     }
 
     /**
+     * A function to check whether the given param is a numeric or not
+     * @param $x int - the variable to check
+     * @return int - returns $x value if $x value is numeric, returns 0 otherwise
+     */
+    public function checkNumeric($x) {
+      if(is_numeric($x)) {
+	return $x;
+      } else {
+	return 0;
+      }
+    }
+
+    /**
      * A function that takes a password and hashes it
      * @param string password - the given password to hash
      * @return string hashed - returns the hashed password
