@@ -21,9 +21,9 @@ require_once '../configs/config.php';
 	    <legend>Register</legend>
 	    <form name="register" action="../controllers/proc-registration.php" method="POST">
 	      <label for="username">Username:</label><br/>
-	      <input id="username" name="username" type="text" maxlength="30" required><br/>
+              <input id="username" name="username" type="text" maxlength="30" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['username'] . '"'; } ?> required><br/>
 	      <label for="email">Email:</label><br/>
-	      <input id="email" name="email" type="email" maxlength="40" required><br/>
+	      <input id="email" name="email" type="email" maxlength="40" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['email'] . '"'; } ?> required><br/>
 	      <label for="password1">Password:</label><br/>
 	      <input id="password1" name="password1" type="password" maxlength="16" required><br/>
 	      <label for="password2">Password:</label><br/>
@@ -33,35 +33,24 @@ require_once '../configs/config.php';
 	  </fieldset>
 <?php
 if(isset($_SESSION['reg_failed'])) {
-  echo '<div class="reg-error">' . "\n";
-  echo '<p>Something went wrong while registering, please try again.</p>' . "\n";
-  echo '</div>' . "\n";
+  $html = '';
+  $html = $html . '<div class="reg-error">' . "\n";
+  $html = $html . '<p>The following errors occured:</p>' . "\n";
+  $html = $html . '<ul>' . "\n";
+  foreach($_SESSION['reg_errors'] as $error) {
+    $html = $html . '<li>' . $error . '</li>' . "\n";
+  }
+  $html = $html . '</ul>' . "\n";
+  $html = $html . '</div> <!-- end .reg-errors -->' . "\n";
+  
+  echo $html;
+
   $_SESSION['reg_failed'] = false;
-  unset($SESSION['reg_failed']);
-}
-
-if(isset($_SESSION['fail_user_details_exists'])) {
-  echo '<div class="reg-error">' . "\n";
-  echo '<p>Username or email already exists!</p>' . "\n";
-  $_SESSION['fail_user_details_exists'] = false;
-  unset($_SESSION['fail_user_details_exists']);
-}
-
-if(isset($_SESSION['fail_no_password_match'])) {
-  echo '<div class="reg-error">' . "\n";
-  echo '<p>The passwords does not match!</p>' . "\n";
-  echo '</div>' . "\n";
-  $_SESSION['fail_no_password_match'] = false;
-  unset($_SESSION['fail_no_password_match']);
-}
-
-if(isset($_SESSION['fail_password_format'])) {
-  echo '<div class="reg-error">' . "\n";
-  echo '<p>Wrong format on your passwords!</p>' . "\n";
-  echo '<p>Please make sure that your passwords match is at least 6 characters long, is not longer that 16 characters, has at least one letter, one number and one uppercase letter!</p> . "\n"';
-  echo '</div>' . "\n";
-  $_SESSION['fail_password_format'] = false;
-  unset($_SESSION['fail_password_format']);
+  unset($_SESSION['reg_failed']);
+  $_SESSION['reg_errors'] = false;
+  unset($_SESSION['reg_errors']);
+  $_SESSION['reg_values'] = false;
+  unset($_SESSION['reg_values']);
 }
 
 ?>

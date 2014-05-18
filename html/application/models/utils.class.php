@@ -37,6 +37,10 @@ if(!class_exists('Utils')) {
      * @return string - the washed string
      */
     public static function html($string) {
+      //TODO define constants elsewhere
+      define('CHARSET', 'UTF-8');
+      define('REPLACE_FLAGS', ENT_QUOTES | 'UTF-8');
+      
       return htmlspecialchars($string, REPLACE_FLAGS, CHARSET);
     }
 
