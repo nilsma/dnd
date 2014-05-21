@@ -57,8 +57,6 @@ if(isset($_SESSION['sheet_id'])) {
 	<section class="sec-nav-container">
 	  <a class="sec-nav-entry" href="characters.php">Slay Some Dwagons!</a>
 	  <a class="sec-nav-entry" href="gamemasters.php">Rule Ze World!</a>
-<!--	  <p class="nav-paragraph"><a href="characters.php">Slay Some Dwagons!</a></p>
-	  <p class="nav-paragraph"><a href="gamemasters.php">Rule Ze World!</a></p> -->
 	</section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->

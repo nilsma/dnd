@@ -1,0 +1,74 @@
+section#characters {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    }
+
+section.character {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: brown;
+    display: flex;
+    font-size: 2em;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #777;
+    }
+
+section.character p {
+    font-size: 0.8em;
+    }
+
+span.char-name {
+    font-size: 1.5em;
+    }
+
+section.character:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    }
+
+section.character:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+/*
+section.character p {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: brown;
+    display: flex;
+    font-size: 2em;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #777;
+    }
+
+section.sec-nav-container a {
+
+}
+
+section.sec-nav-container a:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+section.sec-nav-container a:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+*/
+
+/******************/
+/* START PORTRAIT */
+/******************/
+
+@media screen and (orientation:portrait) {
+
+}
+
