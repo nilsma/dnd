@@ -1,4 +1,16 @@
 /**
+ * A function to toggle the visibility of the sub-nav-wrapper element 
+ */
+function toggleSubnav() {
+    var el = document.getElementById('sub-nav-wrapper');
+    if(window.getComputedStyle(el, null).getPropertyValue('visibility') === 'hidden') {    
+	el.style.visibility='initial';
+    } else {
+	el.style.visibility='hidden';
+    }
+}
+
+/**
  * A function to load a gamemaster when clicked in the gamemasters overview view
  */
 function loadGamemaster() {
@@ -63,6 +75,12 @@ function init() {
     var els = new Array();
     var els = document.getElementsByClassName('gamemaster-entry');
     addListeners(els, loadGamemaster);
+
+    //add listener to the toggle sub-nav link
+    var els = new Array()
+    var el = document.getElementById('sub-nav-init');
+    els.push(el);
+    addListeners(els, toggleSubnav);
 }
 
 /**

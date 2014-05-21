@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    }
+
+html {
+    height: 100%;
+    overflow-y: hidden;
+    }
+
+body {
+    background-image: none;
+    height: 100%;
+    }
+
+nav ul {
+    background-color: black;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0.5em 0 0.5em 0;
+    width: 100%;
+    }
+
+nav ul li.active-nav {
+    border-bottom: 2px solid white;
+    }
+
+nav ul li:hover {
+    cursor: pointer;
+    }
+
+div#main-container {
+    background-image: url('../../public/images/parchment4.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: block;
+    min-height: 100%;
+    height: auto;
+    padding-top: 1em;
+    }
+
+div#inner-container {
+    margin-top: 0;
+    }
+
+h2 {
+    visibility: hidden;
+    }
+
+.character-form-entry {
+    width: 100%;
+    }
+
+div#sub-nav-wrapper {
+    background-color: gray;
+    display: flex;
+    float: left;
+    justify-content: center;
+    padding: 0.25em 0 0.25em 0;
+    visibility: hidden;
+    width: 100%;
+    }
+
+div#sub-nav-wrapper ul {
+    align-items: flex-end;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    list-style: none;
+    width: 95%;
+    }
+
+div#sub-nav-wrapper li,
+div#sub-nav-wrapper li a {
+    color: white;
+    font-size: 0.9em;
+    }
+
+section.sec-nav-container,
+body#member-landing section.sec-nav-container p:nth-child(3) {
+    display: none;
+    }
+
+body#member-landing section.sec-nav-container {
+    display: block;
+    }

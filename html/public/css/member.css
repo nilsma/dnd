@@ -1,0 +1,54 @@
+@media screen and (orientation:portrait) {
+
+    section.sec-nav-container a {
+	background-color: rgba(255, 255, 255, 0.3);
+	color: brown;
+	display: block;
+	float: left;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 1em;
+	padding: 0.5em;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #777;
+    }
+
+    section.sec-nav-container a:hover {
+	background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    section.sec-nav-container a:active {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+    }
+
+}
+
+//END PORTRAIT
+
+@media screen and (orientation:landscape) {
+
+    section.sec-nav-container a {
+	background-color: rgba(255, 255, 255, 0.3);
+	color: blue;
+	display: block;
+	float: left;
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 1em;
+	padding: 0.5em;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #777;
+	width: 80%;
+    }
+
+    section.sec-nav-container a:hover {
+	background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    section.sec-nav-container a:active {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+    }
+
+}

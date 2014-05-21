@@ -29,10 +29,28 @@ if(isset($_SESSION['chosen'])) {
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <link rel="stylesheet" href="../../public/css/characters.css"/>
+    <link rel="stylesheet" href="../../public/css/navigation.css"/>
     <script type="text/javascript" src="../../public/js/characters.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="characters-overview">
+    <header>
+      <nav id="nav">
+	<ul>
+	  <li class="main-nav"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
+	  <li class="main-nav"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>
+ 	  <li class="main-nav active-nav"><a href="characters.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
+	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
+	</ul>
+      </nav>
+      <div id="sub-nav-wrapper">
+	<ul>
+	  <li><a href="create-character.php">Create Character</a></li>
+	  <li><a href="member-settings.php">Edit User</a></li>
+	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
+	</ul>
+      </div>
+    </header>
     <div id="main-container">
       <h1>Characters view</h1>
       <div id="inner-container">

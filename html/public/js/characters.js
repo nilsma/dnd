@@ -1,4 +1,29 @@
 /**
+ * A function to toggle the visibility of the sub-nav-wrapper element 
+ */
+function toggleSubnav() {
+    var el = document.getElementById('sub-nav-wrapper');
+    if(window.getComputedStyle(el, null).getPropertyValue('visibility') === 'hidden') {    
+	el.style.visibility='initial';
+    } else {
+	el.style.visibility='hidden';
+    }
+    toggleMainnav();
+}
+
+function toggleMainnav() {
+    var navs = document.getElementsByClassName('main-nav');
+    for(var i = 0; i < navs.length; i++) {
+	navs[i].style.opacity=0.1;
+	if(window.getComputedStyle(el, null).getPropertyValue('opacity') === 1) {    
+	    el.style.opacity=0.1;
+	} else {
+	    el.style.opacity=1;
+	}
+    }
+}
+
+/**
  * A function to load a character upon click
  */
 function loadCharacter() {
@@ -63,6 +88,11 @@ function init() {
     var els = document.getElementsByClassName('character');
     addListeners(els, loadCharacter);
 
+    //add listener to the toggle sub-nav link
+    var els = new Array()
+    var el = document.getElementById('sub-nav-init');
+    els.push(el);
+    addListeners(els, toggleSubnav);
 }
 
 /**

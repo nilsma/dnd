@@ -1,4 +1,16 @@
 /**
+ * A function to toggle the visibility of the sub-nav-wrapper element 
+ */
+function toggleSubnav() {
+    var el = document.getElementById('sub-nav-wrapper');
+    if(window.getComputedStyle(el, null).getPropertyValue('visibility') === 'hidden') {    
+	el.style.visibility='initial';
+    } else {
+	el.style.visibility='hidden';
+    }
+}
+
+/**
  * A function to add eventlisteners to the stated elements
  * @param els array - an array of elements of which to add listeners to
  * @param fnc function - the function name of which to trigger when the element is clicked
@@ -29,6 +41,8 @@ function addListeners() {
     document.getElementById('gold').addEventListener('blur', function() { updatePurse() }, false);
     document.getElementById('silver').addEventListener('blur', function() { updatePurse() }, false);
     document.getElementById('copper').addEventListener('blur', function() { updatePurse() }, false);
+
+    document.getElementById('sub-nav-init').addEventListener('click', function() { toggleSubnav() }, false);
 }
 
 function updateSheet() {

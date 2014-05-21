@@ -18,9 +18,28 @@ if(isset($_SESSION['gm_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/navigation.css"/>
+    <script type="text/javascript" src="../../public/js/create-gamemaster.js"></script>
     <title>DND Helper</title>
   </head>
   <body id="gamemaster-create">
+    <header>
+      <nav>
+	<ul>
+	  <li><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
+	  <li class="active-nav"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px-alt.jpg"></a></li>
+ 	  <li><a href="characters.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
+	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
+	</ul>
+      </nav>
+      <div id="sub-nav-wrapper">
+	<ul>
+	  <li><a href="create-gamemaster.php">Create Gamemaster</a></li>
+	  <li><a href="member-settings.php">Edit User</a></li>
+	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
+	</ul>
+      </div>
+    </header>
     <div id="main-container">
       <h1>Create Gamemaster View</h1>
       <div id="inner-container">

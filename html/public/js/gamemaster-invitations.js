@@ -1,4 +1,16 @@
 /**
+ * A function to toggle the visibility of the sub-nav-wrapper element 
+ */
+function toggleSubnav() {
+    var el = document.getElementById('sub-nav-wrapper');
+    if(window.getComputedStyle(el, null).getPropertyValue('visibility') === 'hidden') {    
+	el.style.visibility='initial';
+    } else {
+	el.style.visibility='hidden';
+    }
+}
+
+/**
  * A function to remove a member from a given campaign
  */
 function removeMember() {
@@ -120,6 +132,12 @@ function init() {
     var els = new Array();
     var els = document.getElementsByClassName('remove-member');
     addListeners(els, removeMember);
+
+    //add listener to the toggle sub-nav link
+    var els = new Array()
+    var el = document.getElementById('sub-nav-init');
+    els.push(el);
+    addListeners(els, toggleSubnav);
 
 }
 
