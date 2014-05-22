@@ -1,0 +1,26 @@
+legend {
+    display: none;
+    }
+
+form {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    }
+
+form p {
+    display: flex;
+    margin-bottom: 0.5em;
+    flex-flow: row;
+    justify-content: space-around;
+    }
+
+form p#first-attribute,
+form p#first-purse,
+form input#submit {
+    margin-top: 2em;
+    }
+
+form p.attr-paragraph input {
+    width: 4em;
+    }

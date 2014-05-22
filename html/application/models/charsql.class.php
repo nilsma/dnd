@@ -117,8 +117,9 @@ if(!class_exists('Charsql')) {
      */
     public function getMemberships($user_id) {
       $mysqli = $this->connect();
-
-      $query = "SELECT s.name, g.alias, c.title FROM users as u, sheets as s, gamemasters as g, campaigns as c, members as m WHERE m.sheet=s.id AND s.owner=u.id AND u.id=? AND m.campaign=c.id AND c.gamemaster=g.id";
+      
+      //      $query = "SELECT s.name, g.alias, c.title FROM users as u, sheets as s, gamemasters as g, campaigns as c, members as m WHERE m.sheet=s.id AND s.owner=u.id AND u.id=? AND m.campaign=c.id AND c.gamemaster=g.id";
+      $query = "SELECT s.name, g.alias, c.title FROM sheets as s, gamemasters as g, campaigns as c, members as m WHERE m.sheet=s.id AND s.id=? AND m.campaign=c.id AND c.gamemaster=g.id";
       $query = $mysqli->real_escape_string($query);
 
       $stmt = $mysqli->stmt_init();
@@ -155,7 +156,8 @@ if(!class_exists('Charsql')) {
     public function getInvitations($user_id) {
       $mysqli = $this->connect();
 
-      $query = "SELECT g.alias, s.name, c.title FROM gamemasters as g, sheets as s, campaigns as c, invitations as i, users as u WHERE g.id=i.gamemaster AND i.sheet=s.id AND s.owner=u.id AND i.campaign=c.id AND u.id=?";
+      //      $query = "SELECT g.alias, s.name, c.title FROM gamemasters as g, sheets as s, campaigns as c, invitations as i, users as u WHERE g.id=i.gamemaster AND i.sheet=s.id AND s.owner=u.id AND i.campaign=c.id AND u.id=?";
+      $query = "SELECT g.alias, s.name, c.title FROM gamemasters as g, sheets as s, campaigns as c, invitations as i WHERE  g.id=i.gamemaster AND i.sheet=s.id AND s.id=? AND i.campaign=c.id";
       $query = $mysqli->real_escape_string($query);
 
       $stmt = $mysqli->stmt_init();
@@ -538,6 +540,9 @@ if(!class_exists('Charsql')) {
       $html = $html . '</div> <!-- end .character-form-entry -->' . "\n";
       $html = $html . '</section> <!-- end #purse -->' . "\n";
       $html = $html . '</div> <!-- end #bottom-wrapper -->' . "\n";
+      //      $html = $html . '<div id="delete-character">' . "\n";
+      //      $html = $html . '<a href="confirm-delete-character.php">Delete Character</a>' . "\n";
+      //      $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end #character-overview -->' . "\n";
       
       return $html;
@@ -552,19 +557,19 @@ if(!class_exists('Charsql')) {
     public function buildSheet($sheet) {
       $html = '';
       
-      $html = $html . '<fieldset>' . "\n";
+      //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Personalia</legend>' . "\n";
       $html = $html . '<form name="character" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
-      $html = $html . '<p><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucfirst($sheet['name']) . '" required></p>' . "\n";
-      $html = $html . '<p><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucfirst($sheet['class']) . '" required></p>' . "\n";
+      $html = $html . '<p><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucwords($sheet['name']) . '" required></p>' . "\n";
+      $html = $html . '<p><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucwords($sheet['class']) . '" required></p>' . "\n";
       $html = $html . '<p><label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="experience_points">Experience Points:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required></p>' . "\n";
+      $html = $html . '<p><label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required></p>' . "\n";
       $html = $html . '<p><label for="damage">Dmg:</label><input name="dmg" id="damage" type="number" value="' . $sheet['dmg'] . '" required></p>' . "\n";
       $html = $html . '<p><label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="initiativeRoll">Initiative Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="modifier">Initiative Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required></p>' . "\n";
+      $html = $html . '<p><label for="initiativeRoll">Init Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required></p>' . "\n";
+      $html = $html . '<p><label for="modifier">Init Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
+      //      $html = $html . '</fieldset>' . "\n";
 
       return $html;
     }
@@ -577,7 +582,7 @@ if(!class_exists('Charsql')) {
     public function buildAttrs($attrs) {
       $html = '';
       
-      $html = $html . '<fieldset>' . "\n";
+      //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Attributes</legend>' . "\n";
       $html = $html . '<form name="attrs" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<p><label for="strength">STR:</label><input name="str" id="strength" type="number" value="' . $attrs['str'] . '" required>' . "\n";
@@ -593,7 +598,7 @@ if(!class_exists('Charsql')) {
       $html = $html . '<p><label for="charisma">CHA:</label><input name="cha" id="charisma" type="number" value="' . $attrs['cha'] . '" required>' . "\n";
       $html = $html . '<label for="charisma_modifier">MOD:</label><input name="cha_mod" id="charisma_modifier" type="number" value="' . $attrs['chaMod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
+      //      $html = $html . '</fieldset>' . "\n";
       
       return $html;
     }
@@ -606,14 +611,14 @@ if(!class_exists('Charsql')) {
     public function buildPurse($purse) {
       $html = '';
 
-      $html = $html . '<fieldset>' . "\n";
+      //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Purse</legend>' . "\n";
       $html = $html . '<form name="purse" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<p><label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required></p>' . "\n";
       $html = $html . '<p><label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required></p>' . "\n";
       $html = $html . '<p><label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
+      //      $html = $html . '</fieldset>' . "\n";
 
       return $html;
     }

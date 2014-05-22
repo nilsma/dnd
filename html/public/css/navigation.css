@@ -13,7 +13,7 @@ body {
     height: 100%;
     }
 
-nav ul {
+nav ul:first-child {
     background-color: black;
     display: flex;
     flex-flow: row;
@@ -23,11 +23,11 @@ nav ul {
     width: 100%;
     }
 
-nav ul li.active-nav {
+nav ul:first-child li.active-nav {
     border-bottom: 2px solid white;
     }
 
-nav ul li:hover {
+nav ul:first-child li:hover {
     cursor: pointer;
     }
 
@@ -42,7 +42,7 @@ div#main-container {
     }
 
 div#inner-container {
-    margin-top: 0;
+//    margin-top: 0;
     }
 
 h2 {
@@ -56,26 +56,30 @@ h2 {
 div#sub-nav-wrapper {
     background-color: gray;
     display: flex;
+    display: none;
     float: left;
     justify-content: center;
     padding: 0.25em 0 0.25em 0;
-    visibility: hidden;
     width: 100%;
     }
 
 div#sub-nav-wrapper ul {
-    align-items: flex-end;
     display: flex;
-    flex-flow: row;
+    flex-flow: row nowrap;
+    height: auto;
     justify-content: space-around;
     list-style: none;
     width: 95%;
     }
 
-div#sub-nav-wrapper li,
-div#sub-nav-wrapper li a {
+div#sub-nav-wrapper ul li a {
     color: white;
+    display: block;
     font-size: 0.9em;
+    }
+
+div#sub-nav-wrapper li:last-child a {
+    margin-right: 0;
     }
 
 section.sec-nav-container,

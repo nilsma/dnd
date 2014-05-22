@@ -18,16 +18,12 @@ require_once '../configs/config.php';
       <h1>Login view</h1>
       <div id="inner-container">
 	<div class="form-entry">
-	  <fieldset>
-	    <legend>Login form</legend>
-	    <form name="login" action="../controllers/proc-login.php" method="POST">
-	    <label for="username">Username:</label><br/>
-	    <input name="username" id="username" type="text" maxlength="30" required><br/>
-	    <label for="password">Password:</label><br/>
-	    <input name="password" id="password" type="password" maxlength="16" required><br/>
-	    <input type="submit" value="Login">
-	    </form>
-	  </fieldset>
+	  <legend>Login form</legend>
+	  <form name="login" action="../controllers/proc-login.php" method="POST">
+	    <p><label for="username">Username:</label><input name="username" id="username" type="text" maxlength="30" required></p>
+	    <p><label for="password">Password:</label><input name="password" id="password" type="password" maxlength="16" required></p>
+	    <p><input type="submit" value="Login"><a href="register.php">Register</a></p>
+	  </form>
 <?php 
 if(isset($_SESSION['auth_failed'])) {
   $_SESSION['auth_failed'] = false;
@@ -38,7 +34,7 @@ if(isset($_SESSION['auth_failed'])) {
 } 
 ?>
       </div> <!-- end .form-entry -->
-      <section class="sec-nav-container">
+<!--      <section class="sec-nav-container">
 	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
       </section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->

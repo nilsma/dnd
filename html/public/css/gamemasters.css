@@ -1,10 +1,4 @@
-section#characters {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    }
-
-section.character {
+section.gamemaster-entry {
     background-color: rgba(255, 255, 255, 0.3);
     color: brown;
     display: flex;
@@ -19,29 +13,12 @@ section.character {
     text-align: center;
     }
 
-section.character p {
-    font-size: 0.8em;
-    }
-
-span.char-name {
-    font-size: 1.5em;
-    }
-
-section.character:hover {
+section.gamemaster-entry:hover {
     background-color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     }
 
-section.character:active {
+section.gamemaster-entry:active {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
 }
-
-/******************/
-/* START PORTRAIT */
-/******************/
-
-@media screen and (orientation:portrait) {
-
-}
-

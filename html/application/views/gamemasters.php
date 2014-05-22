@@ -38,16 +38,15 @@ if(isset($_SESSION['chosen'])) {
     <header>
       <nav>
 	<ul>
-	  <li><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
-	  <li class="active-nav"><img src="../../public/images/gamemaster_icon32px.jpg"></li>
- 	  <li><a href="characters.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
+	  <li class="main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
+ 	  <li class="main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>
+	  <li class="active-nav main-nav-entry"><img src="../../public/images/gamemaster_icon32px.jpg"></li>
 	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
 	</ul>
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
 	  <li><a href="create-gamemaster.php">Create Gamemaster</a></li>
-	  <li><a href="member-settings.php">Edit User</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>
       </div>

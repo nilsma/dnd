@@ -17,20 +17,14 @@ require_once '../configs/config.php';
       <h1>Register view</h1>
       <div id="inner-container">
 	<div class="form-entry">
-	  <fieldset>
-	    <legend>Register</legend>
-	    <form name="register" action="../controllers/proc-registration.php" method="POST">
-	      <label for="username">Username:</label><br/>
-              <input id="username" name="username" type="text" maxlength="30" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['username'] . '"'; } ?> required><br/>
-	      <label for="email">Email:</label><br/>
-	      <input id="email" name="email" type="email" maxlength="40" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['email'] . '"'; } ?> required><br/>
-	      <label for="password1">Password:</label><br/>
-	      <input id="password1" name="password1" type="password" maxlength="16" required><br/>
-	      <label for="password2">Password:</label><br/>
-	      <input id="password2" name="password2" type="password" maxlength="16" required><br/>
-	      <input type="submit" value="Register">
-	    </form>
-	  </fieldset>
+	  <legend>Register</legend>
+	  <form name="register" action="../controllers/proc-registration.php" method="POST">
+	    <p><label for="username">Username:</label><input id="username" name="username" type="text" maxlength="30" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['username'] . '"'; } ?> required></p>
+	    <p><label for="email">Email:</label><input id="email" name="email" type="email" maxlength="40" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['email'] . '"'; } ?> required></p>
+	    <p><label for="password1">Password:</label><input id="password1" name="password1" type="password" maxlength="16" required></p>
+	    <p><label for="password2">Password:</label><input id="password2" name="password2" type="password" maxlength="16" required></p>
+	    <p><input type="submit" value="Register"><a href="index.php">Login</a></p>
+	  </form>
 <?php
 if(isset($_SESSION['reg_failed'])) {
   $html = '';
@@ -55,9 +49,9 @@ if(isset($_SESSION['reg_failed'])) {
 
 ?>
 	</div> <!-- end .form-entry -->
-	<section class="sec-nav-container">
+<!--	<section class="sec-nav-container">
 	  <p class="nav-paragraph">Or <a href="index.php">Go Back To The Home Page</a></p>
-	</section>
+	</section> -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>

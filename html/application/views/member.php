@@ -37,15 +37,14 @@ if(isset($_SESSION['sheet_id'])) {
     <header>
       <nav>
 	<ul>
-	  <li class="active-nav"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
-	  <li><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>
- 	  <li><a href="characters.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
+	  <li class="active-nav main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
+ 	  <li class="main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>
+	  <li class="main-nav-entry"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>
 	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
 	</ul>
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
-	  <li><a href="create-character.php">Create Character</a></li>
 	  <li><a href="member-settings.php">Edit User</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>
@@ -55,8 +54,8 @@ if(isset($_SESSION['sheet_id'])) {
       <h1>Member view</h1>
       <div id="inner-container">
 	<section class="sec-nav-container">
-	  <a class="sec-nav-entry" href="characters.php">Slay Some Dwagons!</a>
-	  <a class="sec-nav-entry" href="gamemasters.php">Rule Ze World!</a>
+	  <a class="sec-nav-entry" href="characters.php">Character Mode</a>
+	  <a class="sec-nav-entry" href="gamemasters.php">Gamemaster Mode</a>
 	</section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->

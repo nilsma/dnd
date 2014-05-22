@@ -285,14 +285,14 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<h2>Create Invitation</h2>' . "\n";
       $html = $html . '</div>' . "\n";
       $html = $html . '<div>' . "\n";
-      $html = $html . '<fieldset>' . "\n";
+      //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Create Invitation</legend>' . "\n";
       $html = $html . '<form name="create-invite" action="../controllers/invite-character.php" method="POST">' . "\n";
       $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
       $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
-      $html = $html . '<input type="submit" value="submit">' . "\n";
+      $html = $html . '<input type="submit" value="Invite">' . "\n";
       $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
+      //      $html = $html . '</fieldset>' . "\n";
 
       if(!empty($inv_errors)) {
 	$html = $html . '<div id="inv-failed">' . "\n";
@@ -838,7 +838,7 @@ if(!class_exists('Gmsql')) {
       if(count($gamemasters) > 0) {
 	foreach($gamemasters as $gm) {
 	  $html = $html . '<section class="gamemaster-entry">' . "\n";
-	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the <span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '</span> campaign</p>' . "\n";
+	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the "<span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '"</span> campaign</p>' . "\n";
 	  $html = $html . '</section> <!-- end .gamemaster-entry -->' . "\n";
 	}
       } else {

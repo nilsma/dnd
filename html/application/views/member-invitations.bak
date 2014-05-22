@@ -10,8 +10,8 @@ require_once '../models/charsql.class.php';
 
 $csql = new Charsql();
 
-$invitations = $csql->getInvitations($_SESSION['sheet_id']);
-$memberships = $csql->getMemberships($_SESSION['sheet_id']);
+$invitations = $csql->getInvitations($_SESSION['user_id']);
+$memberships = $csql->getMemberships($_SESSION['user_id']);
 $invHTML = $csql->buildInvHTML($invitations, $memberships);
 
 ?>
@@ -30,15 +30,17 @@ $invHTML = $csql->buildInvHTML($invitations, $memberships);
     <header>
       <nav>
 	<ul>
-	  <li class="main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
-	  <li class="active-nav main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>
- 	  <li class="main-nav-entry"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>
+	  <li><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
+	  <li><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>
+ 	  <li class="active-nav"><a href="character.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
 	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
 	</ul>
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
-	  <li><a href="character.php">Back to character</a></li>
+	  <li><a href="member-invitations.php">Manage Invitations</a></li>
+	  <li><a href="create-character.php">Create Character</a></li>
+	  <li><a href="member-settings.php">Edit User</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>
       </div>
@@ -47,8 +49,8 @@ $invHTML = $csql->buildInvHTML($invitations, $memberships);
       <h1>Invitations View</h1>
       <div id="inner-container">
 	<?php echo $invHTML; ?>
-<!--	<p><a href="characters.php">Back to Characters View</a></p>
-	<p>or <a href="../controllers/proc-logout.php">Logout</a></p> -->
+	<p><a href="characters.php">Back to Characters View</a></p>
+	<p>or <a href="../controllers/proc-logout.php">Logout</a></p>
       </div> <!-- end inner-container -->
     </div> <!-- end main-container -->
   </body>

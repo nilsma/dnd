@@ -1,12 +1,3 @@
-div#main-container {
-    text-align: left;
-    padding-bottom: 3em;
-    }
-
-div#inner-container {
-    text-align: left;
-    }
-
 /* START PERSONALIA */
 div.character-form-entry fieldset {
     border: 0;
@@ -16,11 +7,6 @@ div.character-form-entry legend {
     display: none;
     }
 
-section#personalia div.character-form-entry form {
-    margin: 0 auto;
-    width: 20em;
-    }
-
 section#personalia div.character-form-entry form p {
     display: flex;
     flex-direction: row;
@@ -28,20 +14,19 @@ section#personalia div.character-form-entry form p {
     justify-content: space-between;
     }
 
-//save
-/*
-section#personalia div.character-form-entry form p {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 0.5em;
-    justify-content: space-between;
+div.character-form-entry form label {
+    text-shadow: 1px 1px 1px #777;
     }
-*/
 
-section#personalia div.character-form-entry form label {
-    margin-right: 0.5em;
-    text-align: left;
+div.character-form-entry form input {
+    border: 0;
+    padding: 1px 2px;
     }
+
+div.character-form-entry form label, 
+div.character-form-entry form input {
+    font-size: 1.4em;
+}
 
 /* START BOTTOM-WRAPPER */
 /* wrapper for attributes and purse form */
@@ -105,99 +90,18 @@ section#purse div.character-form-entry form p label {
 section#purse div.character-form-entry form p input {
     width: 7em;
     }
-  
-/*
-form input {
-    width: 7em;
-    }
-
-form p:nth-child(1) input {
-    width: 15.25em;
-    }
-
-form p:nth-child(2) input {
-    width: 7em;
-}
-
-form p:nth-child(2) input:last-child {
-    width: 3em;
-    }
-*/
-
-/*
-section#characters {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    }
-
-section.character {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: brown;
-    display: flex;
-    font-size: 2em;
-    font-weight: bold;
-    justify-content: center;
-    margin-bottom: 1em;
-    padding: 0.5em;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #777;
-    }
-
-section.character p {
-    font-size: 0.8em;
-    }
-
-span.char-name {
-    font-size: 1.5em;
-    }
-
-section.character:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    }
-
-section.character:active {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-}
-*/
-
-/*
-section.character p {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: brown;
-    display: flex;
-    font-size: 2em;
-    font-weight: bold;
-    justify-content: center;
-    margin-bottom: 1em;
-    padding: 0.5em;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #777;
-    }
-
-section.sec-nav-container a {
-
-}
-
-section.sec-nav-container a:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-section.sec-nav-container a:active {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-}
-
-*/
 
 /******************/
 /* START PORTRAIT */
 /******************/
 
 @media screen and (orientation:portrait) {
-
+    /* START PERSONALIA */
+    section#personalia div.character-form-entry form label, 
+    section#personalia div.character-form-entry form input {
+	font-size: 1em;
+    }
+    
     /* START BOTTOM-WRAPPER */
     /* wrapper for attributes and purse form */
     div#bottom-wrapper {
@@ -206,5 +110,22 @@ section.sec-nav-container a:active {
 	justify-content: space-between;
     }
 
-}
+    section#personalia div.character-form-entry form label {
+	margin-right: 0.5em;
+    }
 
+    div.character-form-entry form label,
+    div.character-form-entry form input {
+	font-size: 1em;
+    }
+
+    section#personalia div.character-form-entry form p input {
+	width: 10.5em;
+    }
+
+    section#attributes div.character-form-entry form p input,
+    section#purse div.character-form-entry form p input {
+	width: 3.5em;
+    }
+
+}

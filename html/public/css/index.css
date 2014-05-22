@@ -1,0 +1,38 @@
+div#inner-container {
+    margin-top: 3em;
+    }
+
+form  {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
+    }
+
+form p a {
+    background-color: #006400;
+    color: white;
+    font-family: sans-serif;
+    font-size: 1;
+    padding: 2px 4px;
+    text-decoration: none;
+    }
+
+form p a:hover {
+    background-color: lightgreen;
+    color: black;
+    }
+
+form input[type=submit] {
+    font-size: 1em;
+    margin-right: 1em;
+    }
+
+form input {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    }
+
+form label {
+    font-size: 1.2em;
+    }

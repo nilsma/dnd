@@ -2,23 +2,25 @@
  * A function to toggle the visibility of the sub-nav-wrapper element 
  */
 function toggleSubnav() {
+    hideMainnav();
     var el = document.getElementById('sub-nav-wrapper');
-    if(window.getComputedStyle(el, null).getPropertyValue('visibility') === 'hidden') {    
-	el.style.visibility='initial';
+    if(window.getComputedStyle(el, null).getPropertyValue('display') === 'none') {    
+	el.style.display='flex';
     } else {
-	el.style.visibility='hidden';
+	el.style.display='none';
     }
-    toggleMainnav();
 }
 
-function toggleMainnav() {
-    var navs = document.getElementsByClassName('main-nav');
-    for(var i = 0; i < navs.length; i++) {
-	navs[i].style.opacity=0.1;
-	if(window.getComputedStyle(el, null).getPropertyValue('opacity') === 1) {    
-	    el.style.opacity=0.1;
+/**
+ * A function to hide the main navigation li entries
+ */
+function hideMainnav() {
+    var els = document.getElementsByClassName('main-nav-entry');
+    for(var i = 0; i < els.length; i++) {
+	if(parseInt(window.getComputedStyle(els[i], null).getPropertyValue('opacity')) === 0) {
+	    els[i].style.opacity=1;
 	} else {
-	    el.style.opacity=1;
+	    els[i].style.opacity=0.2;
 	}
     }
 }

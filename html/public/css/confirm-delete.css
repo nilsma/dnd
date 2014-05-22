@@ -1,0 +1,29 @@
+div#inner-container {
+    margin-top: 3em;
+    }
+
+p {
+    margin-bottom: 2em;
+    text-align: center;
+    }
+
+p:first-child label {
+    line-height: 1.5em;
+    }
+
+p label {
+    font-size: 1.2em;
+    }
+
+p:nth-child(2) label {
+    font-size: 1.5em;
+    }
+
+p:nth-child(2) input {
+    margin-bottom: 2em;
+    }
+
+p:nth-child(2) input:last-child {
+    margin-bottom: 0;
+    }
+

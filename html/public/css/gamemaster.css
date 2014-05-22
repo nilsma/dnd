@@ -3,6 +3,9 @@ h3 {
     }
 
 section.campaign-member {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed black;
+    box-shadow: 1px 1px 2px #000;
     margin-top: 1em;
     }
 
@@ -23,4 +26,56 @@ div.char-table {
 
 div.char-table caption {
     display: none;
+    }
+
+div.name,
+h5 {
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 2px 4px;
+    }
+
+div.name:hover,
+h5:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    }
+
+div.name:active,
+h5:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    }
+
+h4 {
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    }
+
+div.name h4:first-child {
+    font-size: 1.2em;
+    font-weight: bold;
+    }
+
+h5 {
+    font-size: 1em;
+    font-weight: normal;
+    }
+
+th {
+    font-size: 0.9em;
+    font-weight: normal;
+    }
+
+p {
+    text-align: center;
+    }
+
+h2 {
+    visibility: initial;
+    margin-bottom: 1em;
+    color: brown;
+    color: #A52A2A;
+    text-shadow: 1px 1px 1px #777;
     }
