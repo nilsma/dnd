@@ -397,7 +397,7 @@ if(!class_exists('Charsql')) {
       if(count($characters) > 0) {
 	foreach($characters as $c) {
 	  $html = $html . '          <section class="character">' . "\n";
-	  $html = $html . '            <p><span class="char-name">' . ucwords($c['name']) . '</span><br/>Level <span class="level">' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
+	  $html = $html . '            <p class="gui"><span class="char-name">' . ucwords($c['name']) . '</span><br/><span class="level">Level ' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
 	  $html = $html . '          </section> <!-- end .character -->' . "\n";
 	}
       } else {
@@ -560,14 +560,14 @@ if(!class_exists('Charsql')) {
       //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Personalia</legend>' . "\n";
       $html = $html . '<form name="character" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
-      $html = $html . '<p><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucwords($sheet['name']) . '" required></p>' . "\n";
-      $html = $html . '<p><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucwords($sheet['class']) . '" required></p>' . "\n";
-      $html = $html . '<p><label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="damage">Dmg:</label><input name="dmg" id="damage" type="number" value="' . $sheet['dmg'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="initiativeRoll">Init Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="modifier">Init Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-name"><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucwords($sheet['name']) . '" required></p>' . "\n";
+      $html = $html . '<p id="char-class"><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucwords($sheet['class']) . '" required></p>' . "\n";
+      $html = $html . '<p id="char-level"><label for="level">Level:</label><input name="level" id="level" type="number" value="' . $sheet['level'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-xp"><label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="' . $sheet['xp'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-dmg"><label for="damage">Dmg:</label><input name="dmg" id="damage" type="number" value="' . $sheet['dmg'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-hp"><label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="' . $sheet['hp'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-init-roll"><label for="initiativeRoll">Init Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-init-mod"><label for="modifier">Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
       //      $html = $html . '</fieldset>' . "\n";
 
@@ -585,18 +585,18 @@ if(!class_exists('Charsql')) {
       //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Attributes</legend>' . "\n";
       $html = $html . '<form name="attrs" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
-      $html = $html . '<p><label for="strength">STR:</label><input name="str" id="strength" type="number" value="' . $attrs['str'] . '" required>' . "\n";
-      $html = $html . '<label for="strength_modifier">MOD:</label><input name="str_mod" id="strength_modifier" type="number" value="' . $attrs['strMod'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="constitution">CON:</label><input name="con" id="constitution" type="number" value="' . $attrs['con'] . '" required>' . "\n";
-      $html = $html . '<label for="constitution_modifier">MOD:</label><input name="con_mod" id="constitution_modifier" type="number" value="' . $attrs['conMod'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="dexterity">DEX:</label><input name="dex" id="dexterity" type="number" value="' . $attrs['dex'] . '" required>' . "\n";
-      $html = $html . '<label for="dexterity_modifier">MOD:</label><input name="dex_mod" id="dexterity_modifier" type="number" value="' . $attrs['dexMod'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="intelligence">INT:</label><input name="intel" id="intelligence" type="number" value="' . $attrs['intel'] . '" required>' . "\n";
-      $html = $html . '<label for="intelligence_modifier">MOD:</label><input name="intel_mod" id="intelligence_modifier" type="number" value="' . $attrs['intelMod'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="wisdom">WIS:</label><input name="wis" id="wisdom" type="number" value="' . $attrs['wis'] . '" required>' . "\n";
-      $html = $html . '<label for="wisdom_modifier">MOD:</label><input name="wis_mod" id="wisdom_modifier" type="number" value="' . $attrs['wisMod'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="charisma">CHA:</label><input name="cha" id="charisma" type="number" value="' . $attrs['cha'] . '" required>' . "\n";
-      $html = $html . '<label for="charisma_modifier">MOD:</label><input name="cha_mod" id="charisma_modifier" type="number" value="' . $attrs['chaMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-str"><label for="strength">STR:</label><input class="attr-input" name="str" id="strength" type="number" value="' . $attrs['str'] . '" required>' . "\n";
+      $html = $html . '<label class="modifier" for="strength_modifier">MOD:</label><input name="str_mod" id="strength_modifier" type="number" value="' . $attrs['strMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-con"><label for="constitution">CON:</label><input class="attr-input" name="con" id="constitution" type="number" value="' . $attrs['con'] . '" required>' . "\n";
+      $html = $html . '<label  class="modifier" for="constitution_modifier">MOD:</label><input name="con_mod" id="constitution_modifier" type="number" value="' . $attrs['conMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-dex"><label for="dexterity">DEX:</label><input class="attr-input" name="dex" id="dexterity" type="number" value="' . $attrs['dex'] . '" required>' . "\n";
+      $html = $html . '<label  class="modifier" for="dexterity_modifier">MOD:</label><input name="dex_mod" id="dexterity_modifier" type="number" value="' . $attrs['dexMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-int"><label for="intelligence">INT:</label><input class="attr-input" name="intel" id="intelligence" type="number" value="' . $attrs['intel'] . '" required>' . "\n";
+      $html = $html . '<label  class="modifier" for="intelligence_modifier">MOD:</label><input name="intel_mod" id="intelligence_modifier" type="number" value="' . $attrs['intelMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-wis"><label for="wisdom">WIS:</label><input class="attr-input" name="wis" id="wisdom" type="number" value="' . $attrs['wis'] . '" required>' . "\n";
+      $html = $html . '<label  class="modifier" for="wisdom_modifier">MOD:</label><input name="wis_mod" id="wisdom_modifier" type="number" value="' . $attrs['wisMod'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-cha"><label for="charisma">CHA:</label><input class="attr-input" name="cha" id="charisma" type="number" value="' . $attrs['cha'] . '" required>' . "\n";
+      $html = $html . '<label  class="modifier" for="charisma_modifier">MOD:</label><input name="cha_mod" id="charisma_modifier" type="number" value="' . $attrs['chaMod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
       //      $html = $html . '</fieldset>' . "\n";
       
@@ -614,9 +614,9 @@ if(!class_exists('Charsql')) {
       //      $html = $html . '<fieldset>' . "\n";
       $html = $html . '<legend>Purse</legend>' . "\n";
       $html = $html . '<form name="purse" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
-      $html = $html . '<p><label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required></p>' . "\n";
-      $html = $html . '<p><label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-gold"><label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-silver"><label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required></p>' . "\n";
+      $html = $html . '<p id="char-copper"><label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
       //      $html = $html . '</fieldset>' . "\n";
 

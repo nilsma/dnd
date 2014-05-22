@@ -1,47 +1,22 @@
-section#characters {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    }
-
-section.character {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: brown;
-    display: flex;
-    flex-flow: column;
-    font-size: 2em;
-    font-weight: bold;
-    justify-content: center;
-    margin-bottom: 1em;
+p.gui {
     padding: 0.5em;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #777;
-    text-align: center;
     }
 
 section.character p {
-    font-size: 0.8em;
+    flex-flow: column;
     }
 
 span.char-name {
-    font-size: 1.5em;
+    font-size: 1.2em;
     }
 
-section.character:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
+span.level,
+span.cls {
+    font-size: 0.9em;
     }
 
-section.character:active {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+@media screen and (max-width: 400px) and (orientation:portrait) {
+    span.level {
+	display: block;
+    }
 }
-
-/******************/
-/* START PORTRAIT */
-/******************/
-
-@media screen and (orientation:portrait) {
-
-}
-

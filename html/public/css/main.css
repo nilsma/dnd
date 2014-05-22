@@ -5,7 +5,7 @@
 
 html {
     min-height: 100%;
-//    overflow: hidden;
+    overflow: hidden;
     }
 
 body {
@@ -19,7 +19,9 @@ h1 {
     }
 
 div#main-container {
-    display: block;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
     padding-bottom: 3em;
     width: 100%;
     }
@@ -29,12 +31,44 @@ div#inner-container {
     width: 80%;
     }
 
+p.gui {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: brown;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    text-align: center;
+    text-shadow: 1px 1px 1px #777;
+    }
+
+p.gui a {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+    }
+
+p.gui:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    }
+
+p.gui:active,
+p.gui a:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    }
+
 legend {
     display: none;
     }
 
+form p {
+    margin-bottom: 1em;
+    }
+
 form label {
-    margin-right: 5px;
+    margin-right: 10px;
     text-shadow: 1px 1px 1px #777;
     }
 
@@ -46,8 +80,8 @@ form input {
 form input[type="submit"] {
     background-color: darkgreen;
     color: white;
-    font-size: 1.2em;
-    padding: 2px 4px;
+    font-size: 1em;
+    padding: 1px 2px;
     }
 
 form input[type="submit"]:hover {
@@ -55,3 +89,24 @@ form input[type="submit"]:hover {
     color: black;
     cursor: pointer;
     }
+
+@media screen and (max-width: 400px) and (orientation:portrait) {
+    div#inner-container {
+	width: 80%;
+    }
+}
+
+@media screen and (min-width: 401px) and (max-width: 700px) and (orientation:landscape) {
+    div#inner-container {
+	width: 80%;
+    }
+}
+
+@media screen and (min-width: 701px) {
+    div#inner-container {
+	width: 50%;
+    }
+}
+/****************/
+/* START MEMBER */
+/****************/

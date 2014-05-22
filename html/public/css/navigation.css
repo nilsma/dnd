@@ -46,7 +46,8 @@ div#inner-container {
     }
 
 h2 {
-    visibility: hidden;
+    display: none;
+//    visibility: hidden;
     }
 
 .character-form-entry {

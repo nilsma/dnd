@@ -1,4 +1,111 @@
+div#bottom-wrapper {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    }
+
+div#bottom-wrapper section {
+    margin-top: 1.5em;
+    }
+
+/********************/
 /* START PERSONALIA */
+/********************/
+form {
+    display: flex;
+    flex-flow: row wrap;
+    }
+
+p {
+    margin-right: 1em;
+    }
+
+p#char-name input {
+    width: 8em;
+    }
+
+p#char-class input {
+    width: 8em;
+    }
+
+p#char-xp input {
+    width: 5em;
+    }
+
+p#char-level input,
+p#char-dmg input,
+p#char-hp input {
+    width: 3em;
+    }
+
+p#char-init-roll input,
+p#char-init-mod input {
+    width: 2em;
+    }
+
+/********************/
+/* START ATTRIBUTES */
+/********************/
+section#attributes {
+    margin-right: 3em;
+    width: 17em;
+    }
+
+section#attributes label {
+    display: inline-block;
+    margin-right: 1em;
+    width: 2em;
+    }
+
+section#attributes p input {
+    width: 2em;
+    }
+
+section#attributes p input.attr-input {
+    margin-right: 1em;
+    }
+
+section#attributes p label.modifier  {
+    display: none;
+    }
+
+/***************/
+/* START PURSE */
+/***************/
+section#purse p {
+    flex-wrap: nowrap;
+    }
+
+section#purse label {
+    display: inline-block;
+    margin-right: 1em;
+    width: 4em;
+    }
+
+section#purse input {
+    width: 5em;
+    }
+
+/*
+p#char-class input {
+    max-width: 7em;
+    width: auto;
+    }
+
+p#char-level {
+    flex-flow: row;
+    }
+
+p#char-level input {
+    max-width: 3em;
+    }
+
+p#char-xp input {
+    max-width: 5em;
+    }
+*/
+
+/*
 div.character-form-entry fieldset {
     border: 0;
     }
@@ -30,13 +137,16 @@ div.character-form-entry form input {
 
 /* START BOTTOM-WRAPPER */
 /* wrapper for attributes and purse form */
+/*
 div#bottom-wrapper {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     }
+*/
 
 /* START ATTRIBUTES */
+/*
 section#attributes div.character-form-entry form p {
     display: flex;
     flex-direction: row;
@@ -56,6 +166,7 @@ section#attributes div.character-form-entry form label {
     }
 
 /* START PURSE */
+/*
 section#purse div.character-form-entry form p {
     display: flex;
     flex-direction: row;
@@ -94,9 +205,10 @@ section#purse div.character-form-entry form p input {
 /******************/
 /* START PORTRAIT */
 /******************/
-
+/*
 @media screen and (orientation:portrait) {
     /* START PERSONALIA */
+/*
     section#personalia div.character-form-entry form label, 
     section#personalia div.character-form-entry form input {
 	font-size: 1em;
@@ -104,6 +216,7 @@ section#purse div.character-form-entry form p input {
     
     /* START BOTTOM-WRAPPER */
     /* wrapper for attributes and purse form */
+/*
     div#bottom-wrapper {
 	display: flex;
 	flex-flow: column;
