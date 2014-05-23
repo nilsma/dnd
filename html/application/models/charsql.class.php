@@ -215,16 +215,16 @@ if(!class_exists('Charsql')) {
        
       if(count($memberships) > 0) {
 	foreach($memberships as $mbr) {
-	  $html = $html . '<section class="membership">' . "\n";
-	  $html = $html . '<p>Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
+	  $html = $html . '<section class="membership gui">' . "\n";
+	  $html = $html . '<p class="gui">Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
 	  $html = $html . '<div>' . "\n";
 	  $html = $html . '<button class="leave-campaign">Leave</button>' . "\n";
 	  $html = $html . '</div>' . "\n";
 	  $html = $html . '</section> <!-- end .membership -->' . "\n";
 	}
       } else {
-	$html = $html . '<section class="membership">' . "\n";
-	$html = $html . '<p>You are not member of any campaigns yet.</p>' . "\n";
+	$html = $html . '<section class="membership gui">' . "\n";
+	$html = $html . '<p class="gui">You are not member of any campaigns yet.</p>' . "\n";
 	$html = $html . '</section> <!-- end .membership -->' . "\n";
       }
 
@@ -248,16 +248,16 @@ if(!class_exists('Charsql')) {
        
       if(count($invitations) > 0) {
 	foreach($invitations as $inv) {
-	  $html = $html . '<section class="invitation">' . "\n";
-	  $html = $html . '<p><span class="alias">' . ucwords($inv['alias']) . '</span> has invited your character <span class="char-name">' . ucwords($inv['name']) . '</span> to join his campaign: <span class="title">' . ucwords($inv['title']) . '</span></p><br/>' . "\n";
+	  $html = $html . '<section class="invitation gui">' . "\n";
+	  $html = $html . '<p class="gui"><span class="alias">' . ucwords($inv['alias']) . '</span> has invited your character <span class="char-name">' . ucwords($inv['name']) . '</span> to join the campaign: <span class="title">' . ucwords($inv['title']) . '</span></p><br/>' . "\n";
 	  $html = $html . '<div>' . "\n";
 	  $html = $html . '<button class="accept-inv">Accept</button><button class="remove-inv">Remove</button>' . "\n";
 	  $html = $html . '</div>' . "\n";
 	  $html = $html . '</section> <!-- end .invitation -->' . "\n";
 	}
       } else {       
-	$html = $html . '<section class="invitation">' . "\n";
-	$html = $html . '<p>There are no invitations yet</p>' . "\n";
+	$html = $html . '<section class="invitation gui">' . "\n";
+	$html = $html . '<p class="gui">There are no invitations yet</p>' . "\n";
 	$html = $html . '</section> <!-- end .invitation -->' . "\n";
       }
 
@@ -396,8 +396,8 @@ if(!class_exists('Charsql')) {
       
       if(count($characters) > 0) {
 	foreach($characters as $c) {
-	  $html = $html . '          <section class="character">' . "\n";
-	  $html = $html . '            <p class="gui"><span class="char-name">' . ucwords($c['name']) . '</span><br/><span class="level">Level ' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
+	  $html = $html . '          <section class="character gui">' . "\n";
+	  $html = $html . '            <p class="gui clickable"><span class="char-name">' . ucwords($c['name']) . '</span><br/><span class="level">Level ' . $c['level'] . '</span> <span class="cls">' . ucwords($c['class']) . '</span></p>' . "\n";
 	  $html = $html . '          </section> <!-- end .character -->' . "\n";
 	}
       } else {

@@ -54,8 +54,12 @@ if(isset($_SESSION['sheet_id'])) {
       <h1>Member view</h1>
       <div id="inner-container">
 	<section class="sec-nav-container">
-	  <p class="gui"><a href="characters.php">Character Mode</a></p>
-	  <p class="gui"><a href="gamemasters.php">Gamemaster Mode</a></p>
+	  <div class="gui">
+	    <p class="gui clickable"><a href="characters.php">Character Mode</a></p>
+	  </div>
+	  <div class="gui">
+	    <p class="gui clickable"><a href="gamemasters.php">Gamemaster Mode</a></p>
+	  </div>
 	</section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->

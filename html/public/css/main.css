@@ -31,15 +31,27 @@ div#inner-container {
     width: 80%;
     }
 
-p.gui {
+section.gui,
+div.gui {
     background-color: rgba(255, 255, 255, 0.3);
-    color: brown;
+//    color: brown;
     display: block;
-    font-size: 2em;
+//    text-align: center;
+//    text-shadow: 1px 1px 1px #777;
+    }
+
+p.gui {
+//    background-color: rgba(255, 255, 255, 0.3);
+    color: brown;
+//    display: block;
     font-weight: bold;
     margin-bottom: 1em;
     text-align: center;
     text-shadow: 1px 1px 1px #777;
+    }
+
+p.clickable {
+    font-size: 2em;
     }
 
 p.gui a {
@@ -48,13 +60,13 @@ p.gui a {
     text-decoration: none;
     }
 
-p.gui:hover {
+p.clickable:hover {
     background-color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     }
 
-p.gui:active,
-p.gui a:active {
+p.clickable:active,
+p.clickable a:active {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     }
@@ -72,11 +84,13 @@ form label {
     text-shadow: 1px 1px 1px #777;
     }
 
+button,
 form input {
     border: 0;
     padding: 2px 4px;
     }
 
+button,
 form input[type="submit"] {
     background-color: darkgreen;
     color: white;
@@ -84,10 +98,17 @@ form input[type="submit"] {
     padding: 1px 2px;
     }
 
+button:hover,
 form input[type="submit"]:hover {
     background-color: lightgreen;
     color: black;
     cursor: pointer;
+    }
+
+button:active,
+form input[type="submit"]:active {
+    background-color: black;
+    color: white;
     }
 
 @media screen and (max-width: 400px) and (orientation:portrait) {

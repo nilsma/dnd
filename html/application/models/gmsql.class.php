@@ -468,7 +468,7 @@ if(!class_exists('Gmsql')) {
       $html = $html . '</div> <!-- end .name -->' . "\n";
       $html = $html . '<div class="details-wrapper">' . "\n";
       $html = $html . '<h4><span class="label">Initiative: </span><span class="init_roll">' . $sheet['init_roll'] . '</span></h4>' . "\n";
-      $html = $html . '<h4><span class="label">HP:</span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
+      $html = $html . '<h4><span class="label">HP: </span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
       $html = $html . '</div> <!-- end .details-wrapper -->' . "\n";
       $html = $html . '<section class="personalia">' . "\n";
       $html = $html . $sheetHTML;
@@ -491,7 +491,7 @@ if(!class_exists('Gmsql')) {
       $table = $table . '<tr>' . "\n";
       $table = $table . '<th scope="col">Ability</th>' . "\n";
       $table = $table . '<th scope="col">Score</th>' . "\n";
-      $table = $table . '<th scope="col">Modifier</th>' . "\n";
+      $table = $table . '<th scope="col">Mod</th>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '</thead>' . "\n";
       $table = $table . '<tbody>' . "\n";
