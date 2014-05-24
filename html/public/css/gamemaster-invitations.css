@@ -1,0 +1,71 @@
+div.gui,
+section.gui {
+    margin-bottom: 2em;
+    }
+
+div.gui,
+section.gui {
+    padding: 0.5em;
+    }
+
+div.gui p:last-child {
+    margin-top: 1.5em;
+    }
+
+section#invite div:nth-child(2) p {
+    text-align: center;
+    }
+
+div.gui p label {
+    display: inline-block;
+    width: 10em;
+    }
+
+section#invite div.gui {
+    padding-top: 1.5em;
+    }
+
+section#invitations,
+section#current-members {
+    padding: 1.5em 1.5em 0.5em 1.5em;
+    }
+
+section.invitation p.gui {
+    font-weight: normal;
+    }
+
+section.invitation p.gui span {
+    font-weight: bold;
+    }
+
+section.invitation,
+section.current-member {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    }
+
+section.invitation p:first-child,
+section.current-member p:first-child {
+    margin-right: 1em;
+    flex-basis: 20em;
+    }
+
+section.invitation p:last-child,
+section.current-member p:last-child {
+    flex-basis: 15em;
+    }
+
+@media screen and (max-width: 400px) and (orientation:portrait) {
+    section.invitation p:first-child,
+    section.current-member p:first-child {
+	flex-basis: 10em;
+	margin-right: 1em;
+    }
+
+    section.invitation p:last-child,
+    section.current-member p:last-child {
+	flex-basis: 5em;
+	font-size: 0.9em;
+    }
+}

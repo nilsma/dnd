@@ -31,6 +31,7 @@ $invHTML = $gmsql->buildInvHTML($gm['invitations'], $gm['members'], $inv_errors)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/gamemaster-invitations.css"/>
     <link rel="stylesheet" href="../../public/css/navigation.css"/>
     <script type="text/javascript" src="../../public/js/gamemaster-invitations.js"></script>
     <title>DND Helper</title>
@@ -56,8 +57,6 @@ $invHTML = $gmsql->buildInvHTML($gm['invitations'], $gm['members'], $inv_errors)
       <h1>Invitations View</h1>
       <div id="inner-container">
 	<?php echo $invHTML; ?>
-<!--	<p><a href="gamemaster.php">Back to Gamemaster View</a></p>
-	<p>or <a href="../controllers/proc-logout.php">Logout</a></p> -->
       </div> <!-- end inner-container -->
     </div> <!-- end main-container -->
   </body>

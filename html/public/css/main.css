@@ -71,6 +71,24 @@ p.clickable a:active {
     color: white;
     }
 
+div.error-report {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 0.5em;
+    }
+
+div.error-report p:first-child {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    text-decoration: underline;    
+    }
+
+ul.error-list {
+    list-style: square;
+    text-align: center;
+    }
+
 legend {
     display: none;
     }

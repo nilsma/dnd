@@ -18,6 +18,7 @@ if(isset($_SESSION['gm_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
+    <link rel="stylesheet" href="../../public/css/create-gamemaster.css"/>
     <link rel="stylesheet" href="../../public/css/navigation.css"/>
     <script type="text/javascript" src="../../public/js/create-gamemaster.js"></script>
     <title>DND Helper</title>
@@ -27,15 +28,14 @@ if(isset($_SESSION['gm_id'])) {
       <nav>
 	<ul>
 	  <li><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>
-	  <li class="active-nav"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px-alt.jpg"></a></li>
- 	  <li><a href="characters.php"><img src="../../public/images/player_icon32px.jpg"></a></li>
+ 	  <li><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>
+	  <li class="active-nav"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>
 	  <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>
 	</ul>
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
-	  <li><a href="create-gamemaster.php">Create Gamemaster</a></li>
-	  <li><a href="member-settings.php">Edit User</a></li>
+	  <li><a href="gamemasters.php">Back to Gamemasters</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>
       </div>
@@ -44,13 +44,11 @@ if(isset($_SESSION['gm_id'])) {
       <h1>Create Gamemaster View</h1>
       <div id="inner-container">
 	<div class="form-entry">
-	  <fieldset>
 	    <form name="gamemaster" action="../controllers/insert-gamemaster.php" method="POST">
-	      <label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" required><br/>
-	      <label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlenght="30" required><br/>
-	      <input type="submit" value="Create Gamemaster">
+	      <p><label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" required></p>
+	      <p><label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlenght="30" required></p>
+	      <p><input type="submit" value="Create Gamemaster"></p>
 	    </form>
-	  </fieldset>
 	</div> <!-- end .form-entry -->
         <section class="sec-nav-container">
 	  <p class="nav-paragraph"><a href="gamemasters.php">Back to Gamemasters View</a></p>

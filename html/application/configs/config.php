@@ -1,5 +1,8 @@
 <?php
 
+define('CHARSET', 'UTF-8');                                                                                                    
+define('REPLACE_FLAGS', ENT_QUOTES | 'UTF-8');
+
 /**
  * PHP configuration
  * Enable error reporting

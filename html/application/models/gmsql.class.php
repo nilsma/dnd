@@ -284,20 +284,18 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Create Invitation</h2>' . "\n";
       $html = $html . '</div>' . "\n";
-      $html = $html . '<div>' . "\n";
-      //      $html = $html . '<fieldset>' . "\n";
+      $html = $html . '<div class="gui">' . "\n";
       $html = $html . '<legend>Create Invitation</legend>' . "\n";
       $html = $html . '<form name="create-invite" action="../controllers/invite-character.php" method="POST">' . "\n";
-      $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
-      $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
-      $html = $html . '<input type="submit" value="Invite">' . "\n";
+      $html = $html . '<p><label for="users-name">Users Name: </label><input name="users-name" id="users-name" type="text" maxlength="30" required></p>' . "\n";
+      $html = $html . '<p><label for="characters-name">Characters Name: </label><input name="characters-name" id="characters-name" type="text" maxlength="30" required></p>' . "\n";
+      $html = $html . '<p><input type="submit" value="Invite"></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      //      $html = $html . '</fieldset>' . "\n";
 
       if(!empty($inv_errors)) {
-	$html = $html . '<div id="inv-failed">' . "\n";
+	$html = $html . '<div id="inv-failed" class="error-report">' . "\n";
 	$html = $html . '<p>The invitation failed:</p>' . "\n";
-	$html = $html . '<ul>' . "\n";
+	$html = $html . '<ul class="error-list">' . "\n";
 
 	foreach($inv_errors as $error) {
 	  $html = $html . '<li>' . $error . '</li>' . "\n";
@@ -321,7 +319,7 @@ if(!class_exists('Gmsql')) {
      public function buildMembers($members) {
        $html = '';
 
-       $html = $html . '<section id="current-members">' . "\n";
+       $html = $html . '<section id="current-members" class="gui">' . "\n";
        $html = $html . '<div>' . "\n";
        $html = $html . '<h2>Current Members</h2>' . "\n";
        $html = $html . '</div>' . "\n";
@@ -332,12 +330,13 @@ if(!class_exists('Gmsql')) {
 	   $name = $csql->getCharacterName($member);
 	 
 	   $html = $html . '<section class="current-member">' . "\n";
-	   $html = $html . '<p><span class="char-name">' . ucwords($name) . '</span></p><button class="remove-member">Remove Member</button>' . "\n";
+	   $html = $html . '<p class="gui"><span class="char-name">' . ucwords($name) . '</span></p>' . "\n";
+	   $html = $html . '<p class="gui"><button class="remove-member">Remove Member</button></p>' . "\n";
 	   $html = $html . '</section> <!-- end .current-member -->' . "\n";
 	 }
        } else {
 	 $html = $html . '<section class="current-member">' . "\n";
-	 $html = $html . '<p>There are no members yet.</p>' . "\n";
+	 $html = $html . '<p class="gui">There are no members yet.</p>' . "\n";
 	 $html = $html . '</section> <!-- end .member -->' . "\n";
        }
 
@@ -355,7 +354,7 @@ if(!class_exists('Gmsql')) {
     public function buildInvitations($inv) {
       $html = '';
 
-      $html = $html . '<section id="invitations">' . "\n";
+      $html = $html . '<section class="gui" id="invitations">' . "\n";
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Pending Invitations</h2>' . "\n";
       $html = $html . '</div>' . "\n";
@@ -369,8 +368,8 @@ if(!class_exists('Gmsql')) {
 	  $username = $mysql->getUsername($invited['sheet']['owner']);
 	  
 	  $html = $html . '<section class="invitation">' . "\n";
-	  $html = $html . '<p><span class="user-name">' . ucfirst($username) . 's</span> character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
-	  $html = $html . '<button class="remove-inv">Remove Invitation</button>' . "\n";
+	  $html = $html . '<p class="gui"><span class="user-name">' . ucfirst($username) . 's</span> character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
+	  $html = $html . '<p class="gui"><button class="remove-inv">Remove Invitation</button></p>' . "\n";
 	  $html = $html . '</section> <!-- end .invitation -->' . "\n";
 	}
       } else {
