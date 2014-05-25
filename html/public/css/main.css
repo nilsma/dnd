@@ -11,8 +11,29 @@ html {
 body {
     background-image: url('../images/parchment4.jpg');
     background-repeat: no-repeat;
+    background-size: cover;
+//    background-position: 50% 50%;
+    }
+
+/*
+div#main-container {
+    background-image: url('../../public/images/parchment4.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: block;
+    min-height: 100%;
+    height: auto;
+    padding-top: 1em;
+    }
+*/
+
+/*
+div#main-container {
+    background-image: url('../images/parchment4.jpg');
+    background-repeat: no-repeat;
     background-size: 100% 100%;
     }
+*/
 
 h1 {
     display: none;

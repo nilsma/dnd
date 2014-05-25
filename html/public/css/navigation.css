@@ -8,11 +8,6 @@ html {
     overflow-y: hidden;
     }
 
-body {
-    background-image: none;
-    height: 100%;
-    }
-
 nav ul:first-child {
     background-color: black;
     display: flex;
@@ -31,23 +26,8 @@ nav ul:first-child li:hover {
     cursor: pointer;
     }
 
-div#main-container {
-    background-image: url('../../public/images/parchment4.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    display: block;
-    min-height: 100%;
-    height: auto;
-    padding-top: 1em;
-    }
-
-div#inner-container {
-//    margin-top: 0;
-    }
-
 h2 {
     display: none;
-//    visibility: hidden;
     }
 
 .character-form-entry {
