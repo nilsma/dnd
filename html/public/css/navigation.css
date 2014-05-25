@@ -53,10 +53,20 @@ div#sub-nav-wrapper ul {
     width: 95%;
     }
 
+div#sub-nav-wrapper li {
+    background-color: lightgray;
+    }
+
 div#sub-nav-wrapper ul li a {
-    color: white;
+    color: black;
     display: block;
-    font-size: 0.9em;
+    font-size: 1em;
+    padding: 2px 4px;
+    }
+
+div#sub-nav-wrapper ul li a:active {
+    color: white;
+    background-color: black;
     }
 
 div#sub-nav-wrapper li:last-child a {
