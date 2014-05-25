@@ -9,9 +9,10 @@ html {
     }
 
 body {
-    background-image: url('../images/parchment4.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color: #e4b657;
+//    background-image: url('../images/parchment4.jpg');
+//    background-repeat: no-repeat;
+//    background-size: 100% 100%;
     }
 
 h1 {
