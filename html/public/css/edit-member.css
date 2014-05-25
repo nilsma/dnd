@@ -1,0 +1,25 @@
+div#member-entries {
+    padding: 1.5em 1.5em 0.5em 1.5em;
+    }
+
+div#member-entries p {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    }
+
+@media screen and (max-width: 400px) and (orientation:portrait) {
+    div#member-entries p {
+	display: flex;
+	flex-flow: column;
+	margin-bottom: 2em;
+	text-align: center;
+    }
+
+    div#member-entries span.member-label,
+    div#member-entries span.member-value {
+	margin-bottom: 0.5em;
+    }
+}
+

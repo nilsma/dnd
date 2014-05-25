@@ -164,6 +164,78 @@ if(!class_exists('Mysql')) {
     }
 
     /**
+     * A function to set the member's new name
+     * @param $user_id int - the member's user id
+     * @param $new_name string - the member's new name
+     */
+    public function setUsername($user_id, $new_name) {
+      $mysqli = $this->connect();
+
+      $query = "UPDATE users SET username=? WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('si', $new_name, $user_id);
+	$stmt->execute();
+      }
+	
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
+     * A function to set the member's new email address
+     * @param $user_id int - the member's user id
+     * @param $new_email string - the member's new email
+     */
+    public function setEmail($user_id, $new_email) {
+      $mysqli = $this->connect();
+
+      $query = "UPDATE users SET email=? WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('si', $new_email, $user_id);
+	$stmt->execute();
+      }
+	
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
+     * A function to set the member's new password
+     * @param $user_id int - the member's user id
+     * @param $hashed string - the member's hashed new password
+     */
+    public function setPassword($user_id, $hashed) {
+      $mysqli = $this->connect();
+
+      $query = "UPDATE users SET password=? WHERE id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('si', $hashed, $user_id);
+	$stmt->execute();
+      }
+	
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
      * A function to get the given users username based on the users id
      * @param $user_id int - the user id to get the username for
      * @return $username string - the username for the given user_id
@@ -185,6 +257,34 @@ if(!class_exists('Mysql')) {
 	$stmt->fetch();
 	
 	return $username;
+      }
+
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
+     * A function to get the given user's email based on the users id
+     * @param $user_id int - the user id to get the email for
+     * @return $email string - the email for the given user_id
+     */
+    public function getUserEmail($user_id) {
+      $mysqli = $this->connect();
+
+      $query = "SELECT email FROM users WHERE id=? LIMIT 1";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('i', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($email);
+	$stmt->fetch();
+	
+	return $email;
       }
 
       $stmt->close();

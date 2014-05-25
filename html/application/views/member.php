@@ -45,7 +45,7 @@ if(isset($_SESSION['sheet_id'])) {
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
-	  <li><a href="member-settings.php">Edit User</a></li>
+	  <li><a href="edit-member.php">Edit User</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>
       </div>

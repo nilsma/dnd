@@ -14,6 +14,7 @@ if(!empty($username) && !empty($password)) {
     $_SESSION['auth'] = true;
     $_SESSION['username'] = $username;
     $_SESSION['user_id'] = $sql->getUserId($username);
+    $_SESSION['email'] = $sql->getUserEmail($_SESSION['user_id']);
     //    setcookie("dnd_helper", $username, time()+(60*60*24), '/', NULL, 0);
     //    setcookie("dnd_helper", $username, time()+(60*60*24), '/groups/G5/dnd/', 'dikult205.h.uib.no/', 0);
     header('Location: ../views/member.php');
