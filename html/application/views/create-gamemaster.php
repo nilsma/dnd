@@ -50,10 +50,6 @@ if(isset($_SESSION['gm_id'])) {
 	      <p><input type="submit" value="Create Gamemaster"></p>
 	    </form>
 	</div> <!-- end .form-entry -->
-        <section class="sec-nav-container">
-	  <p class="nav-paragraph"><a href="gamemasters.php">Back to Gamemasters View</a></p>
-	  <p class="nav-paragraph">or <a href="proc-logout.php">Logout</a></p>
-      </section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>

@@ -35,7 +35,6 @@ if(isset($_SESSION['chosen'])) {
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <link rel="stylesheet" href="../../public/css/navigation.css"/>
     <link rel="stylesheet" href="../../public/css/gamemaster.css"/>
-<!--    <script type="text/javascript" src="../../public/js/main.js"></script> -->
     <script type="text/javascript" src="../../public/js/gamemaster.js"></script>
     <title>DND Helper</title>
   </head>
@@ -51,7 +50,7 @@ if(isset($_SESSION['chosen'])) {
       </nav>
       <div id="sub-nav-wrapper">
 	<ul>
-	  <li><a href="confirm-delete-gamemaster.php">Delete gamemaster</a></li>
+	  <li><a href="edit-gamemaster.php">Edit gamemaster</a></li>
 	  <li><a href="gamemaster-invitations.php">Manage Invitations</a></li>
 	  <li><a href="../controllers/proc-logout.php">Logout</a></li>
 	</ul>

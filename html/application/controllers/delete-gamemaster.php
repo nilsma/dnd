@@ -23,7 +23,7 @@ if(isset($_POST['confirm']) && (strtolower($_POST['confirm']) == 'yes')) {
 
   header('Location: ../views/gamemasters.php');
 } else {
-  header('Location: ../views/gamemaster.php');
+  header('Location: ../views/edit-gamemaster.php');
 }
 
 

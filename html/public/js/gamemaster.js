@@ -231,6 +231,15 @@ function toggleCharacter(toggleNodes) {
 }
 
 /**
+ * A function to close all open characters in the gamemaster view
+ * by hiding all characters' details, attributes and purse contents from the view
+ */
+function closeAll() {
+    var gmSections = ['personalia', 'attributes', 'purse', 'char-table'];
+    hideElements(gmSections);
+}
+
+/**
  * A function to add eventlistener to the given elements
  * @param els array - an array of elements of which to add listener to
  * @param fnc function - the function name of which to trigger when the element is clicked
@@ -239,15 +248,6 @@ function addListeners(els, fnc) {
     for(var i = 0; i < els.length; i++) {
 	els[i].addEventListener('click', fnc, false);
     }
-}
-
-/**
- * A function to close all open characters in the gamemaster view
- * by hiding all characters' details, attributes and purse contents from the view
- */
-function closeAll() {
-    var gmSections = ['personalia', 'attributes', 'purse', 'char-table'];
-    hideElements(gmSections);
 }
 
 /**

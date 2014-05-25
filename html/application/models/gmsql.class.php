@@ -88,6 +88,39 @@ if(!class_exists('Gmsql')) {
     }
 
     /**
+     * A function to check if a given gamemaster alias already exists
+     * @param $user_id int - the user's id
+     * @param $alias string - the gamemaster alias
+     * @return boolean - returns true if the alias exists, false otherwise
+     */
+     public function aliasExists($user_id, $alias) {
+      $mysqli = $this->connect();
+      
+      $query = "SELECT * FROM users as u, gamemasters as g WHERE u.id=? AND u.id=g.owner AND g.alias=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('is', $user_id, $alias);
+	$stmt->execute();
+	$stmt->store_result();
+	$stmt->fetch();
+	$num_rows = $stmt->num_rows;
+
+	if($num_rows >= 1) {
+	  return true;
+	} else {
+	  return false;
+	}
+      }
+      $stmt->close();
+      $mysqli->close();
+     }
+
+    /**
      * A function to check if a given membership already exists
      * @param $sheet_id int - the sheet id
      * @param $cmp_id int - the campaign id
@@ -224,6 +257,32 @@ if(!class_exists('Gmsql')) {
 	$stmt->execute();
       }
 
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
+     * A function to update a gamemaster's alias and a campaign's title
+     * @param $gm_id int - the gamemaster id
+     * @param $cmp_id int - the campaign id
+     * @param $alias string - the gamemaster's new alias
+     * @param $title string - the campaign's new title
+     */
+    public function updateGamemaster($gm_id, $cmp_id, $alias, $title) {
+      $mysqli = $this->connect();
+
+      $query = "UPDATE gamemasters, campaigns SET gamemasters.alias=?, campaigns.title=? WHERE gamemasters.id=? AND campaigns.id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('ssii', $alias, $title, $gm_id, $cmp_id);
+	$stmt->execute();
+      }
+	
       $stmt->close();
       $mysqli->close();
     }

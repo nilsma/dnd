@@ -90,6 +90,19 @@ ul.error-list {
     text-align: center;
     }
 
+div.success-report {
+    background-color: rgba(0, 255, 0, 0.8);
+    color: black;
+    padding: 0.5em;
+    }
+
+div.succes-report p:first-child {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    text-decoration: underline;    
+    }
+
 legend {
     display: none;
     }
