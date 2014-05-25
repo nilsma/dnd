@@ -55,6 +55,7 @@ div#sub-nav-wrapper ul {
 
 div#sub-nav-wrapper li {
     background-color: lightgray;
+    text-align: center;
     }
 
 div#sub-nav-wrapper ul li a {
