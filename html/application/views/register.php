@@ -50,10 +50,6 @@ if(isset($_SESSION['reg_failed'])) {
 ?>
 	</div> <!-- end .form-entry -->
 	<p class="nav-paragraph">Or <a href="index.php">Go Back To The Login Page</a></p>
-<!--
-	<section class="sec-nav-container">
-	  <p class="nav-paragraph">Or <a href="index.php">Go Back To The Login Page</a></p>
-	</section> -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>

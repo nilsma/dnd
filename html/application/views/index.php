@@ -33,11 +33,7 @@ require_once '../configs/config.php';
    } 
 ?>
 	</div> <!-- end .form-entry -->
-	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
-<!--
-	<section class="sec-nav-container">
-	  <p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
-	</section> <!-- end .sec-nav-container -->
+	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
