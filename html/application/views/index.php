@@ -1,9 +1,9 @@
 <?php
-   session_start();
+session_start();
 
-   require_once '../configs/config.php';
+require_once '../configs/config.php';
 
-   ?>
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,7 +18,6 @@
       <div id="inner-container">
 	<h1>Login view</h1>
 	<div class="form-entry">
-	  <legend>Login form</legend>
 	  <form name="login" action="../controllers/proc-login.php" method="POST">
 	    <p><label for="username">Username:</label><input name="username" id="username" type="text" maxlength="30" required></p>
 	    <p><label for="password">Password:</label><input name="password" id="password" type="password" maxlength="16" required></p>
@@ -34,6 +33,8 @@
    } 
 ?>
 	</div> <!-- end .form-entry -->
+	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
+<!--
 	<section class="sec-nav-container">
 	  <p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>	
 	</section> <!-- end .sec-nav-container -->
