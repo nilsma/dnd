@@ -8,6 +8,7 @@ require_once '../configs/config.php';
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css"/>
     <link rel="stylesheet" href="../../public/css/register.css"/>
     <title>DND Helper</title>
