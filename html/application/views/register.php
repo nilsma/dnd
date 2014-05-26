@@ -17,7 +17,6 @@ require_once '../configs/config.php';
       <div id="inner-container">
 	<h1>Register view</h1>
 	<div class="form-entry">
-	  <legend>Register</legend>
 	  <form name="register" action="../controllers/proc-registration.php" method="POST">
 	    <p><label for="username">Username:</label><input id="username" name="username" type="text" maxlength="30" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['username'] . '"'; } ?> required></p>
 	    <p><label for="email">Email:</label><input id="email" name="email" type="email" maxlength="40" <?php if(isset($_SESSION['reg_values'])) { echo 'value="' . $_SESSION['reg_values']['email'] . '"'; } ?> required></p>
