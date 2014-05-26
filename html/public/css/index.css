@@ -2,6 +2,12 @@ div#inner-container {
     text-align: center;
 }
 
+form p {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    }
+
 form p:last-child {
     margin-bottom: 3em;
     }

@@ -66,10 +66,6 @@
 	    <input id="submit" type="submit" value="Create Character">
 	  </form>
 	</div> <!-- end .character-entry-form -->
-	<section class="sec-nav-container">
-	  <p class="nav-paragraph"><a href="characters.php">Back to Characters View</a></p>
-	  <p class="nav-paragraph">or <a href="../controllers/proc-logout.php">Logout</a></p>
-	</section> <!-- end .sec-nav-container -->
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>

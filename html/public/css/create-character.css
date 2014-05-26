@@ -17,6 +17,8 @@ div#bottom-wrapper {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+    margin: 0 auto;
+    width: 80%;
     }
 
 div#bottom-wrapper {
@@ -97,8 +99,9 @@ p#char-init-mod input {
 /* START ATTRIBUTES */
 /********************/
 div#attributes {
-    margin-right: 2em;
-    width: 11.5em;
+    margin-bottom: 1em;
+//    margin-left: 2em;
+//    width: 11.5em;
     }
 
 p.attr-par label {
@@ -117,7 +120,7 @@ p.attr-par input {
     }
 
 p.attr-par label.modifier  {
-    display: none;
+//    display: none;
     }
 
 @media screen and (max-width: 400px) and (orientation:portrait) {

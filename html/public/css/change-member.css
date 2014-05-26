@@ -1,0 +1,23 @@
+div#member-entries {
+    padding: 1.5em 1.5em 0.5em 1.5em;
+    }
+
+div#member-entries p {
+    color: black;
+    font-weight: normal;
+    }
+
+div#member-entries p span {
+    color: brown;;
+    font-weight: bold;
+    }
+
+body#change-member-email p label {
+    display: inline-block;
+    width: 7em;
+    }
+
+body#change-member-password p label {
+    display: inline-block;
+    width: 9em;
+    }

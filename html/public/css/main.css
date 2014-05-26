@@ -103,6 +103,11 @@ div.succes-report p:first-child {
     text-decoration: underline;    
     }
 
+ul.success-list {
+    list-style: square;
+    text-align: center;
+    }
+
 legend {
     display: none;
     }
