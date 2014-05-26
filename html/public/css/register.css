@@ -16,6 +16,6 @@ div#inner-container {
 
 @media screen and (min-width: 701px) {
     div#inner-container {
-	width: 20%;
+	width: 18%;
     }
 }
