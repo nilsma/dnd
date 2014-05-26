@@ -44,7 +44,7 @@
 	      <p id="char-name"><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" required></p>
 	      <p id="char-class"><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" required></p>
 	      <p id="char-level"><label for="level">Level:</label><input name="level" id="level" type="number" value="1" required>
-	      <p id="char-xp"><label for="experience_points">XP:</label><input name="xp" id="experience_points" type="number" value="1" required></p>
+	      <p id="char-xp"><label for="experience_points">XP:</label><input name="xp" id="experience_points" type="text" value="1" required></p>
 	      <p id="char-hp"><label for="hitpoints">Hitpoints:</label><input name="hp" id="hitpoints" type="number" value="1" required></p>
 	      <p id="char-init-mod"><label for="initiative_modifier">Init Mod:</label><input name="init_mod" id="initiative_modifier" type="number" value="0" required>
 	    </div> <!-- end #personalia -->
