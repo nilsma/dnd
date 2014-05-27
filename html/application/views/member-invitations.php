@@ -1,4 +1,9 @@
 <?php
+/**
+ * A file representing the view for the DND Helper character invitations page
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 
@@ -47,8 +52,6 @@ $invHTML = $csql->buildInvHTML($invitations, $memberships);
       <h1>Invitations View</h1>
       <div id="inner-container">
 	<?php echo $invHTML; ?>
-<!--	<p><a href="characters.php">Back to Characters View</a></p>
-	<p>or <a href="../controllers/proc-logout.php">Logout</a></p> -->
       </div> <!-- end inner-container -->
     </div> <!-- end main-container -->
   </body>

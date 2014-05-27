@@ -1,4 +1,9 @@
 <?php
+/**
+ * A file representing the view for the DND Helper change user password page
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

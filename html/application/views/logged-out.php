@@ -1,7 +1,15 @@
+<?php
+/**
+ * A file representing the view for the DND Helper login page
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes">
     <link rel="stylesheet" href="../../public/css/main.css">
     <link rel="stylesheet" href="../../public/css/logged-out.css">
     <title>DND Helper</title>

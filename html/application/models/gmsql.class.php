@@ -427,7 +427,7 @@ if(!class_exists('Gmsql')) {
 	  $username = $mysql->getUsername($invited['sheet']['owner']);
 	  
 	  $html = $html . '<section class="invitation">' . "\n";
-	  $html = $html . '<p class="gui"><span class="user-name">' . ucfirst($username) . 's</span> character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
+	  $html = $html . '<p class="gui"><span class="user-name">' . ucfirst($username) . '</span>\'s character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
 	  $html = $html . '<p class="gui"><button class="remove-inv">Remove Invitation</button></p>' . "\n";
 	  $html = $html . '</section> <!-- end .invitation -->' . "\n";
 	}

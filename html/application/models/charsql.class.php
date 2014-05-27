@@ -216,7 +216,7 @@ if(!class_exists('Charsql')) {
       if(count($memberships) > 0) {
 	foreach($memberships as $mbr) {
 	  $html = $html . '<section class="membership gui">' . "\n";
-	  $html = $html . '<p class="gui">Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
+	  $html = $html . '<p class="gui">Your character <span class="char-name">' . ucwords($mbr['name']) . '</span> is currently a member of <span class="alias">' . ucwords($mbr['alias']) . '</span>\'s campaign: <span class="title">' . ucwords($mbr['title']) . '</span></p>' . "\n";
 	  $html = $html . '<div>' . "\n";
 	  $html = $html . '<button class="leave-campaign">Leave</button>' . "\n";
 	  $html = $html . '</div>' . "\n";

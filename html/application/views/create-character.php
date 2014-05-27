@@ -1,12 +1,17 @@
 <?php
-   session_start();
-   require_once '../configs/config.php';
+/**
+ * A file representing the view for the DND Helper character creation page
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
+session_start();
+require_once '../configs/config.php';
 
-   if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
-   header('Location: ' . URL . '');
-   }
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
+  header('Location: ' . URL . '');
+}
 
-   ?>
+?>
 <!DOCTYPE html>
 <html>
   <head>
