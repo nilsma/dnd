@@ -7,18 +7,16 @@
 session_start();
 
 require_once '../configs/config.php';
+require_once '../models/site.class.php';
+
+
+$site = new Site();
+$entries = array();
+$header = $site->buildHeader('index', 'DND Helper', $entries);
+
+echo $header;
 
 ?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=yes">
-    <link rel="stylesheet" href="../../public/css/main.css"/>
-    <link rel="stylesheet" href="../../public/css/index.css"/>
-    <title>DND Helper</title>
-  </head>
-  <body id="index">
     <div id="main-container">
       <div id="inner-container">
 	<h1>Login view</h1>

@@ -1,0 +1,22 @@
+p.gui {
+    padding: 0.5em;
+    }
+
+section.character p {
+    flex-flow: column;
+    }
+
+span.char-name {
+    font-size: 1.2em;
+    }
+
+span.level,
+span.cls {
+    font-size: 0.9em;
+    }
+
+@media screen and (max-width: 400px) and (orientation:portrait) {
+    span.level {
+	display: block;
+    }
+}

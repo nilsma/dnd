@@ -11,17 +11,19 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: ' . URL . '');
 }
 
+require_once '../models/site.class.php';
+
+$site = new Site();
+$entries = array(
+		 'edit-gamemaster.php' => 'Back to Edit Gamemaster',
+		 '../controllers/proc-logout.php' => 'Logout'
+		 );
+$header = $site->buildHeader('confirm-delete-gamemaster', 'DND Helper', $entries);
+
+echo $header;
+
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=yes">
-    <link rel="stylesheet" href="../../public/css/main.css"/>
-    <link rel="stylesheet" href="../../public/css/confirm-delete.css"/>
-    <title>DND Helper</title>
-  </head>
-  <body id="gamemaster-delete">
     <div id="main-container">
       <h1>Gamemaster View</h1>
       <div id="inner-container">

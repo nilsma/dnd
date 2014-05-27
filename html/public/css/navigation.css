@@ -8,6 +8,22 @@ html {
     overflow-y: hidden;
     }
 
+div#logged-user {
+    background-color: black;
+    padding: 2px 4px;
+    }
+
+div#logged-user p {
+    color: #666;
+    font-size: 0.9em;
+    text-align: right;
+    }
+
+div#logged-user p span {
+    color: #999;
+    font-style: italic;
+    }
+
 nav ul:first-child {
     background-color: black;
     display: flex;
@@ -36,6 +52,8 @@ h2 {
 
 div#sub-nav-wrapper {
     background-color: gray;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 1px 1px 1px #333;
     display: flex;
     display: none;
     float: left;
@@ -47,7 +65,7 @@ div#sub-nav-wrapper {
 div#sub-nav-wrapper ul {
     display: flex;
     flex-flow: row nowrap;
-    height: auto;
+//    height: 2em;
     justify-content: space-around;
     list-style: none;
     width: 95%;
@@ -55,19 +73,21 @@ div#sub-nav-wrapper ul {
 
 div#sub-nav-wrapper li {
     background-color: lightgray;
+    background-color: black;
     text-align: center;
     }
 
 div#sub-nav-wrapper ul li a {
     color: black;
+    color: white;
     display: block;
     font-size: 1em;
-    padding: 2px 4px;
+    padding: 5px 10px;
     }
 
 div#sub-nav-wrapper ul li a:active {
-    color: white;
-    background-color: black;
+    background-color: white;
+    color: black;
     }
 
 div#sub-nav-wrapper li:last-child a {

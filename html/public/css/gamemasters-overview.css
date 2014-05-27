@@ -1,0 +1,24 @@
+section.gamemaster-entry {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: brown;
+    display: flex;
+    flex-flow: column;
+    font-size: 2em;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: 1em;
+    padding: 0.5em;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #777;
+    text-align: center;
+    }
+
+section.gamemaster-entry:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    }
+
+section.gamemaster-entry:active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}

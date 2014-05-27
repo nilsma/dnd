@@ -11,22 +11,23 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: ' . URL . '');
 }
 
+require_once '../models/site.class.php';
 require_once '../models/charsql.class.php';
 
 $csql = new Charsql();
 
 $sheet = $csql->getSheet($_SESSION['sheet_id']);
+
+$site = new Site();
+$entries = array(
+		 'character.php' => 'Back to Character',
+		 '../controllers/proc-logout.php' => 'Logout'
+		 );
+$header = $site->buildHeader('confirm-delete-character', 'DND Helper', $entries);
+
+echo $header;
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=yes">
-    <link rel="stylesheet" href="../../public/css/main.css"/>
-    <link rel="stylesheet" href="../../public/css/confirm-delete.css"/>
-    <title>DND Helper</title>
-  </head>
-  <body id="gamemaster-delete">
     <div id="main-container">
       <h1>Confirm Delete Character View</h1>
       <div id="inner-container">
