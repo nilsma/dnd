@@ -20,8 +20,6 @@ if(!empty($username) && !empty($password)) {
     $_SESSION['username'] = $username;
     $_SESSION['user_id'] = $sql->getUserId($username);
     $_SESSION['email'] = $sql->getUserEmail($_SESSION['user_id']);
-    setcookie("dnd_helper", $username, time()+(60*60*24), '/var/www/sites/dikult205/htdocs/groups/G5/', 'dikult205.h.uib.no/', 0);
-    $_COOKIE['auth'] = true;
     header('Location: ../views/member.php');
   } else {
     $_SESSION['auth_failed'];
