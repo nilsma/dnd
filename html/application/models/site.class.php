@@ -64,7 +64,7 @@ if(!class_exists('Site')) {
       $nav .= '          <li class="main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg"></a></li>' . "\n";
       $nav .= '          <li class="main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg"></a></li>' . "\n";
       $nav .= '          <li class="main-nav-entry"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg"></a></li>' . "\n";
-      $nav .= '          <li id="sub-nav-init"><img src="../../public/images/settings_icon32px.jpg"></li>' . "\n";
+      $nav .= '          <li id="sub-nav-init"><img src="../../public/images/menu_icon_32px.jpg"></li>' . "\n";
       $nav .= '        </ul>' . "\n";
       $nav .= '      </nav>' . "\n";
       $nav .= '      <div id="sub-nav-wrapper">' . "\n";
