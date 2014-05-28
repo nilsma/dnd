@@ -8,15 +8,9 @@ session_start();
 require_once '../configs/config.php';
 require_once '../models/site.class.php';
 
-if(!isset($_COOKIE['auth']) || $_COOKIE['auth'] == false) {
-  header('Location: ' . URL . '');
-}
-
-/*
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: ' . URL . '');
 }
-*/
 
 if(isset($_SESSION['gm'])) {
   $_SESSION['gm'] = false;
