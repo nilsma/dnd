@@ -1,6 +1,6 @@
 <?php
 /**
- * A file representing the view for the DND Helper gamemasters' overview page
+ * A file representing the view for the DND Helper gamemasters overview page
  * @author Nils Martinussen
  * @created 2014-05-25
  */

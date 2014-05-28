@@ -1,4 +1,10 @@
 <?php
+/**
+ * A models file for the DND Helper that defines and handles static
+ * utility functions for the application
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: http://127.0.1.1/dnd/html/');
 }
@@ -50,10 +56,6 @@ if(!class_exists('Utils')) {
      * @return string - the washed string
      */
     public static function html($string) {
-      //TODO define constants elsewhere
-      //define('CHARSET', 'UTF-8');
-      //define('REPLACE_FLAGS', ENT_QUOTES | 'UTF-8');
-      
       return htmlspecialchars($string, REPLACE_FLAGS, CHARSET);
     }
 

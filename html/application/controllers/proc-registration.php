@@ -1,4 +1,9 @@
 <?php
+/**
+ * A controller file for the DND Helper which processes a registration attempt of a new member
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 
 require_once '../configs/config.php';

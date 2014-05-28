@@ -1,6 +1,6 @@
 <?php
 /**
- * A file representing the view for the DND Helper character invitations page
+ * A file representing the view for the DND Helper character (member) invitations page
  * @author Nils Martinussen
  * @created 2014-05-25
  */

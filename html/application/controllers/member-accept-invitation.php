@@ -1,4 +1,10 @@
 <?php
+/**
+ * A controller file for the DND Helper which accepts an invitation and adds that character
+ * as a campaign member in the database
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 
@@ -19,8 +25,6 @@ $title = $_POST['title'];
 
 $sheet_id = $csql->getSheetId($char_name, $user_id);
 $cmp_id = $gmsql->getCampaignId($alias, $title);
-
-var_dump($_SESSION);
 
 $csql->acceptInvitation($alias, $char_name, $user_id, $title, $sheet_id, $cmp_id);
 ?>

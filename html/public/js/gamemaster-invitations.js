@@ -96,7 +96,7 @@ function getRemoveName(className, element, callback) {
 }
 
 /**
- * A function to remove a given character's invitation to the gamemaster's campaign
+ * A function to remove a given character's invitation from the gamemaster's campaign
  * @param name string - the name of the character of which to remove invitation
  * @param callback callback - the callback to send to the calling function 
  * @return callback name - sends an empty callback to the calling function

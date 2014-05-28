@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * A models file for the DND Helper that defines and handles functions related
+ * to constructing generic HTML for the application views
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 if(!class_exists('Site')) {
 
   class Site {

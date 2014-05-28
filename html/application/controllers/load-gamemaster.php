@@ -1,4 +1,10 @@
 <?php
+/**
+ * A controller file for the DND Helper which loads a gamemaster upon click in the gamemasters-overview page
+ * and sets the view to that gamemaster's campaign
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

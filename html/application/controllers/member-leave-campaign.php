@@ -1,4 +1,10 @@
 <?php
+/**
+ * A controller file for the DND Helper which removes a character from 
+ * being a member of a campaign in the database
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * A controller file for the DND Helper which gets a character's initiative from the database
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

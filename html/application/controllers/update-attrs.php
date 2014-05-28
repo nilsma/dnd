@@ -1,4 +1,10 @@
 <?php
+/**
+ * A controller file for the DND Helper which updates, or rewrites the current state, of
+ * the character's attributes to the database
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

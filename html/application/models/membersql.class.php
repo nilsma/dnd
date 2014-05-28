@@ -1,4 +1,10 @@
 <?php
+/**
+ * A models file for the DND Helper that defines and handles functions related to 
+ * operation on and by the application's members (users)
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: http://127.0.1.1/dnd/html/');
 }

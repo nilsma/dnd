@@ -1,4 +1,10 @@
 <?php
+/**
+ * A controller file for the DND Helper which resets the initiatives to 1 for
+ * all characters in the campaign
+ * @author Nils Martinussen
+ * @created 2014-05-25
+ */
 session_start();
 require_once '../configs/config.php';
 

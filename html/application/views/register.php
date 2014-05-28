@@ -1,6 +1,6 @@
 <?php
 /**
- * A file representing the view for the DND Helper register page
+ * A file representing the view for the DND Helper register user (member) page
  * @author Nils Martinussen
  * @created 2014-05-25
  */
