@@ -86,10 +86,11 @@ function removeInvite() {
  */
 function getRemoveName(className, element, callback) {
     var name;
-    var nodes = element.parentNode.getElementsByTagName('span');
-    for(var i = 0; i < nodes.length; i++) {
-	if(nodes[i].className === className) {
-	    name = nodes[i].innerHTML
+    var nodes = element.parentNode.parentNode.getElementsByTagName('span');
+    var nodeArray = [].slice.call(nodes);
+    for(var i = 0; i < nodeArray.length; i++) {
+	if(nodeArray[i].className === className) {
+	    name = nodeArray[i].innerHTML
 	}
     }	
     callback(name);
