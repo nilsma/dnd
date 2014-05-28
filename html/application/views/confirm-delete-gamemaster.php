@@ -13,6 +13,10 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 
 require_once '../models/site.class.php';
 
+if(!isset($_SESSION['gm_id'])) {
+  header('Location: gamemasters.php');
+}
+
 $site = new Site();
 $entries = array(
 		 'edit-gamemaster.php' => 'Back to Edit Gamemaster',

@@ -14,6 +14,10 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 require_once '../models/site.class.php';
 require_once '../models/gmsql.class.php';
 
+if(!isset($_SESSION['gm_id'])) {
+  header('Location: gamemasters.php');
+}
+
 $gm_id = $_SESSION['gm_id'];
 $gmsql = new Gmsql();
 $gm = $gmsql->getGamemaster($gm_id);

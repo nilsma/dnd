@@ -14,6 +14,10 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
 require_once '../models/site.class.php';
 require_once '../models/charsql.class.php';
 
+if(!isset($_SESSION['sheet_id'])) {
+    header('Location: characters.php');
+}
+
 $csql = new Charsql();
 
 $sheet = $csql->getSheet($_SESSION['sheet_id']);
