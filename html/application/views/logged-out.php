@@ -22,7 +22,7 @@
 $html = '';
 
 $html = $html . '        <p>You have been logged out!</p>' . "\n";
-$html = $html . '        <p>Visit <a href="http://127.0.1.1/dnd/html/index.php">The Frontpage</a> to log back in.</p>' . "\n";
+$html = $html . '        <p>Visit <a href="http://dikult205.h.uib.no/groups/G5/dnd/html/index.php">The Frontpage</a> to log back in.</p>' . "\n";
 
 echo $html;
 
