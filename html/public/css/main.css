@@ -35,16 +35,11 @@ div#inner-container {
 section.gui,
 div.gui {
     background-color: rgba(255, 255, 255, 0.3);
-//    color: brown;
     display: block;
-//    text-align: center;
-//    text-shadow: 1px 1px 1px #777;
     }
 
 p.gui {
-//    background-color: rgba(255, 255, 255, 0.3);
     color: brown;
-//    display: block;
     font-weight: bold;
     margin-bottom: 1em;
     text-align: center;
@@ -127,16 +122,6 @@ form input {
     padding: 2px 4px;
     }
 
-/*
-button,
-form input[type="submit"] {
-    background-color: darkgreen;
-    color: white;
-    font-size: 1em;
-    padding: 1px 2px;
-    }
-*/
-
 form input[type="submit"] {
     border: 1px solid #000000;
     background: #2f2f2f;
@@ -160,15 +145,6 @@ form input[type="submit"] {
     height: 40px;
     }
 
-/*
-button:hover,
-form input[type="submit"]:hover {
-    background-color: lightgreen;
-    color: black;
-    cursor: pointer;
-    }
-*/
-
 button:hover,
 form input[type="submit"]:hover {
     background: #363536;
@@ -179,14 +155,6 @@ form input[type="submit"]:hover {
     background: -o-linear-gradient(top, #545454, #363536);
     cursor: pointer;
     }
-
-/*
-button:active,
-form input[type="submit"]:active {
-    background-color: black;
-    color: white;
-    }
-*/
 
 button:active,
 form input[type="submit"]:active {
@@ -217,6 +185,3 @@ form input[type="submit"]:active {
 	width: 50%;
     }
 }
-/****************/
-/* START MEMBER */
-/****************/

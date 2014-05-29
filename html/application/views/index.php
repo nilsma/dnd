@@ -36,7 +36,8 @@ echo $header;
    } 
 ?>
 	</div> <!-- end .form-entry -->
-	<p class="nav-paragraph">Or <a href="register.php">Register New User</a></p>
+	<p class="nav-paragraph"><a href="register.php">Register New User</a></p>
+	<p class="nav-paragraph">Or <a href="about.php">Read about DND Helper</a></p>
       </div> <!-- end #inner-container -->
     </div> <!-- end #main-container -->
   </body>
