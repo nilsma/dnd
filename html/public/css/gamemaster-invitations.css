@@ -51,6 +51,10 @@ section.current-member p:first-child {
     flex-basis: 20em;
     }
 
+section.current-member p:first-child {
+    line-height: 40px;
+    }
+
 section.invitation p:last-child,
 section.current-member p:last-child {
     flex-basis: 15em;

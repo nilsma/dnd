@@ -34,19 +34,21 @@ div#inner-container {
 
 section.gui,
 div.gui {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(226, 177, 77, 0.6);
     display: block;
+    box-shadow: 1px 1px 1px;
     }
 
 p.gui {
-    color: brown;
+    color: #862A03;
     font-weight: bold;
     margin-bottom: 1em;
     text-align: center;
-    text-shadow: 1px 1px 1px #777;
+    text-shadow: 1px 0px 1px #000;
     }
 
 p.clickable {
+    color: #862A03;
     font-size: 2em;
     }
 
@@ -57,14 +59,14 @@ p.gui a {
     }
 
 p.clickable:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(231, 186, 95, 0.3);
     cursor: pointer;
     }
 
 p.clickable:active,
 p.clickable a:active {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    background-color: rgba(231, 186, 95, 0.3);
+    color: #b16000;
     }
 
 div.error-report {
@@ -122,6 +124,7 @@ form input {
     padding: 2px 4px;
     }
 
+button,
 form input[type="submit"] {
     border: 1px solid #000000;
     background: #2f2f2f;
@@ -142,7 +145,7 @@ form input[type="submit"] {
     font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
     text-decoration: none;
     vertical-align: middle;
-    height: 40px;
+    min-height: 40px;
     }
 
 button:hover,

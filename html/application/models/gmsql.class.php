@@ -901,8 +901,8 @@ if(!class_exists('Gmsql')) {
 
       if(count($gamemasters) > 0) {
 	foreach($gamemasters as $gm) {
-	  $html = $html . '<section class="gamemaster-entry">' . "\n";
-	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the "<span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '"</span> campaign</p>' . "\n";
+	  $html = $html . '<section class="gamemaster-entry gui">' . "\n";
+	  $html = $html . '<p class="gui clickable"><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the "<span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '"</span> campaign</p>' . "\n";
 	  $html = $html . '</section> <!-- end .gamemaster-entry -->' . "\n";
 	}
       } else {

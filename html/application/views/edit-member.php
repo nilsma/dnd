@@ -15,7 +15,7 @@ require_once '../models/site.class.php';
 
 $site = new Site();
 $entries = array(
-		 'member.php' => 'Back to Member',
+		 'member.php' => 'Back to User',
 		 '../controllers/proc-logout.php' => 'Logout'
 		 );
 $header = $site->buildHeader('edit-member', 'DND Helper', $entries);

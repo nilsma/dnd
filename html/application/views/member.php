@@ -29,7 +29,7 @@ if(isset($_SESSION['sheet_id'])) {
 
 $site = new Site();
 $entries = array(
-		 'edit-member.php' => 'Edit Member',
+		 'edit-member.php' => 'Edit User',
 		 '../controllers/proc-logout.php' => 'Logout'
 		 );
 $header = $site->buildHeader('member-landing', 'DND Helper', $entries);

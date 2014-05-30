@@ -51,8 +51,7 @@ h2 {
     }
 
 div#sub-nav-wrapper {
-    background-color: gray;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: -moz-linear-gradient(center top , #939393 0%, #7C7C7C 100%) repeat scroll 0% 0% transparent;
     box-shadow: 1px 1px 1px #333;
     display: flex;
     display: none;
@@ -65,15 +64,12 @@ div#sub-nav-wrapper {
 div#sub-nav-wrapper ul {
     display: flex;
     flex-flow: row nowrap;
-//    height: 2em;
     justify-content: space-around;
     list-style: none;
     width: 95%;
     }
 
 div#sub-nav-wrapper li {
-    background-color: lightgray;
-    background-color: black;
     text-align: center;
     }
 

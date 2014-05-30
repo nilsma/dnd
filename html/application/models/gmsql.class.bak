@@ -1,4 +1,10 @@
 <?php
+/**
+ * A models file for the DND Helper that defines and handles functions related to 
+ * operation on and by the application's gamemasters
+ * @author 130680
+ * @created 2014-05-25
+ */
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: http://127.0.1.1/dnd/html/');
 }
@@ -86,6 +92,39 @@ if(!class_exists('Gmsql')) {
 
       $mysqli->close();
     }
+
+    /**
+     * A function to check if a given gamemaster alias already exists
+     * @param $user_id int - the user's id
+     * @param $alias string - the gamemaster alias
+     * @return boolean - returns true if the alias exists, false otherwise
+     */
+     public function aliasExists($user_id, $alias) {
+      $mysqli = $this->connect();
+      
+      $query = "SELECT * FROM users as u, gamemasters as g WHERE u.id=? AND u.id=g.owner AND g.alias=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	print("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('is', $user_id, $alias);
+	$stmt->execute();
+	$stmt->store_result();
+	$stmt->fetch();
+	$num_rows = $stmt->num_rows;
+
+	if($num_rows >= 1) {
+	  return true;
+	} else {
+	  return false;
+	}
+      }
+      $stmt->close();
+      $mysqli->close();
+     }
 
     /**
      * A function to check if a given membership already exists
@@ -229,6 +268,32 @@ if(!class_exists('Gmsql')) {
     }
 
     /**
+     * A function to update a gamemaster's alias and a campaign's title
+     * @param $gm_id int - the gamemaster id
+     * @param $cmp_id int - the campaign id
+     * @param $alias string - the gamemaster's new alias
+     * @param $title string - the campaign's new title
+     */
+    public function updateGamemaster($gm_id, $cmp_id, $alias, $title) {
+      $mysqli = $this->connect();
+
+      $query = "UPDATE gamemasters, campaigns SET gamemasters.alias=?, campaigns.title=? WHERE gamemasters.id=? AND campaigns.id=?";
+      $query = $mysqli->real_escape_string($query);
+
+      $stmt = $mysqli->stmt_init();
+
+      if(!$stmt->prepare($query)) {
+	printf("Failed to prepare statement!");
+      } else {
+	$stmt->bind_param('ssii', $alias, $title, $gm_id, $cmp_id);
+	$stmt->execute();
+      }
+	
+      $stmt->close();
+      $mysqli->close();
+    }
+
+    /**
      * A function to set the inititives to 1 for all members of a given campaign
      * @param $cmp_id int - the campaign id
      */
@@ -255,10 +320,12 @@ if(!class_exists('Gmsql')) {
      *	A function to build a HTML representation of the invtations
      * and a members overview for the invitations page
      * @param $inv array - an array holding the id's of the sheets that are invited
+     * @param $members array - an array holding the id's of the sheets already member of the gamemaster's campaign
+     * @param $inv_errors array - an array holding the errors reported while trying to add invitation as strings
      * @return $html string - the HTML representation of the invitations
      */
-    public function buildInvHTML($inv, $members) {
-      $invite = $this->buildInvite(); 
+    public function buildInvHTML($inv, $members, $inv_errors) {
+      $invite = $this->buildInvite($inv_errors); 
       $invitations = $this->buildInvitations($inv);
       $members = $this->buildMembers($members);
 
@@ -272,37 +339,37 @@ if(!class_exists('Gmsql')) {
 
     /**
     * A function to build an HTML representation of the create invite form for the gamemaster
+    * @param $inv_errors array - an array holding the errors reported while trying to add invitation as strings
     * @return $html string - the HTML representation of the form
     */
-    public function buildInvite() {
+    public function buildInvite($inv_errors) {
       $html = '';
 
       $html = $html . '<section id="invite">' . "\n";
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Create Invitation</h2>' . "\n";
       $html = $html . '</div>' . "\n";
-      $html = $html . '<div>' . "\n";
-      $html = $html . '<fieldset>' . "\n";
+      $html = $html . '<div class="gui">' . "\n";
       $html = $html . '<legend>Create Invitation</legend>' . "\n";
       $html = $html . '<form name="create-invite" action="../controllers/invite-character.php" method="POST">' . "\n";
-      $html = $html . '<label for="users-name">Users Name</label><input name="users-name" id="users-name" type="text" maxlength="30" required><br/>' . "\n";
-      $html = $html . '<label for="characters-name">Characters Name</label><input name="characters-name" id="characters-name" type="text" maxlength="30" required><br/>' . "\n";
-      $html = $html . '<input type="submit" value="submit">' . "\n";
-
-      if(isset($_SESSION['fail_invitation_existence']) && $_SESSION['fail_invitation_existence'] = true) {
-        $html = $html . '<p class="invite-error">Character already invited!</p>' . "\n";
-      }
-
-      if(isset($_SESSION['fail_user_existence']) && $_SESSION['fail_user_existence'] = true) {
-        $html = $html . '<p class="invite-error">User or character does not exist!</p>' . "\n";
-      }
-
-      if(isset($_SESSION['fail_membership_existence']) && $_SESSION['fail_membership_existence'] = true) {
-        $html = $html . '<p class="invite-error">Character is already a member of this campaign!</p>' . "\n";
-      }
-
+      $html = $html . '<p><label for="users-name">Users Name: </label><input name="users-name" id="users-name" type="text" maxlength="30" required></p>' . "\n";
+      $html = $html . '<p><label for="characters-name">Characters Name: </label><input name="characters-name" id="characters-name" type="text" maxlength="30" required></p>' . "\n";
+      $html = $html . '<p><input type="submit" value="Invite"></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      $html = $html . '</fieldset>' . "\n";
+
+      if(!empty($inv_errors)) {
+	$html = $html . '<div id="inv-failed" class="error-report">' . "\n";
+	$html = $html . '<p>The invitation failed:</p>' . "\n";
+	$html = $html . '<ul class="error-list">' . "\n";
+
+	foreach($inv_errors as $error) {
+	  $html = $html . '<li>' . $error . '</li>' . "\n";
+	}
+
+	$html = $html . '</ul>' . "\n";
+	$html = $html . '</div> <!-- end #inv-failed -->' . "\n";
+      }
+
       $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end #invite -->' . "\n";
 
@@ -317,7 +384,7 @@ if(!class_exists('Gmsql')) {
      public function buildMembers($members) {
        $html = '';
 
-       $html = $html . '<section id="current-members">' . "\n";
+       $html = $html . '<section id="current-members" class="gui">' . "\n";
        $html = $html . '<div>' . "\n";
        $html = $html . '<h2>Current Members</h2>' . "\n";
        $html = $html . '</div>' . "\n";
@@ -328,12 +395,13 @@ if(!class_exists('Gmsql')) {
 	   $name = $csql->getCharacterName($member);
 	 
 	   $html = $html . '<section class="current-member">' . "\n";
-	   $html = $html . '<p><span class="char-name">' . ucwords($name) . '</span></p><button class="remove-member">Remove Member</button>' . "\n";
+	   $html = $html . '<p class="gui"><span class="char-name">' . ucwords($name) . '</span></p>' . "\n";
+	   $html = $html . '<p class="gui"><button class="remove-member">Remove Member</button></p>' . "\n";
 	   $html = $html . '</section> <!-- end .current-member -->' . "\n";
 	 }
        } else {
 	 $html = $html . '<section class="current-member">' . "\n";
-	 $html = $html . '<p>There are no members yet.</p>' . "\n";
+	 $html = $html . '<p class="gui">There are no members yet.</p>' . "\n";
 	 $html = $html . '</section> <!-- end .member -->' . "\n";
        }
 
@@ -351,7 +419,7 @@ if(!class_exists('Gmsql')) {
     public function buildInvitations($inv) {
       $html = '';
 
-      $html = $html . '<section id="invitations">' . "\n";
+      $html = $html . '<section class="gui" id="invitations">' . "\n";
       $html = $html . '<div>' . "\n";
       $html = $html . '<h2>Pending Invitations</h2>' . "\n";
       $html = $html . '</div>' . "\n";
@@ -365,8 +433,8 @@ if(!class_exists('Gmsql')) {
 	  $username = $mysql->getUsername($invited['sheet']['owner']);
 	  
 	  $html = $html . '<section class="invitation">' . "\n";
-	  $html = $html . '<p><span class="user-name">' . ucfirst($username) . 's</span> character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
-	  $html = $html . '<button class="remove-inv">Remove Invitation</button>' . "\n";
+	  $html = $html . '<p class="gui"><span class="user-name">' . ucfirst($username) . '</span>\'s character <span class="char-name">' . $char_name . '</span> has been invited.</p>';
+	  $html = $html . '<p class="gui"><button class="remove-inv">Remove Invitation</button></p>' . "\n";
 	  $html = $html . '</section> <!-- end .invitation -->' . "\n";
 	}
       } else {
@@ -464,7 +532,7 @@ if(!class_exists('Gmsql')) {
       $html = $html . '</div> <!-- end .name -->' . "\n";
       $html = $html . '<div class="details-wrapper">' . "\n";
       $html = $html . '<h4><span class="label">Initiative: </span><span class="init_roll">' . $sheet['init_roll'] . '</span></h4>' . "\n";
-      $html = $html . '<h4><span class="label">HP:</span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
+      $html = $html . '<h4><span class="label">HP: </span><span class="remainder"><span class="dmg">' . $sheet['dmg'] . '</span> / <span class="hitpoints">' . $sheet['hp'] . '</span></span></h4>' . "\n";
       $html = $html . '</div> <!-- end .details-wrapper -->' . "\n";
       $html = $html . '<section class="personalia">' . "\n";
       $html = $html . $sheetHTML;
@@ -487,7 +555,7 @@ if(!class_exists('Gmsql')) {
       $table = $table . '<tr>' . "\n";
       $table = $table . '<th scope="col">Ability</th>' . "\n";
       $table = $table . '<th scope="col">Score</th>' . "\n";
-      $table = $table . '<th scope="col">Modifier</th>' . "\n";
+      $table = $table . '<th scope="col">Mod</th>' . "\n";
       $table = $table . '</tr>' . "\n";
       $table = $table . '</thead>' . "\n";
       $table = $table . '<tbody>' . "\n";
@@ -834,7 +902,7 @@ if(!class_exists('Gmsql')) {
       if(count($gamemasters) > 0) {
 	foreach($gamemasters as $gm) {
 	  $html = $html . '<section class="gamemaster-entry">' . "\n";
-	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the <span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '</span> campaign</p>' . "\n";
+	  $html = $html . '<p><span class="gamemaster-entry-alias">' . ucwords($gm['alias']) . '</span> with the "<span class="gamemaster-entry-campaign">' . ucwords($gm['title']) . '"</span> campaign</p>' . "\n";
 	  $html = $html . '</section> <!-- end .gamemaster-entry -->' . "\n";
 	}
       } else {
