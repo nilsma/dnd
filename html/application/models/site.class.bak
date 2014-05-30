@@ -60,7 +60,7 @@ if(!class_exists('Site')) {
       $sector = '';
       if($page_id == 'member-landing' || $page_id == 'edit-member' || $page_id == 'change-member-email' || $page_id == 'change-member-name' || $page_id == 'change-member-password') {
 	$sector = 'home';
-      } elseif($page_id == 'character' || $page_id == 'create-character' || $page_id == 'characters-overview' || $page_id == 'confirm-delete-character' || $page_id == 'character-invitations') {
+      } elseif($page_id == 'character' || $page_id == 'create-character' || $page_id == 'characters-overview' || $page_id == 'confirm-delete-character' || $page_id == 'character-invitations' ||) {
 	$sector = 'character';
       } elseif($page_id == 'gamemaster' || $page_id == 'confirm-delete-gamemaster' || $page_id == 'create-gamemaster' || $page_id == 'edit-gamemaster' || $page_id == 'gamemaster-invitations' || $page_id == 'gamemasters-overview') {
 	$sector = 'gamemaster';
@@ -72,25 +72,9 @@ if(!class_exists('Site')) {
       
       $nav .= '      <nav>' . "\n";
       $nav .= '        <ul>' . "\n";
-
-      if(!empty($sector) && ($sector == 'home' )) {
-	$nav .= '          <li class="main-nav-entry active-nav"><a href="member.php"><img src="../../public/images/home_icon32px.jpg" alt="home icon"></a></li>' . "\n";
-      } else {
-	$nav .= '          <li class="main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg" alt="home icon"></a></li>' . "\n";
-      }
-
-      if(!empty($sector) && ($sector == 'character' )) {
-	$nav .= '          <li class="main-nav-entry active-nav"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg" alt="characters icon"></a></li>' . "\n";
-      } else {
-	$nav .= '          <li class="main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg" alt="characters icon"></a></li>' . "\n";
-      }
-
-      if(!empty($sector) && ($sector == 'gamemaster' )) {
-	$nav .= '          <li class="main-nav-entry active-nav"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg" alt="gamemasters icon"></a></li>' . "\n";
-      } else {
-	$nav .= '          <li class="main-nav-entry"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg" alt="gamemasters icon"></a></li>' . "\n";
-      }
-
+      $nav .= '          <li class="main-nav-entry"><a href="member.php"><img src="../../public/images/home_icon32px.jpg" alt="home icon"></a></li>' . "\n";
+      $nav .= '          <li class="main-nav-entry"><a href="characters.php"><img src="../../public/images/npc_icon32px.jpg" alt="characters icon"></a></li>' . "\n";
+      $nav .= '          <li class="main-nav-entry"><a href="gamemasters.php"><img src="../../public/images/gamemaster_icon32px.jpg" alt="gamemasters icon"></a></li>' . "\n";
       $nav .= '          <li id="sub-nav-init"><img src="../../public/images/menu_icon_32px.jpg" alt="sub nav icon"></li>' . "\n";
       $nav .= '        </ul>' . "\n";
       $nav .= '      </nav>' . "\n";
