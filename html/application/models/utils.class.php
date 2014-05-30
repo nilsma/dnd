@@ -2,7 +2,7 @@
 /**
  * A models file for the DND Helper that defines and handles static
  * utility functions for the application
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {

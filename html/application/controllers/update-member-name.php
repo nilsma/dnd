@@ -1,7 +1,7 @@
 <?php
 /**
  * A controller file for the DND Helper which updates the members (user) name in the database
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 session_start();

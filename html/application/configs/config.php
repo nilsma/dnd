@@ -1,5 +1,4 @@
 <?php
-
 /**
  * set charset and replace_flags constant for the htmlspecialchars function
  * in application/models/utils.class.php

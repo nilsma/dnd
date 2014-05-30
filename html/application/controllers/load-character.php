@@ -2,7 +2,7 @@
 /**
  * A controller file for the DND Helper which loads a character upon click in the characters-overview page
  * and sets the view to that character's sheet
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 session_start();

@@ -1,7 +1,7 @@
 <?php
 /**
  * A file representing the view for the DND Helper logged out page
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 ?>

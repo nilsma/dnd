@@ -1,7 +1,7 @@
 <?php
 /**
  * A controller file for the DND Helper which removes a character's membership to a campaign from the database
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 session_start();

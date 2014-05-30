@@ -2,7 +2,7 @@
 /**
  * A controller file for the DND Helper which accepts an invitation and adds that character
  * as a campaign member in the database
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 session_start();
