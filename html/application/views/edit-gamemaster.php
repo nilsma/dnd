@@ -47,7 +47,7 @@ echo $header;
         <div class="form-entry">
           <form name="gamemaster" action="../controllers/update-gamemaster.php" method="POST">
             <p><label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" value="<?php echo ucwords($_SESSION['gm']['details']['alias']); ?>" required></p>
-            <p><label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlengthx="30" value="<?php echo ucfirst($_SESSION['gm']['campaign']['title']); ?>" required></p>
+            <p><label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlength="30" value="<?php echo ucfirst($_SESSION['gm']['campaign']['title']); ?>" required></p>
             <p><input type="submit" value="Update Gamemaster"></p>
           </form>
 <?php

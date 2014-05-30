@@ -546,9 +546,6 @@ if(!class_exists('Charsql')) {
       $html = $html . '</div> <!-- end .character-form-entry -->' . "\n";
       $html = $html . '</section> <!-- end #purse -->' . "\n";
       $html = $html . '</div> <!-- end #bottom-wrapper -->' . "\n";
-      //      $html = $html . '<div id="delete-character">' . "\n";
-      //      $html = $html . '<a href="confirm-delete-character.php">Delete Character</a>' . "\n";
-      //      $html = $html . '</div>' . "\n";
       $html = $html . '</section> <!-- end #character-overview -->' . "\n";
       
       return $html;
@@ -563,8 +560,6 @@ if(!class_exists('Charsql')) {
     public function buildSheet($sheet) {
       $html = '';
       
-      //      $html = $html . '<fieldset>' . "\n";
-      $html = $html . '<legend>Personalia</legend>' . "\n";
       $html = $html . '<form name="character" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<p id="char-name"><label for="name">Name:</label><input name="name" id="name" type="text" maxlength="30" value="' . ucwords($sheet['name']) . '" required></p>' . "\n";
       $html = $html . '<p id="char-class"><label for="class">Class:</label><input name="class" id="class" type="text" maxlength="30" value="' . ucwords($sheet['class']) . '" required></p>' . "\n";
@@ -575,7 +570,6 @@ if(!class_exists('Charsql')) {
       $html = $html . '<p id="char-init-roll"><label for="initiativeRoll">Init Roll:</label><input name="init_roll" id="initiativeRoll" type="number" value="' . $sheet['init_roll'] . '" required></p>' . "\n";
       $html = $html . '<p id="char-init-mod"><label for="modifier">Mod:</label><input name="init_mod" id="modifier" type="number" value="' . $sheet['init_mod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      //      $html = $html . '</fieldset>' . "\n";
 
       return $html;
     }
@@ -588,8 +582,6 @@ if(!class_exists('Charsql')) {
     public function buildAttrs($attrs) {
       $html = '';
       
-      //      $html = $html . '<fieldset>' . "\n";
-      $html = $html . '<legend>Attributes</legend>' . "\n";
       $html = $html . '<form name="attrs" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<p id="char-str"><label for="strength">STR:</label><input class="attr-input" name="str" id="strength" type="number" value="' . $attrs['str'] . '" required>' . "\n";
       $html = $html . '<label class="modifier" for="strength_modifier">MOD:</label><input name="str_mod" id="strength_modifier" type="number" value="' . $attrs['strMod'] . '" required></p>' . "\n";
@@ -604,7 +596,6 @@ if(!class_exists('Charsql')) {
       $html = $html . '<p id="char-cha"><label for="charisma">CHA:</label><input class="attr-input" name="cha" id="charisma" type="number" value="' . $attrs['cha'] . '" required>' . "\n";
       $html = $html . '<label  class="modifier" for="charisma_modifier">MOD:</label><input name="cha_mod" id="charisma_modifier" type="number" value="' . $attrs['chaMod'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      //      $html = $html . '</fieldset>' . "\n";
       
       return $html;
     }
@@ -617,14 +608,11 @@ if(!class_exists('Charsql')) {
     public function buildPurse($purse) {
       $html = '';
 
-      //      $html = $html . '<fieldset>' . "\n";
-      $html = $html . '<legend>Purse</legend>' . "\n";
       $html = $html . '<form name="purse" action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n";
       $html = $html . '<p id="char-gold"><label for="gold">Gold:</label><input name="gold" id="gold" type="number" value="' . $purse['gold'] . '" required></p>' . "\n";
       $html = $html . '<p id="char-silver"><label for="silver">Silver:</label><input name="silver" id="silver" type="number" value="' . $purse['silver'] . '" required></p>' . "\n";
       $html = $html . '<p id="char-copper"><label for="copper">Copper:</label><input name="copper" id="copper" type="number" value="' . $purse['copper'] . '" required></p>' . "\n";
       $html = $html . '</form>' . "\n";
-      //      $html = $html . '</fieldset>' . "\n";
 
       return $html;
     }

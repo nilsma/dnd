@@ -37,8 +37,8 @@ echo $header;
       <div id="inner-container">
 	<div class="gui">
 	<form name="confirm-delete" action="../controllers/delete-character.php" method="POST">
-	  <p class="gui"><label for="confirmation">Are you sure you want to delete <span class="char-name"><?php echo ucwords($sheet['name']); ?></span> the <span class="char-class"><?php echo ucwords($sheet['class']); ?></span>?</label></p>
-	  <p class="gui"><label for="confirm">Yes</label><input name="confirm" id="confirm" type="radio" value="Yes"></br>
+	  <p class="gui"><label>Are you sure you want to delete <span class="char-name"><?php echo ucwords($sheet['name']); ?></span> the <span class="char-class"><?php echo ucwords($sheet['class']); ?></span>?</label></p>
+	  <p class="gui"><label for="confirm">Yes</label><input name="confirm" id="confirm" type="radio" value="Yes"><br/>
 	  <label for="cancel">No</label><input name="confirm" id="cancel" type="radio" value="No" checked></p>
 	  <p><input type="submit" value="Respond"></p>
 	</form>

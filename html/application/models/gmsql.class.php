@@ -350,7 +350,6 @@ if(!class_exists('Gmsql')) {
       $html = $html . '<h2>Create Invitation</h2>' . "\n";
       $html = $html . '</div>' . "\n";
       $html = $html . '<div class="gui">' . "\n";
-      $html = $html . '<legend>Create Invitation</legend>' . "\n";
       $html = $html . '<form name="create-invite" action="../controllers/invite-character.php" method="POST">' . "\n";
       $html = $html . '<p><label for="users-name">Users Name: </label><input name="users-name" id="users-name" type="text" maxlength="30" required></p>' . "\n";
       $html = $html . '<p><label for="characters-name">Characters Name: </label><input name="characters-name" id="characters-name" type="text" maxlength="30" required></p>' . "\n";

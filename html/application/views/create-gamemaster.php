@@ -34,7 +34,7 @@ echo $header;
 	<div class="form-entry">
 	    <form name="gamemaster" action="../controllers/insert-gamemaster.php" method="POST">
 	      <p><label for="alias">Gamemaster Alias:</label><input name="alias" id="alias" type="text" maxlength="30" required></p>
-	      <p><label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlenght="30" required></p>
+	      <p><label for="campaign_name">Campaign Name:</label><input name="campaign_name" id="campaign_name" type="text" maxlength="30" required></p>
 	      <p><input type="submit" value="Create Gamemaster"></p>
 	    </form>
 	</div> <!-- end .form-entry -->
