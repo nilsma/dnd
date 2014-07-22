@@ -1,14 +1,14 @@
 <?php
 /**
  * A file representing the view for the DND Helper members' landing page after logging in
- * @author Nils Martinussen
+ * @author 130680
  * @created 2014-05-25
  */
 session_start();
 require_once '../configs/config.php';
 require_once '../models/site.class.php';
 
-if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false ||) {
+if(!isset($_SESSION['auth']) || $_SESSION['auth'] == false) {
   header('Location: ' . URL . '');
 }
 
@@ -29,12 +29,13 @@ if(isset($_SESSION['sheet_id'])) {
 
 $site = new Site();
 $entries = array(
-		 'edit-member.php' => 'Edit Member',
+		 'edit-member.php' => 'Edit User',
 		 '../controllers/proc-logout.php' => 'Logout'
 		 );
 $header = $site->buildHeader('member-landing', 'DND Helper', $entries);
 
 echo $header;
+
 
 ?>
     <div id="main-container">

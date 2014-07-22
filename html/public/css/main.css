@@ -10,7 +10,7 @@ html {
 
 body {
     background-color: #e4b657;
-    background-image: url('../images/background_parchment_repeatable.jpg');
+    //background-image: url('../images/background_parchment_repeatable.jpg');
     background-repeat: repeat-y;
     background-size: 100% 100%;
     }
@@ -20,7 +20,10 @@ h1 {
     }
 
 div#main-container {
+    display: -webkit-box;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
     flex-flow: column;
     justify-content: center;
     padding-bottom: 3em;
