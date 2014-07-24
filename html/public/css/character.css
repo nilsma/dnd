@@ -4,22 +4,23 @@ div#inner-container {
 
 @media screen and (max-width: 400px) and (orientation:portrait) {
     div#inner-container {
-	width: 80%;
+        width: 80%;
     }
 }
 
 @media screen and (min-width: 701px) {
     div#inner-container {
-	width: 35%;
+        width: 35%;
     }
 
     p#char-name,
     p#char-class {
-	width: 100%;
+        width: 100%;
     }
 }
 
 div#bottom-wrapper {
+    display: -webkit-box;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -31,17 +32,29 @@ div#bottom-wrapper section {
 
 @media screen and (max-width: 400px) and (orientation:portrait) {
     div#bottom-wrapper {
-	flex-flow: column;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        flex-flow: column;
     }
 }
 
 /********************/
 /* START PERSONALIA */
 /********************/
-form {
+section#attributes form,
+section#purse form {
+    display: -webkit-box;
     display: flex;
-    flex-flow: row wrap;
-    }
+    -webkit-box-orient: vertical;
+    flex-flow: column;
+}
+
+section#personalia form p {
+    display: -webkit-box;
+    display: flex;
+    flex-flow: row;
+}
 
 p {
     margin-right: 1.5em;
@@ -95,8 +108,9 @@ p#char-hp input {
 
 p#char-init-roll input,
 p#char-init-mod input {
-    width: 2em;
+    width: 3em;
     }
+
 /********************/
 /* START ATTRIBUTES */
 /********************/
@@ -110,6 +124,10 @@ section#attributes label {
     margin-right: 1em;
     width: 2em;
     }
+
+section#attributes p {
+    width: 11em;
+}
 
 section#attributes p input {
     width: 2.5em;
@@ -148,7 +166,7 @@ section#purse input {
 
 @media screen and (min-width: 701px) {
     section#purse form {
-	flex-flow: column;
-	
+        -webkit-box-orient: vertical;
+        flex-flow: column;
     }
 }
